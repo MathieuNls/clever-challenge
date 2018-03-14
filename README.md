@@ -25,7 +25,7 @@ A trainee applicant must:
 
 ## The Challenge
 
-The challenge for trainee applicant consists in parsing a few diffs--in the most efficient way possible--and compute the following statistics:
+The challenge for trainee applicant consists in parsing a few diffs--in the most efficient way possible (speed, maintainability, evolvability, ...)--and compute the following statistics:
 
 - list of files in the diffs
 - number of regions
