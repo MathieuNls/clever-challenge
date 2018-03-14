@@ -63,7 +63,7 @@ Note that we do use golang internally, however.
 
 ## Permanent Positions
 
-We are also looking for permanent members. If you are interested, mail our human resource [contact](mailto:alison.laplante-rayworth@ubisoft.com?subject=Clever Initiative) with your resume. You can submit your pull request for the challenge However, you'll be subjected to an in-depth (much harder) coding test. This one has been conceived for students only ;).
+We are also looking for permanent members. If you are interested, mail our human resource [contact](mailto:alison.laplante-rayworth@ubisoft.com?subject=Clever-Initiative) with your resume. You can submit your pull request for the challenge However, you'll be subjected to an in-depth (much harder) coding test. This one has been conceived for students only ;).
 
 - [ ] Software Engineer
 - [ ] Software Engineer
