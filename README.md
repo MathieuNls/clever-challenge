@@ -61,6 +61,8 @@ To enter the challenge:
 You can alter the data structure, add files, remove files ... you can even remove everything and start from scratch in another language if you feel like it.
 Note that we do use golang internally, however.
 
+If you don't feel comfortable sharing your pull-request with the world (pull-request are public) you can invite me (@mathieunls for github, bitbucket and gitlab) and Florent Jousset (@heeko for github, bitbucket and gitlab) to a private repo of yours. Don't bother to send code by email, we won't read it.
+
 ## Permanent Positions
 
 We are also looking for permanent members. If you are interested, mail our human resource [contact](mailto:alison.laplante-rayworth@ubisoft.com?subject=Clever-Initiative) with your resume. You can submit your pull request for the challenge. However, you'll be subjected to an in-depth (much harder) coding test. This one has been conceived for students only and it might not be worth your time to take it ;).
