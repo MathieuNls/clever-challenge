@@ -15,13 +15,13 @@ A trainee applicant must:
 - Be willing to come to Montreal.
 - Be able to read, understand and implement scientific papers.
 - Know:
-- - versionning systems (git, perforce, ...)
-- - c/c++/csharp or java
+    - versionning systems (git, perforce, ...)
+    - c/c++/csharp or java
 - Know or be willing to learn:
-- - golang
-- - docker
-- - sql
-- - angular
+    - golang
+    - docker
+    - sql
+    - angular
 
 ## The Challenge
 
