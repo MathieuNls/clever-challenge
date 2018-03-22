@@ -2,5 +2,6 @@ package main
 
 type Validator struct {
 	rule 		Rule
-	command 	func()
+	command 	func(line string)
+	lineByLine	bool
 }

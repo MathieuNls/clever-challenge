@@ -13,11 +13,14 @@ import (
 	"bytes"
 	"bufio"
 	"strings"
+	"sync"
+	"regexp"
 )
 
 var data 			string
 var validators 		[]Validator
 var response		*result
+var waitGroup		sync.WaitGroup
 
 //timeTrack tracks the time it took to do things.
 //It's a convenient method that you can use everywhere
@@ -49,22 +52,34 @@ func compute() *result {
 	data = readFiles()
 
 	response = &result{}
+	response.functionCalls = make(map[string]int)
 
 	createValidators(response)
 
-	for _, val := range validators {
-		analyse(&val)
+	waitGroup.Add(len(validators))
+
+	for i := 0; i < len(validators); i++ {
+		go analyse(&validators[i])
 	}
+
+	waitGroup.Wait()
 
 	return response
 }
 
 
 func analyse(v *Validator) {
-	scanner := bufio.NewScanner(strings.NewReader(data))
-	for scanner.Scan() {
-		if v.rule.Validate(scanner.Text()) {
-			v.command()
+	defer waitGroup.Done()
+	if v.lineByLine {
+		scanner := bufio.NewScanner(strings.NewReader(data))
+		for scanner.Scan() {
+			if v.rule.Validate(scanner.Text()) {
+				v.command(scanner.Text())
+			}
+		}
+	} else {
+		if v.rule.Validate(data) {
+			v.command(data)
 		}
 	}
 }
@@ -77,7 +92,8 @@ func createValidators(r *result) {
 	}
 	linesAddedValidator := Validator{
 		rule: linesAddedRule,
-		command: func() {
+		lineByLine: true,
+		command: func(line string) {
 			response.lineAdded++
 		},
 	}
@@ -87,22 +103,59 @@ func createValidators(r *result) {
 	}
 	linesDeletedValidator := Validator{
 		rule: linesDeletedRules,
-		command: func() {
+		lineByLine: true,
+		command: func(line string) {
 			response.lineDeleted++
 		},
 	}
 
-	regionsRules := Rule{
+	regionsRule := Rule{
 		beginWith:"@@",
 	}
 	regionsValidator := Validator{
-		rule: regionsRules,
-		command: func() {
+		rule: regionsRule,
+		lineByLine: true,
+		command: func(line string) {
 			response.regions++
 		},
 	}
 
-	validators = append(validators, linesAddedValidator, linesDeletedValidator, regionsValidator)
+	functionRule := Rule{
+		regex: "[a-z_A-Z0-9]+\\([^\\)]*\\)(\\.[^\\)]*\\))?;",
+	}
+	functionValidator := Validator{
+		rule: functionRule,
+		lineByLine: false,
+		command: func(line string) {
+			r, _ := regexp.Compile("[a-z_A-Z0-9]+\\([^\\)]*\\)(\\.[^\\)]*\\))?;")
+			functions := r.FindAllString(line, -1)
+			for i := 0; i < len(functions); i++ {
+				for j := 0; j < len(functions[i]); j++ {
+					if string(functions[i][j]) == "(" {
+						response.functionCalls[functions[i][:j-1]]++
+					}
+				}
+			}
+		},
+	}
+
+	filesRule := Rule{
+		beginWith:"diff --git ",
+	}
+	filesValidator := Validator{
+		rule: filesRule,
+		lineByLine: true,
+		command: func(line string) {
+			for i := len(line) - 1; i > 0; i-- {
+				if string(line[i]) == "/" {
+					response.files = append(response.files, line[i+1:])
+					return
+				}
+			}
+		},
+	}
+
+	validators = []Validator{linesAddedValidator, linesDeletedValidator, regionsValidator, filesValidator, functionValidator}
 }
 
 

@@ -1,6 +1,9 @@
 package main
 
-import "strings"
+import (
+	"strings"
+	"regexp"
+)
 
 type IRule interface {
 	Validate() bool
@@ -11,6 +14,7 @@ type Rule struct {
 	endWith		string
 	equals		string
 	contains	string
+	regex 		string
 }
 
 func (r Rule) Validate(context string) bool {
@@ -22,6 +26,12 @@ func (r Rule) Validate(context string) bool {
 		return false
 	} else if r.contains != "" && strings.Contains(context, r.contains) {
 		return false
+	} else if r.regex != "" {
+		r, _ := regexp.Compile(r.regex)
+		function := r.FindString(context)
+		if function == "" {
+			return false
+		}
 	}
 	return true
 }
