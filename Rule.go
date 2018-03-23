@@ -16,7 +16,7 @@ type Rule struct {
 	regexp 		*regexp.Regexp
 }
 
-var specialFunc = []string{
+var specialFunctions = []string{
 	"if()",
 	"switch()",
 	"for()",

@@ -74,72 +74,64 @@ func validateLine(v *Validator, line string) {
 
 func createValidators(r *result) []Validator{
 
-	linesAddedRule := Rule{
-		beginWith:"+",
-	}
 	linesAddedValidator := Validator{
-		rule: linesAddedRule,
+		rule: Rule{
+			beginWith:"+",
+		},
 		command: func(line string, validateResult []string) {
 			r.lineAdded++
 		},
 	}
 
-	linesDeletedRules := Rule{
-		beginWith:"-",
-	}
 	linesDeletedValidator := Validator{
-		rule: linesDeletedRules,
+		rule: Rule{
+			beginWith:"-",
+		},
 		command: func(line string, validateResult []string) {
 			r.lineDeleted++
 		},
 	}
 
-	regionsRule := Rule{
-		beginWith:"@@",
-	}
 	regionsValidator := Validator{
-		rule: regionsRule,
+		rule: Rule{
+			beginWith:"@@",
+		},
 		command: func(line string, validateResult []string) {
 			r.regions++
 		},
 	}
 
-	reg, _ := regexp.Compile("\\w+\\(")
-
-	functionRule := Rule{
-		beginWithout: []string{"-", "@@"},
-		regexp: reg,
-	}
-	functionValidator := Validator{
-		rule: functionRule,
-		command: func(line string, validateResult []string) {
-			lock.Lock()
-			defer lock.Unlock()
-			for i := 0; i < len(validateResult); i++ {
-				isSpecial := false
-				for _, specialFunc := range specialFunc {
-					if specialFunc == (validateResult[i]+ ")") {
-						isSpecial = true
-					}
-				}
-				if !isSpecial {
-					r.functionCalls[validateResult[i] + ")"]++
-				}
-			}
-		},
-	}
-
-	filesRule := Rule{
-		beginWith:"diff --git ",
-	}
 	filesValidator := Validator{
-		rule: filesRule,
+		rule: Rule{
+			beginWith:"diff --git ",
+		},
 		command: func(line string, validateResult []string) {
 			for i := len(line) - 1; i > 0; i-- {
 				if string(line[i]) == "/" {
 					r.files = append(r.files, line[i+1:])
 					return
 				}
+			}
+		},
+	}
+
+	functionsReg, _ := regexp.Compile("\\w+\\(")
+
+	functionValidator := Validator{
+		rule: Rule{
+			beginWithout: []string{"-", "@@"},
+			regexp: functionsReg,
+		},
+		command: func(line string, validateResult []string) {
+			lock.Lock()
+			defer lock.Unlock()
+			for i := 0; i < len(validateResult); i++ {
+				for _, specialFunction := range specialFunctions {
+					if specialFunction == (validateResult[i]+ ")") {
+						return
+					}
+				}
+				r.functionCalls[validateResult[i] + ")"]++
 			}
 		},
 	}
