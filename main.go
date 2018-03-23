@@ -56,31 +56,28 @@ func compute() *result {
 
 	createValidators(response)
 
-	waitGroup.Add(len(validators))
 
-	for i := 0; i < len(validators); i++ {
-		go analyse(&validators[i])
+	scanner := bufio.NewScanner(strings.NewReader(data))
+	for scanner.Scan() {
+		waitGroup.Add(len(validators))
+		for i := 0; i < len(validators); i++ {
+			go analyse(&validators[i], scanner.Text())
+		}
+		waitGroup.Wait()
 	}
 
-	waitGroup.Wait()
+
+
 
 	return response
 }
 
 
-func analyse(v *Validator) {
+func analyse(v *Validator, line string) {
 	defer waitGroup.Done()
-	if v.lineByLine {
-		scanner := bufio.NewScanner(strings.NewReader(data))
-		for scanner.Scan() {
-			if v.rule.Validate(scanner.Text()) {
-				v.command(scanner.Text())
-			}
-		}
-	} else {
-		if v.rule.Validate(data) {
-			v.command(data)
-		}
+	ok, value := v.rule.Validate(line)
+	if ok {
+		v.command(line, value)
 	}
 }
 
@@ -92,8 +89,7 @@ func createValidators(r *result) {
 	}
 	linesAddedValidator := Validator{
 		rule: linesAddedRule,
-		lineByLine: true,
-		command: func(line string) {
+		command: func(line string, validateResult []string) {
 			response.lineAdded++
 		},
 	}
@@ -103,8 +99,7 @@ func createValidators(r *result) {
 	}
 	linesDeletedValidator := Validator{
 		rule: linesDeletedRules,
-		lineByLine: true,
-		command: func(line string) {
+		command: func(line string, validateResult []string) {
 			response.lineDeleted++
 		},
 	}
@@ -114,27 +109,22 @@ func createValidators(r *result) {
 	}
 	regionsValidator := Validator{
 		rule: regionsRule,
-		lineByLine: true,
-		command: func(line string) {
+		command: func(line string, validateResult []string) {
 			response.regions++
 		},
 	}
 
+	regp, _ := regexp.Compile("\\w+\\(")
+
 	functionRule := Rule{
-		regex: "[a-z_A-Z0-9]+\\([^\\)]*\\)(\\.[^\\)]*\\))?;",
+		beginWithout: []string{"-", "@@"},
+		regexp: regp,
 	}
 	functionValidator := Validator{
 		rule: functionRule,
-		lineByLine: false,
-		command: func(line string) {
-			r, _ := regexp.Compile("[a-z_A-Z0-9]+\\([^\\)]*\\)(\\.[^\\)]*\\))?;")
-			functions := r.FindAllString(line, -1)
-			for i := 0; i < len(functions); i++ {
-				for j := 0; j < len(functions[i]); j++ {
-					if string(functions[i][j]) == "(" {
-						response.functionCalls[functions[i][:j-1]]++
-					}
-				}
+		command: func(line string, validateResult []string) {
+			for i := 0; i < len(validateResult); i++ {
+				response.functionCalls[validateResult[i] + ")"]++
 			}
 		},
 	}
@@ -144,8 +134,7 @@ func createValidators(r *result) {
 	}
 	filesValidator := Validator{
 		rule: filesRule,
-		lineByLine: true,
-		command: func(line string) {
+		command: func(line string, validateResult []string) {
 			for i := len(line) - 1; i > 0; i-- {
 				if string(line[i]) == "/" {
 					response.files = append(response.files, line[i+1:])
