@@ -1,13 +1,9 @@
 package main
 
 import (
-	"strings"
 	"regexp"
+	"strings"
 )
-
-type IRule interface {
-	Validate() bool
-}
 
 type Rule struct {
 	beginWith 		string
@@ -20,44 +16,75 @@ type Rule struct {
 	regexp 		*regexp.Regexp
 }
 
-func (r Rule) Validate(context string) (bool, []string) {
-	result := []string{}
+var specialFunc = []string{
+	"if()",
+	"switch()",
+	"for()",
+	"while()",
+	"new()",
+}
 
-	if len(r.beginWithout) != 0 {
-		for i := 0; i < len(r.beginWithout); i++ {
-			if strings.HasPrefix(context, r.beginWithout[i]) {
-				return false, result
-			}
-		}
+func (r Rule) ValidateRule(context string) (bool, []string) {
+	if r.checkBeginWith(context) &&
+		r.checkBeginWithout(context) &&
+			r.checkEndWith(context) &&
+				r.checkEndWithout(context) &&
+					r.checkContains(context) &&
+						r.checkNotContains(context) &&
+							r.checkEquals(context) {
+		return r.checkReg(context)
 	}
-	if len(r.endWithout) != 0 {
-		for i := 0; i < len(r.endWithout); i++ {
-			if strings.HasSuffix(context, r.endWithout[i]) {
-				return false, result
-			}
-		}
-	}
-	if len(r.notContains) != 0 {
-		for i := 0; i < len(r.notContains); i++ {
-			if strings.Contains(context, r.notContains[i]) {
-				return false, result
-			}
-		}
-	}
+	return false, []string{}
+}
 
-	if r.beginWith != "" && !strings.HasPrefix(context, r.beginWith) {
-		return false, result
-	} else if r.endWith != "" && !strings.HasSuffix(context, r.endWith) {
-		return false, result
-	} else if r.equals != "" && !strings.EqualFold(context, r.equals) {
-		return false, result
-	} else if r.contains != "" && !strings.Contains(context, r.contains) {
-		return false, result
-	} else if r.regexp != nil {
-		result = r.regexp.FindAllString(context, -1)
-		if len(result) == 0 {
-			return false, result
+func (r *Rule) checkBeginWith(context string) bool {
+	return r.beginWith == "" || strings.HasPrefix(context, r.beginWith)
+}
+
+func (r *Rule) checkBeginWithout(context string) bool {
+	for i := 0; i < len(r.beginWithout); i++ {
+		if strings.HasPrefix(context, r.beginWithout[i]) {
+			return false
 		}
 	}
-	return true, result
+	return true
+}
+
+func (r *Rule) checkEndWith(context string) bool {
+	return r.endWith == "" || strings.HasSuffix(context, r.endWith)
+}
+
+func (r *Rule) checkEndWithout(context string) bool {
+	for i := 0; i < len(r.endWithout); i++ {
+		if strings.HasSuffix(context, r.endWithout[i]) {
+			return false
+		}
+	}
+	return true
+}
+
+func (r *Rule) checkContains(context string) bool {
+	return r.contains == "" || strings.Contains(context, r.contains)
+}
+
+func (r *Rule) checkNotContains(context string) bool {
+	for i := 0; i < len(r.notContains); i++ {
+		if strings.Contains(context, r.notContains[i]) {
+			return false
+		}
+	}
+	return true
+}
+
+func (r *Rule) checkEquals(context string) bool {
+	return r.equals == "" || strings.EqualFold(context, r.equals)
+}
+
+func (r *Rule) checkReg(context string) (bool, []string) {
+	var matches []string
+	if r.regexp != nil {
+		matches = r.regexp.FindAllString(context, -1)
+		return len(matches) != 0, matches
+	}
+	return true, matches
 }

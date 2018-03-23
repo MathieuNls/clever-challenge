@@ -3,12 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
-	//"bufio"
-	//"io"
-	//"io/ioutil"
-	//"os"
 	"path/filepath"
-	//"log"
 	"io/ioutil"
 	"bytes"
 	"bufio"
@@ -17,10 +12,8 @@ import (
 	"regexp"
 )
 
-var data 			string
-var validators 		[]Validator
-var response		*result
 var waitGroup		sync.WaitGroup
+var lock 			sync.RWMutex
 
 //timeTrack tracks the time it took to do things.
 //It's a convenient method that you can use everywhere
@@ -49,40 +42,37 @@ func main() {
 //	number of line deleted
 //	list of function calls seen in the diffs and their number of calls
 func compute() *result {
-	data = readFiles()
+	var diffsInformation result
+	diffsInformation.functionCalls = make(map[string]int)
 
-	response = &result{}
-	response.functionCalls = make(map[string]int)
-
-	createValidators(response)
-
+	data := readFiles()
+	validators := createValidators(&diffsInformation)
+	lock = sync.RWMutex{}
 
 	scanner := bufio.NewScanner(strings.NewReader(data))
 	for scanner.Scan() {
 		waitGroup.Add(len(validators))
 		for i := 0; i < len(validators); i++ {
-			go analyse(&validators[i], scanner.Text())
+			go validateLine(&validators[i], scanner.Text())
 		}
-		waitGroup.Wait()
 	}
 
+	waitGroup.Wait()
 
-
-
-	return response
+	return &diffsInformation
 }
 
 
-func analyse(v *Validator, line string) {
+func validateLine(v *Validator, line string) {
 	defer waitGroup.Done()
-	ok, value := v.rule.Validate(line)
+	ok, value := v.rule.ValidateRule(line)
 	if ok {
 		v.command(line, value)
 	}
 }
 
 
-func createValidators(r *result) {
+func createValidators(r *result) []Validator{
 
 	linesAddedRule := Rule{
 		beginWith:"+",
@@ -90,7 +80,7 @@ func createValidators(r *result) {
 	linesAddedValidator := Validator{
 		rule: linesAddedRule,
 		command: func(line string, validateResult []string) {
-			response.lineAdded++
+			r.lineAdded++
 		},
 	}
 
@@ -100,7 +90,7 @@ func createValidators(r *result) {
 	linesDeletedValidator := Validator{
 		rule: linesDeletedRules,
 		command: func(line string, validateResult []string) {
-			response.lineDeleted++
+			r.lineDeleted++
 		},
 	}
 
@@ -110,21 +100,31 @@ func createValidators(r *result) {
 	regionsValidator := Validator{
 		rule: regionsRule,
 		command: func(line string, validateResult []string) {
-			response.regions++
+			r.regions++
 		},
 	}
 
-	regp, _ := regexp.Compile("\\w+\\(")
+	reg, _ := regexp.Compile("\\w+\\(")
 
 	functionRule := Rule{
 		beginWithout: []string{"-", "@@"},
-		regexp: regp,
+		regexp: reg,
 	}
 	functionValidator := Validator{
 		rule: functionRule,
 		command: func(line string, validateResult []string) {
+			lock.Lock()
+			defer lock.Unlock()
 			for i := 0; i < len(validateResult); i++ {
-				response.functionCalls[validateResult[i] + ")"]++
+				isSpecial := false
+				for _, specialFunc := range specialFunc {
+					if specialFunc == (validateResult[i]+ ")") {
+						isSpecial = true
+					}
+				}
+				if !isSpecial {
+					r.functionCalls[validateResult[i] + ")"]++
+				}
 			}
 		},
 	}
@@ -137,14 +137,14 @@ func createValidators(r *result) {
 		command: func(line string, validateResult []string) {
 			for i := len(line) - 1; i > 0; i-- {
 				if string(line[i]) == "/" {
-					response.files = append(response.files, line[i+1:])
+					r.files = append(r.files, line[i+1:])
 					return
 				}
 			}
 		},
 	}
 
-	validators = []Validator{linesAddedValidator, linesDeletedValidator, regionsValidator, filesValidator, functionValidator}
+	return []Validator{linesAddedValidator, linesDeletedValidator, regionsValidator, filesValidator, functionValidator}
 }
 
 
