@@ -5,7 +5,6 @@ import (
 	"time"
 	"path/filepath"
 	"io/ioutil"
-	"bytes"
 	"bufio"
 	"strings"
 	"sync"
@@ -47,20 +46,15 @@ func compute() *result {
 	data := readFiles()
 	validators := createValidators(&diffsInformation, &lock)
 
-	var waitAll sync.WaitGroup
 	scanner := bufio.NewScanner(strings.NewReader(data))
 	for scanner.Scan() {
-		waitAll.Add(1)
-		go checkLine(validators, scanner.Text(), &waitAll)
+		checkLine(validators, scanner.Text())
 	}
-
-	waitAll.Wait()
 
 	return &diffsInformation
 }
 
-func checkLine(validators []Validator, line string, waitAll *sync.WaitGroup) {
-	defer waitAll.Done()
+func checkLine(validators []Validator, line string) {
 	var waitValidators sync.WaitGroup
 	waitValidators.Add(len(validators))
 	for i := 0; i < len(validators); i++ {
@@ -148,17 +142,31 @@ func createValidators(r *result, lock *sync.RWMutex) []Validator{
 
 
 func readFiles() string {
-	var buffer bytes.Buffer
+	var bufferLock BufferLock
 	files, errFiles := filepath.Glob("diffs/*")
 	check(errFiles)
 
-	for _, file := range files {
-		data, errFile := ioutil.ReadFile(file)
-		check(errFile)
-		buffer.Write(data)
-	}
 
-	return buffer.String()
+	var waitFiles sync.WaitGroup
+	waitFiles.Add(len(files))
+	for _, file := range files {
+		go readFile(file, &waitFiles, &bufferLock)
+	}
+	waitFiles.Wait()
+
+	return bufferLock.buffer.String()
+}
+
+func readFile(path string, wait *sync.WaitGroup, bufferLock *BufferLock) []byte {
+	defer wait.Done()
+
+	data, errFile := ioutil.ReadFile(path)
+	check(errFile)
+	bufferLock.mutex.Lock()
+	defer bufferLock.mutex.Unlock()
+	bufferLock.buffer.Write(data)
+
+	return bufferLock.buffer.Bytes()
 }
 
 
