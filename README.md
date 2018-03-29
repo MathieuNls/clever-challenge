@@ -2,7 +2,7 @@
 
 The Clever-Initiative is a team of the Technology Group @ Ubisoft Montreal. Our goal is to discover, improve and promote state-of-the-art software engineering practices that aim to ease the production of quality. By augmenting the quality of our products, we mechanically improve the productivity of our teams as they can focus creating features rather than fixing bugs.
 
-The Clever-Initiative is the team behind the Submit-Assitant (a.k.a  Clever-Commit) that received some press coverage recently: [Wired](http://www.wired.co.uk/article/ubisoft-commit-assist-ai), [MIT](https://www.technologyreview.com/the-download/610416/ai-can-help-spot-coding-mistakes-before-they-happen/), and [more](https://www.google.ca/search?q=commit+assistant+ubisoft).
+The Clever-Initiative is the team behind the [Submit-Assitant](https://montreal.ubisoft.com/en/ubisoft-la-forge-presents-the-commit-assistant/) (a.k.a  Clever-Commit) that received some press coverage recently: [Wired](http://www.wired.co.uk/article/ubisoft-commit-assist-ai), [MIT](https://www.technologyreview.com/the-download/610416/ai-can-help-spot-coding-mistakes-before-they-happen/), and [more](https://www.google.ca/search?q=commit+assistant+ubisoft). The scientific foundation behind the commit assistant have been accepted for publication to [MSR'18](https://montreal.ubisoft.com/en/clever-combining-code-metrics-with-clone-detection-for-just-in-time-fault-prevention-and-resolution-in-large-industrial-projects-2/).
 
 We are currently looking for trainees to join us (Summer'18/Fall'18). The length and start date of the internship will be discussed on a per applicant basis.
 
