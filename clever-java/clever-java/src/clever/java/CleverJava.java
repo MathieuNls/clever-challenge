@@ -32,11 +32,11 @@ public class CleverJava {
         final String path2 = "C:/Users/Etienne/Documents/GitHub/clever-challenge/clever-java/diffs";
         */
         //More generic one wins
-        final String pathTest = "../diffs";
+        final String pathTest = "src/diffs";
         
         File folder = new File(pathTest);
         
-        System.out.println("complete path: " + folder.getPath());
+        System.out.println("complete path: " + folder.getAbsolutePath());
 
         for (final File fileEntry : folder.listFiles()) {
             
@@ -66,14 +66,15 @@ public class CleverJava {
 
         String strLine = "";
         //Read File Line By Line
-        while ((strLine = br.readLine()) != null && strLine.length()!=0) {
+        while ((strLine = br.readLine()) != null) {
             //single white space will not be computed
             //TODO Need to debug with '\n'
-            
-            if(strLine.charAt(0) == ' ' || strLine.charAt(0) == '\n'){
+            if (strLine.length()==0) {
+                continue;
+            }
+            else if(strLine.charAt(0) == ' ' || strLine.charAt(0) == '\n'){
                 continue;//No need for further comparaisons.
             }
-            
             //First Character indication
             switch (strLine.charAt(0)) {
                 case '+':
@@ -90,7 +91,7 @@ public class CleverJava {
                         if(strLine.charAt(1) == '@')
                             regions++;
                     }catch(Exception ex){
-                        System.out.println("Weird .diff format - Line with only character as \'@\'");
+                        //System.out.println("Weird .diff format - Line with only character as \'@\'");
                     }
                 default:
                     break;

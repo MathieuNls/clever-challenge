@@ -3,6 +3,6 @@
 
 Randome '\n'
 @
-to trying to catch error
+to try to catch an error
 
 @@ new region test
