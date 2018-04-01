@@ -15,8 +15,9 @@ type result struct {
 	lineAdded int
 	//How many line were deleted totla
 	lineDeleted int
-	//How many times the function seen in the code are called.
-	functionCalls map[string]int
+	//How many times the functionj seen in the code are called before and after
+	functionCallsBefore map[string]int
+	functionCallsAfter  map[string]int
 }
 
 //String returns the value of results as a formated string
@@ -33,8 +34,13 @@ func (r *result) String() string {
 	r.appendIntValueToBuffer(r.lineAdded, "LA", &buffer)
 	r.appendIntValueToBuffer(r.lineDeleted, "LD", &buffer)
 
-	buffer.WriteString("Functions calls: \n")
-	for key, value := range r.functionCalls {
+	buffer.WriteString("Function calls before: \n")
+	for key, value := range r.functionCallsBefore {
+		r.appendIntValueToBuffer(value, key, &buffer)
+	}
+
+	buffer.WriteString("Function calls after: \n")
+	for key, value := range r.functionCallsAfter {
 		r.appendIntValueToBuffer(value, key, &buffer)
 	}
 

@@ -1,7 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"log"
+	"os"
+	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -32,6 +37,75 @@ func main() {
 //	number of line deleted
 //	list of function calls seen in the diffs and their number of calls
 func compute() *result {
+	var r result
 
-	return nil
+	// A set to keep track of the files we've seen in the diffs
+	var seenFiles = make(map[string]struct{})
+
+	diffnames, err := filepath.Glob("./diffs/*.diff")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, diffname := range diffnames {
+
+		diffFile, err := os.Open(diffname)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		scanner := bufio.NewScanner(diffFile)
+
+		inFileHeader := true
+
+		var processBlockHeaderLine func(line string)
+
+		processFileHeaderLine := func(line string) {
+			if strings.HasPrefix(line, "+++") || strings.HasPrefix(line, "---") {
+				seenFiles[line[6:]] = struct{}{} // Add file to set
+			} else if strings.HasPrefix(line, "@@") {
+				inFileHeader = false
+				processBlockHeaderLine(line)
+			} else {
+				// TODO: error
+			}
+		}
+
+		processBlockHeaderLine = func(line string) {
+			r.regions++
+		}
+
+		processFileLine := func(line string) {
+			if line[0] == ' ' {
+
+			} else if line[0] == '-' {
+				r.lineDeleted++
+			} else if line[0] == '+' {
+				r.lineAdded++
+			} else if strings.HasPrefix(line, "@@") {
+				processBlockHeaderLine(line)
+			} else {
+				inFileHeader = true
+				processFileHeaderLine(line)
+			}
+		}
+
+		for scanner.Scan() {
+			line := scanner.Text()
+
+			if inFileHeader {
+				processFileHeaderLine(line)
+			} else {
+				processFileLine(line)
+			}
+		}
+
+		diffFile.Close()
+	}
+
+	for name, _ := range seenFiles {
+		r.files = append(r.files, name)
+	}
+
+	return &r
 }
