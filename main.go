@@ -45,7 +45,6 @@ func compute() *result {
 
 	// I use sets instead of lists for files that we've seen
 	var seenFiles = make(map[string]struct{})
-	var seenExtensions = make(map[string]struct{})
 
 	// When reading in a region, I will be reading it into these buffers
 	var currentRegionBefore, currentRegionAfter bytes.Buffer
@@ -79,7 +78,6 @@ func compute() *result {
 			if fileName == "/dev/null" {
 				fileType = "/dev/null"
 			}
-			seenExtensions[fileType] = struct{}{}
 			if line[0] == '-' {
 				currentExtensionBefore = fileType
 			} else {
@@ -159,10 +157,6 @@ func compute() *result {
 	// Turn set into list
 	for name, _ := range seenFiles {
 		r.files = append(r.files, name)
-	}
-
-	for name, _ := range seenExtensions {
-		r.fileExtensions = append(r.fileExtensions, name)
 	}
 
 	// Combine the two functionCalls maps into one

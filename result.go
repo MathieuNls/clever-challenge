@@ -10,8 +10,6 @@ type result struct {
 	//The name of the files seen
 	files []string
 	//The name of the files seen
-	fileExtensions []string
-	//How many region we have (i.e. seperated by @@)
 	regions int
 	//How many line were added total
 	lineAdded int
@@ -29,12 +27,6 @@ func (r *result) String() string {
 	for _, file := range r.files {
 		buffer.WriteString("	-")
 		buffer.WriteString(file)
-		buffer.WriteString("\n")
-	}
-	buffer.WriteString("Extensions: \n")
-	for _, ext := range r.fileExtensions {
-		buffer.WriteString("\t-")
-		buffer.WriteString(ext)
 		buffer.WriteString("\n")
 	}
 	r.appendIntValueToBuffer(r.regions, "Regions", &buffer)
