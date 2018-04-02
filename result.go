@@ -26,12 +26,14 @@ type result struct {
 func (r *result) String() string {
 
 	var buffer bytes.Buffer
+	/*
 	buffer.WriteString("Files: \n")
 	for _, file := range r.files {
 		buffer.WriteString("	-")
 		buffer.WriteString(file)
 		buffer.WriteString("\n")
 	}
+	*/
 	buffer.WriteString("Extensions: \n")
 	for _, ext := range r.fileExtensions {
 		buffer.WriteString("	-")

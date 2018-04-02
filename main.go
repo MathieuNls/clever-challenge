@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -36,50 +35,46 @@ type tokenRule struct {
 	regexp regexp.Regexp
 }
 
-// This structure represents a (not efficient in general) tokenizer.
-// It tokenizes a string by everytime trying all regexps and returning the token
-// that matches. It assumes that all the regexps match the beginning of the string.
-//
-// It could be easily replaced by a more efficient and more complete tokenizer.
-type tokenizer struct {
-	text       []byte
-	tokenRules []tokenRule
+func beginsIdentifier(b byte) bool {
+	return ('a' <= b && b <= 'z') || ('A' <= b && b <= 'Z') || b == '_'
+}
+func insideIdentifier(b byte) bool {
+	return ('a' <= b && b <= 'z') || ('A' <= b && b <= 'Z') || ('0' <= b && b <= '9') || b == '_'
 }
 
-func (r *tokenizer) Next() (int, string, error) {
-	if len(r.text) == 0 {
-		return -1, "", errors.New("tokenizer text empty")
-	}
-	for _, rule := range r.tokenRules {
-		found := rule.regexp.Find(r.text)
-		if found != nil {
-			r.text = r.text[len(found):]
-			return rule.token, string(found), nil
-		}
-	}
-	return -1, "", errors.New("could not match any token")
-}
+type tokenType int
 
 const (
-	whitespace = iota
-	openParen
-	identifier
-	anythingElse
+	identifier tokenType = iota
+	somethingElse
 )
 
-var cTokenizer = tokenizer{
-	[]byte{},
-	[]tokenRule{
-		{whitespace, *regexp.MustCompilePOSIX(`^[\t\n\f\r ]+`)},
-		{openParen, *regexp.MustCompilePOSIX(`^\(`)},
-		{identifier, *regexp.MustCompilePOSIX(`^[a-zA-Z_][a-zA-Z0-9_]*`)},
-		{anythingElse, *regexp.MustCompilePOSIX(`^.`)},
-	},
+// A "tokenizer" that splits its input into things that look like identifiers and all other charcters
+//
+// It could be replaced by a more complete tokenizer.
+type tokenizer struct {
+	text       []byte
 }
 
-func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
+func (r *tokenizer) Next() (token tokenType, text []byte) {
 
-	cTokenizer.text = buffer.Bytes()
+	if beginsIdentifier(r.text[0]) {
+		var i = 0
+		for i < len(r.text) && insideIdentifier(r.text[i]) {
+			i++
+		}
+		var result = r.text[0:i]
+		r.text = r.text[i:]
+		return identifier, result
+	}
+
+	var result = r.text[0:1]
+	r.text = r.text[1:]
+	return somethingElse, result
+}
+
+
+func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 	var keywords = map[string]bool{
 		"if":    true,
@@ -87,20 +82,37 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 		"while": true,
 	}
 
-	var tokens = [3]int{whitespace, whitespace, whitespace}
-	var strings [3]string
+	var whitespace = []byte {
+		' ',
+		'\t',
+		'\n',
+		'\r',
+	}
+
+	var tokenizer = tokenizer{
+		buffer.Bytes(),
+	}
+
+	var tokens = [3]tokenType{somethingElse, somethingElse, somethingElse}
+	var strings = [3][]byte{{' '}, {' '}, {' '}}
 
 	for {
-
 		for { // Loop to remove whitespace
-			if len(cTokenizer.text) == 0 {
+			if len(tokenizer.text) == 0 {
 				return
 			}
-			tok, s, err := cTokenizer.Next()
-			if err != nil {
-				log.Fatal(err) // This shouldn't happen because of the anythingElse rule
+			tok, s := tokenizer.Next()
+			var isWhitespace = false
+			if tok == somethingElse {
+				for _, w := range whitespace {
+					if s[0] == w {
+						isWhitespace = true
+						break
+					}
+				}
 			}
-			if tok != whitespace {
+			if tok == identifier ||
+			(tok == somethingElse && !isWhitespace) {
 				tokens[0], tokens[1] = tokens[1], tokens[2]
 				strings[0], strings[1] = strings[1], strings[2]
 				tokens[2] = tok
@@ -111,9 +123,9 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 		if tokens[0] != identifier &&
 			tokens[1] == identifier &&
-			tokens[2] == openParen &&
-			!keywords[strings[1]] {
-			(*counts)[strings[1]]++
+			tokens[2] == somethingElse && strings[2][0] == '(' &&
+			!keywords[string(strings[1])] {
+				(*counts)[string(strings[1])]++
 		}
 	}
 }
