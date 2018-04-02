@@ -40,7 +40,7 @@ type tokenType int
 
 const (
 	endOfString tokenType = -1
-	identifier tokenType = iota
+	identifier  tokenType = iota
 	somethingElse
 )
 
@@ -48,7 +48,7 @@ const (
 //
 // It could be replaced by a more complete tokenizer.
 type tokenizer struct {
-	text       []byte
+	text        []byte
 	toBeIgnored []byte
 }
 
@@ -72,7 +72,7 @@ func (r *tokenizer) Next() (token tokenType, text []byte) {
 		var result = r.text[0:1]
 		r.text = r.text[1:]
 		var shouldBeIgnored = false
-		for _,c := range r.toBeIgnored {
+		for _, c := range r.toBeIgnored {
 			if result[0] == c {
 				shouldBeIgnored = true
 			}
@@ -84,7 +84,6 @@ func (r *tokenizer) Next() (token tokenType, text []byte) {
 	return endOfString, nil
 }
 
-
 func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 	var keywords = map[string]bool{
@@ -93,7 +92,7 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 		"while": true,
 	}
 
-	var whitespace = []byte {
+	var whitespace = []byte{
 		' ',
 		'\t',
 		'\n',
@@ -122,16 +121,15 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 			tokens[1] == identifier &&
 			tokens[2] == somethingElse && strings[2][0] == '(' &&
 			!keywords[string(strings[1])] {
-				(*counts)[string(strings[1])]++
+			(*counts)[string(strings[1])]++
 		}
 	}
 }
 
-
 func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 	// Since the open parenthesis for a function call must be on the same line as the name,
-	var whitespace = []byte {
+	var whitespace = []byte{
 		' ',
 		'\t',
 		'\r',
@@ -158,7 +156,7 @@ func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 		if tokens[1] == identifier &&
 			tokens[2] == somethingElse && strings[2][0] == '(' &&
 			tokens[0] == identifier && string(strings[0]) != "def" {
-				(*counts)[string(strings[1])]++
+			(*counts)[string(strings[1])]++
 		}
 	}
 }
@@ -212,13 +210,13 @@ func compute() *result {
 		var currentRegionBefore, currentRegionAfter bytes.Buffer
 		var currentExtension string
 
-		// Here I create a small state machine where one of the following closures
-		// is meant to be executed at every line.
-		var processFileHeaderLine func(line string)
-		var processRegionHeaderLine func(line string)
-		var processCodeLine func(line string)
+		// Here I create a small state machine using state functions
+		type stateFn func(line string) stateFn
+		var processFileHeaderLine,
+			processRegionHeaderLine,
+			processCodeLine stateFn
 
-		processFileHeaderLine = func(line string) {
+		processFileHeaderLine = func(line string) stateFn {
 			if strings.HasPrefix(line, "+++") || strings.HasPrefix(line, "---") {
 				var fileName = line[len("--- a/"):]
 				seenFiles[fileName] = struct{}{}
@@ -229,22 +227,20 @@ func compute() *result {
 				}
 				seenExtensions[fileType] = struct{}{}
 				currentExtension = fileType
-
 			} else if strings.HasPrefix(line, "@@") {
-				inFileHeader = false
-				processRegionHeaderLine(line)
-			} else {
-				// TODO: error
+				return processRegionHeaderLine(line)
 			}
+			return processFileHeaderLine
 		}
 
-		processRegionHeaderLine = func(line string) {
+		processRegionHeaderLine = func(line string) stateFn {
 			r.regions++
 			currentRegionBefore.Reset()
 			currentRegionAfter.Reset()
+			return processCodeLine
 		}
 
-		processCodeLine = func(line string) {
+		processCodeLine = func(line string) stateFn {
 			if line[0] == ' ' {
 				currentRegionBefore.WriteString(line[1:])
 				currentRegionBefore.WriteString("\n")
@@ -262,22 +258,20 @@ func compute() *result {
 				countFunctionCalls(&currentRegionBefore, currentExtension, &r.functionCallsBefore)
 				countFunctionCalls(&currentRegionAfter, currentExtension, &r.functionCallsAfter)
 				if strings.HasPrefix(line, "@@") {
-					processRegionHeaderLine(line)
+					return processRegionHeaderLine(line)
 				} else {
 					inFileHeader = true
-					processFileHeaderLine(line)
+					return processFileHeaderLine(line)
 				}
 			}
+			return processCodeLine
 		}
 
+		var state = processFileHeaderLine
 		for scanner.Scan() {
 			line := scanner.Text()
 
-			if inFileHeader {
-				processFileHeaderLine(line)
-			} else {
-				processCodeLine(line)
-			}
+			state = state(line) // jumping on a trampoline
 		}
 
 		diffFile.Close()
