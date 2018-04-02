@@ -95,6 +95,7 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 		"if":    true,
 		"for":   true,
 		"while": true,
+		"else": true,
 	}
 
 	var whitespace = []byte{
@@ -122,10 +123,9 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 		tokens[0], tokens[1], tokens[2] = tokens[1], tokens[2], tok
 		strings[0], strings[1], strings[2] = strings[1], strings[2], s
 
-		if tokens[0] != identifier &&
-			tokens[1] == identifier &&
-			tokens[2] == somethingElse && strings[2][0] == '(' &&
-			!keywords[string(strings[1])] {
+		if !(tokens[0] == identifier && !keywords[string(strings[0])]) &&
+			tokens[1] == identifier && !keywords[string(strings[1])] &&
+			tokens[2] == somethingElse && strings[2][0] == '(' {
 			(*counts)[string(strings[1])]++
 		}
 	}
@@ -138,6 +138,18 @@ func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 	var whitespace = []byte{
 		' ',
 		'\t',
+	}
+
+	var keywords = map[string]bool{
+		"if":    true,
+		"in":    true,
+		"or":    true,
+		"and":    true,
+		"for":   true,
+		"while": true,
+		"else": true,
+		"elif": true,
+		"def": true,
 	}
 
 	var tokenizer = tokenizer{
@@ -157,9 +169,9 @@ func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 		tokens[0], tokens[1], tokens[2] = tokens[1], tokens[2], tok
 		strings[0], strings[1], strings[2] = strings[1], strings[2], s
 
-		if tokens[1] == identifier &&
-			tokens[2] == somethingElse && strings[2][0] == '(' &&
-			!(tokens[0] == identifier && string(strings[0]) == "def") {
+		if !(tokens[0] == identifier && string(strings[0]) == "def") &&
+		 tokens[1] == identifier && !keywords[string(tokens[1])] &&
+			tokens[2] == somethingElse && strings[2][0] == '(' {
 			(*counts)[string(strings[1])]++
 		}
 	}
@@ -196,6 +208,77 @@ func compute() *result {
 	var seenFiles = make(map[string]struct{})
 	var seenExtensions = make(map[string]struct{})
 
+	var currentRegionBefore, currentRegionAfter bytes.Buffer
+	var currentExtensionBefore, currentExtensionAfter string
+
+	// Here I create a small state machine using state functions
+	type stateFn func(line string) stateFn
+	var processFileHeaderLine,
+	processRegionHeaderLine,
+	processCodeLine stateFn
+
+	processFileHeaderLine = func(line string) stateFn {
+		if strings.HasPrefix(line, "+++") || strings.HasPrefix(line, "---") {
+
+			var fileName = line[len("--- "):]
+			if (fileName != "/dev/null") {
+				fileName = fileName[len("a/"):]
+			}
+
+			seenFiles[fileName] = struct{}{}
+
+			var fileType = filepath.Ext(fileName)
+			if fileType == "" {
+				// If something doesn't have an extension, we assume the name itself
+				// is significant, like "Makefile"
+				fileType = filepath.Base(fileName)
+			}
+			seenExtensions[fileType] = struct{}{}
+			if (line[0] == '-') {
+				currentExtensionBefore = fileType
+			} else {
+				currentExtensionAfter = fileType
+			}
+
+		} else if strings.HasPrefix(line, "@@") {
+			return processRegionHeaderLine(line)
+		}
+		return processFileHeaderLine
+	}
+
+	processRegionHeaderLine = func(line string) stateFn {
+		r.regions++
+		currentRegionBefore.Reset()
+		currentRegionAfter.Reset()
+		return processCodeLine
+	}
+
+	processCodeLine = func(line string) stateFn {
+		if line[0] == ' ' {
+			currentRegionBefore.WriteString(line[1:])
+			currentRegionBefore.WriteString("\n")
+			currentRegionAfter.WriteString(line[1:])
+			currentRegionAfter.WriteString("\n")
+		} else if line[0] == '-' {
+			r.lineDeleted++
+			currentRegionBefore.WriteString(line[1:])
+			currentRegionBefore.WriteString("\n")
+		} else if line[0] == '+' {
+			r.lineAdded++
+			currentRegionAfter.WriteString(line[1:])
+			currentRegionAfter.WriteString("\n")
+		} else {
+			countFunctionCalls(&currentRegionBefore, currentExtensionBefore, &functionCallsBefore)
+			countFunctionCalls(&currentRegionAfter, currentExtensionAfter, &functionCallsAfter)
+			if strings.HasPrefix(line, "@@") {
+				return processRegionHeaderLine(line)
+			} else {
+				return processFileHeaderLine(line)
+			}
+		}
+		return processCodeLine
+	}
+
 	diffnames, err := filepath.Glob("./diffs/*.diff")
 	if err != nil {
 		log.Fatal(err)
@@ -210,83 +293,13 @@ func compute() *result {
 
 		scanner := bufio.NewScanner(diffFile)
 
-		inFileHeader := true
 
-		var currentRegionBefore, currentRegionAfter bytes.Buffer
-		var currentExtensionBefore, currentExtensionAfter string
-
-		// Here I create a small state machine using state functions
-		type stateFn func(line string) stateFn
-		var processFileHeaderLine,
-			processRegionHeaderLine,
-			processCodeLine stateFn
-
-		processFileHeaderLine = func(line string) stateFn {
-			if strings.HasPrefix(line, "+++") || strings.HasPrefix(line, "---") {
-
-				var fileName = line[len("--- "):]
-				if (fileName != "/dev/null") {
-					fileName = fileName[len("a/"):]
-				}
-
-				seenFiles[fileName] = struct{}{}
-
-				var fileType = filepath.Ext(fileName)
-				if fileType == "" {
-					fileType = filepath.Base(fileName)
-				}
-				seenExtensions[fileType] = struct{}{}
-				if (line[0] == '-') {
-					currentExtensionBefore = fileType
-				} else {
-					currentExtensionAfter = fileType
-				}
-
-			} else if strings.HasPrefix(line, "@@") {
-				return processRegionHeaderLine(line)
-			}
-			return processFileHeaderLine
-		}
-
-		processRegionHeaderLine = func(line string) stateFn {
-			r.regions++
-			currentRegionBefore.Reset()
-			currentRegionAfter.Reset()
-			return processCodeLine
-		}
-
-		processCodeLine = func(line string) stateFn {
-			if line[0] == ' ' {
-				currentRegionBefore.WriteString(line[1:])
-				currentRegionBefore.WriteString("\n")
-				currentRegionAfter.WriteString(line[1:])
-				currentRegionAfter.WriteString("\n")
-			} else if line[0] == '-' {
-				r.lineDeleted++
-				currentRegionBefore.WriteString(line[1:])
-				currentRegionBefore.WriteString("\n")
-			} else if line[0] == '+' {
-				r.lineAdded++
-				currentRegionAfter.WriteString(line[1:])
-				currentRegionAfter.WriteString("\n")
-			} else {
-				countFunctionCalls(&currentRegionBefore, currentExtensionBefore, &functionCallsBefore)
-				countFunctionCalls(&currentRegionAfter, currentExtensionAfter, &functionCallsAfter)
-				if strings.HasPrefix(line, "@@") {
-					return processRegionHeaderLine(line)
-				} else {
-					inFileHeader = true
-					return processFileHeaderLine(line)
-				}
-			}
-			return processCodeLine
-		}
 
 		var state = processFileHeaderLine
 		for scanner.Scan() {
 			line := scanner.Text()
 
-			state = state(line) // jumping on a trampoline
+			state = state(line)
 		}
 
 		diffFile.Close()
