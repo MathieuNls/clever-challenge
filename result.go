@@ -26,14 +26,12 @@ type result struct {
 func (r *result) String() string {
 
 	var buffer bytes.Buffer
-	/*
 	buffer.WriteString("Files: \n")
 	for _, file := range r.files {
 		buffer.WriteString("	-")
 		buffer.WriteString(file)
 		buffer.WriteString("\n")
 	}
-	*/
 	buffer.WriteString("Extensions: \n")
 	for _, ext := range r.fileExtensions {
 		buffer.WriteString("	-")
@@ -44,6 +42,7 @@ func (r *result) String() string {
 	r.appendIntValueToBuffer(r.lineAdded, "LA", &buffer)
 	r.appendIntValueToBuffer(r.lineDeleted, "LD", &buffer)
 
+
 	buffer.WriteString("Function calls before: \n")
 	for key, value := range r.functionCallsBefore {
 		r.appendIntValueToBuffer(value, key, &buffer)
@@ -53,6 +52,7 @@ func (r *result) String() string {
 	for key, value := range r.functionCallsAfter {
 		r.appendIntValueToBuffer(value, key, &buffer)
 	}
+
 
 	return buffer.String()
 }

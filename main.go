@@ -39,6 +39,7 @@ func insideIdentifier(b byte) bool {
 type tokenType int
 
 const (
+	endOfString tokenType = -1
 	identifier tokenType = iota
 	somethingElse
 )
@@ -48,9 +49,14 @@ const (
 // It could be replaced by a more complete tokenizer.
 type tokenizer struct {
 	text       []byte
+	toBeIgnored []byte
 }
 
 func (r *tokenizer) Next() (token tokenType, text []byte) {
+
+	if len(r.text) == 0 {
+		return endOfString, nil
+	}
 
 	if beginsIdentifier(r.text[0]) {
 		var i = 0
@@ -62,9 +68,20 @@ func (r *tokenizer) Next() (token tokenType, text []byte) {
 		return identifier, result
 	}
 
-	var result = r.text[0:1]
-	r.text = r.text[1:]
-	return somethingElse, result
+	for len(r.text) > 0 {
+		var result = r.text[0:1]
+		r.text = r.text[1:]
+		var shouldBeIgnored = false
+		for _,c := range r.toBeIgnored {
+			if result[0] == c {
+				shouldBeIgnored = true
+			}
+			if !shouldBeIgnored {
+				return somethingElse, result
+			}
+		}
+	}
+	return endOfString, nil
 }
 
 
@@ -86,35 +103,20 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 	var tokenizer = tokenizer{
 		buffer.Bytes(),
+		whitespace,
 	}
 
 	var tokens = [3]tokenType{somethingElse, somethingElse, somethingElse}
 	var strings = [3][]byte{{' '}, {' '}, {' '}}
 
 	for {
-		for { // Loop to remove whitespace
-			if len(tokenizer.text) == 0 {
-				return
-			}
-			tok, s := tokenizer.Next()
-			var isWhitespace = false
-			if tok == somethingElse {
-				for _, w := range whitespace {
-					if s[0] == w {
-						isWhitespace = true
-						break
-					}
-				}
-			}
-			if tok == identifier ||
-			(tok == somethingElse && !isWhitespace) {
-				tokens[0], tokens[1] = tokens[1], tokens[2]
-				strings[0], strings[1] = strings[1], strings[2]
-				tokens[2] = tok
-				strings[2] = s
-				break
-			}
+		tok, s := tokenizer.Next()
+		if tok == endOfString {
+			return
 		}
+
+		tokens[0], tokens[1], tokens[2] = tokens[1], tokens[2], tok
+		strings[0], strings[1], strings[2] = strings[1], strings[2], s
 
 		if tokens[0] != identifier &&
 			tokens[1] == identifier &&
@@ -138,35 +140,20 @@ func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 	var tokenizer = tokenizer{
 		buffer.Bytes(),
+		whitespace,
 	}
 
 	var tokens = [3]tokenType{somethingElse, somethingElse, somethingElse}
 	var strings = [3][]byte{{' '}, {' '}, {' '}}
 
 	for {
-		for { // Loop to remove whitespace
-			if len(tokenizer.text) == 0 {
-				return
-			}
-			tok, s := tokenizer.Next()
-			var isWhitespace = false
-			if tok == somethingElse {
-				for _, w := range whitespace {
-					if s[0] == w {
-						isWhitespace = true
-						break
-					}
-				}
-			}
-			if tok == identifier ||
-			(tok == somethingElse && !isWhitespace) {
-				tokens[0], tokens[1] = tokens[1], tokens[2]
-				strings[0], strings[1] = strings[1], strings[2]
-				tokens[2] = tok
-				strings[2] = s
-				break
-			}
+		tok, s := tokenizer.Next()
+		if tok == endOfString {
+			return
 		}
+
+		tokens[0], tokens[1], tokens[2] = tokens[1], tokens[2], tok
+		strings[0], strings[1], strings[2] = strings[1], strings[2], s
 
 		if tokens[1] == identifier &&
 			tokens[2] == somethingElse && strings[2][0] == '(' &&
