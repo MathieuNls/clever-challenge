@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"time"
 )
@@ -28,11 +27,6 @@ func timeTrack(start time.Time, name string) {
 func main() {
 	defer timeTrack(time.Now(), "compute diff")
 	fmt.Println(compute())
-}
-
-type tokenRule struct {
-	token  int
-	regexp regexp.Regexp
 }
 
 func beginsIdentifier(b byte) bool {
@@ -87,6 +81,7 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 		'\t',
 		'\n',
 		'\r',
+		'\f',
 	}
 
 	var tokenizer = tokenizer{
@@ -130,14 +125,65 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 	}
 }
 
+
+func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
+
+	// Since the open parenthesis for a function call must be on the same line as the name,
+	var whitespace = []byte {
+		' ',
+		'\t',
+		'\r',
+		'\f',
+	}
+
+	var tokenizer = tokenizer{
+		buffer.Bytes(),
+	}
+
+	var tokens = [3]tokenType{somethingElse, somethingElse, somethingElse}
+	var strings = [3][]byte{{' '}, {' '}, {' '}}
+
+	for {
+		for { // Loop to remove whitespace
+			if len(tokenizer.text) == 0 {
+				return
+			}
+			tok, s := tokenizer.Next()
+			var isWhitespace = false
+			if tok == somethingElse {
+				for _, w := range whitespace {
+					if s[0] == w {
+						isWhitespace = true
+						break
+					}
+				}
+			}
+			if tok == identifier ||
+			(tok == somethingElse && !isWhitespace) {
+				tokens[0], tokens[1] = tokens[1], tokens[2]
+				strings[0], strings[1] = strings[1], strings[2]
+				tokens[2] = tok
+				strings[2] = s
+				break
+			}
+		}
+
+		if tokens[1] == identifier &&
+			tokens[2] == somethingElse && strings[2][0] == '(' &&
+			tokens[0] == identifier && string(strings[0]) != "def" {
+				(*counts)[string(strings[1])]++
+		}
+	}
+}
+
 //Given a bytes.Buffer containing a code segment, its extension, and a map to
 //use for counting, counts the function calls
 func countFunctionCalls(buffer *bytes.Buffer, ext string, counts *map[string]int) {
 	switch ext {
 	case ".c", ".h":
 		countCFunctionCalls(buffer, counts)
-
 	case ".py":
+		countPythonFunctionCalls(buffer, counts)
 
 	default:
 
