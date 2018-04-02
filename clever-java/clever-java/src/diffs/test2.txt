@@ -1,1 +1,7 @@
-+Just to test multiple files
+
+if (strLine.charAt(i - 1) != ' ' && !temp.isEmpty()) {
+                            functionTemp = tempFunctionCall.pop();
+                            if (!functionTemp.equals("for") && !functionTemp.equals("if") && !functionTemp.equals("while") && !functionTemp.equals("try") && !functionTemp.equals("catch")) {
+                                addFunctionToMap(functionTemp);
+                            }
+                        }
