@@ -44,7 +44,7 @@ const (
 	somethingElse
 )
 
-// A "tokenizer" that splits its input into things that look like identifiers and all other charcters
+// A "tokenizer" that splits its input into things that look like identifiers and all other characters
 //
 // It could be replaced by a more complete tokenizer.
 type tokenizer struct {
@@ -185,8 +185,9 @@ func countFunctionCalls(buffer *bytes.Buffer, ext string, counts *map[string]int
 //	list of function calls seen in the diffs and their number of calls
 func compute() *result {
 	var r result
-	r.functionCallsBefore = make(map[string]int)
-	r.functionCallsAfter = make(map[string]int)
+	var functionCallsBefore = make(map[string]int)
+	var functionCallsAfter = make(map[string]int)
+	r.functionCalls = make(map[string]struct{ before, after int })
 
 	var seenFiles = make(map[string]struct{})
 	var seenExtensions = make(map[string]struct{})
@@ -255,8 +256,8 @@ func compute() *result {
 				currentRegionAfter.WriteString(line[1:])
 				currentRegionAfter.WriteString("\n")
 			} else {
-				countFunctionCalls(&currentRegionBefore, currentExtension, &r.functionCallsBefore)
-				countFunctionCalls(&currentRegionAfter, currentExtension, &r.functionCallsAfter)
+				countFunctionCalls(&currentRegionBefore, currentExtension, &functionCallsBefore)
+				countFunctionCalls(&currentRegionAfter, currentExtension, &functionCallsAfter)
 				if strings.HasPrefix(line, "@@") {
 					return processRegionHeaderLine(line)
 				} else {
@@ -283,6 +284,18 @@ func compute() *result {
 
 	for name, _ := range seenExtensions {
 		r.fileExtensions = append(r.fileExtensions, name)
+	}
+
+	for name, times := range functionCallsBefore {
+		var prev = r.functionCalls[name]
+		prev.before += times
+		r.functionCalls[name] = prev
+	}
+
+	for name, times := range functionCallsAfter {
+		var prev = r.functionCalls[name]
+		prev.after += times
+		r.functionCalls[name] = prev
 	}
 
 	return &r
