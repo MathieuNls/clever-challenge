@@ -37,29 +37,44 @@ func insideIdentifier(b byte) bool {
 }
 
 type tokenType int
-
 const (
 	endOfString tokenType = -1
 	identifier  tokenType = iota
 	somethingElse
 )
 
-// A "tokenizer" that splits its input into things that look like identifiers and all other characters
+// A "tokenizer" that removes characters to be ignored and splits its input
+// into things that look like identifiers and all other characters.
 //
-// It could be replaced by a more complete tokenizer.
+// It could be replaced by a more complete tokenizer. One that takes care of
+// comments and strings for example
 type tokenizer struct {
 	text        []byte
 	toBeIgnored []byte
 }
 
+func byteInSlice(b byte, slice []byte) bool {
+	for _, c := range slice {
+		if b == c {
+			return true
+		}
+	}
+	return false
+}
+
+
 func (r *tokenizer) Next() (token tokenType, text []byte) {
+
+	for len(r.text) > 0 && byteInSlice(r.text[0], r.toBeIgnored) {
+		r.text = r.text[1:]
+	}
 
 	if len(r.text) == 0 {
 		return endOfString, nil
 	}
 
 	if beginsIdentifier(r.text[0]) {
-		var i = 0
+		var i = 1
 		for i < len(r.text) && insideIdentifier(r.text[i]) {
 			i++
 		}
@@ -68,20 +83,10 @@ func (r *tokenizer) Next() (token tokenType, text []byte) {
 		return identifier, result
 	}
 
-	for len(r.text) > 0 {
-		var result = r.text[0:1]
-		r.text = r.text[1:]
-		var shouldBeIgnored = false
-		for _, c := range r.toBeIgnored {
-			if result[0] == c {
-				shouldBeIgnored = true
-			}
-			if !shouldBeIgnored {
-				return somethingElse, result
-			}
-		}
-	}
-	return endOfString, nil
+	var result = r.text[:1]
+	r.text = r.text[1:]
+	return somethingElse, result
+
 }
 
 func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
@@ -128,12 +133,11 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
-	// Since the open parenthesis for a function call must be on the same line as the name,
+	// Since the open parenthesis for a function call must be on the same line as
+	// the name, I only ignore space and tabs.
 	var whitespace = []byte{
 		' ',
 		'\t',
-		'\r',
-		'\f',
 	}
 
 	var tokenizer = tokenizer{
@@ -155,7 +159,7 @@ func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 		if tokens[1] == identifier &&
 			tokens[2] == somethingElse && strings[2][0] == '(' &&
-			tokens[0] == identifier && string(strings[0]) != "def" {
+			!(tokens[0] == identifier && string(strings[0]) == "def") {
 			(*counts)[string(strings[1])]++
 		}
 	}
@@ -209,7 +213,7 @@ func compute() *result {
 		inFileHeader := true
 
 		var currentRegionBefore, currentRegionAfter bytes.Buffer
-		var currentExtension string
+		var currentExtensionBefore, currentExtensionAfter string
 
 		// Here I create a small state machine using state functions
 		type stateFn func(line string) stateFn
@@ -219,7 +223,12 @@ func compute() *result {
 
 		processFileHeaderLine = func(line string) stateFn {
 			if strings.HasPrefix(line, "+++") || strings.HasPrefix(line, "---") {
-				var fileName = line[len("--- a/"):]
+
+				var fileName = line[len("--- "):]
+				if (fileName != "/dev/null") {
+					fileName = fileName[len("a/"):]
+				}
+
 				seenFiles[fileName] = struct{}{}
 
 				var fileType = filepath.Ext(fileName)
@@ -227,7 +236,12 @@ func compute() *result {
 					fileType = filepath.Base(fileName)
 				}
 				seenExtensions[fileType] = struct{}{}
-				currentExtension = fileType
+				if (line[0] == '-') {
+					currentExtensionBefore = fileType
+				} else {
+					currentExtensionAfter = fileType
+				}
+
 			} else if strings.HasPrefix(line, "@@") {
 				return processRegionHeaderLine(line)
 			}
@@ -256,8 +270,8 @@ func compute() *result {
 				currentRegionAfter.WriteString(line[1:])
 				currentRegionAfter.WriteString("\n")
 			} else {
-				countFunctionCalls(&currentRegionBefore, currentExtension, &functionCallsBefore)
-				countFunctionCalls(&currentRegionAfter, currentExtension, &functionCallsAfter)
+				countFunctionCalls(&currentRegionBefore, currentExtensionBefore, &functionCallsBefore)
+				countFunctionCalls(&currentRegionAfter, currentExtensionAfter, &functionCallsAfter)
 				if strings.HasPrefix(line, "@@") {
 					return processRegionHeaderLine(line)
 				} else {
