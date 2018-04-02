@@ -33,7 +33,7 @@ func (r *result) String() string {
 	}
 	buffer.WriteString("Extensions: \n")
 	for _, ext := range r.fileExtensions {
-		buffer.WriteString("	-")
+		buffer.WriteString("\t-")
 		buffer.WriteString(ext)
 		buffer.WriteString("\n")
 	}
@@ -43,6 +43,7 @@ func (r *result) String() string {
 
 	buffer.WriteString("Function calls (before, after): \n")
 	for key, value := range r.functionCalls {
+		buffer.WriteString("\t")
 		buffer.WriteString(key)
 		buffer.WriteString(" : ")
 		buffer.WriteString(strconv.Itoa(value.before))

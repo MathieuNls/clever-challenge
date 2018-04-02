@@ -24,7 +24,7 @@ const (
 // into things that look like identifiers and all other characters.
 //
 // It could be replaced by a more complete tokenizer. One that takes care of
-// comments and strings for example
+// comments and strings for example.
 type tokenizer struct {
 	text        []byte
 	toBeIgnored []byte
@@ -39,6 +39,7 @@ func byteInSlice(b byte, slice []byte) bool {
 	return false
 }
 
+// Get next token and text slice that goes with it
 func (r *tokenizer) Next() (token tokenType, text []byte) {
 
 	for len(r.text) > 0 && byteInSlice(r.text[0], r.toBeIgnored) {
@@ -67,19 +68,19 @@ func (r *tokenizer) Next() (token tokenType, text []byte) {
 
 func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
-	var keywords = map[string]bool{
-		"if":    true,
-		"for":   true,
-		"while": true,
-		"else":  true,
-	}
-
 	var whitespace = []byte{
 		' ',
 		'\t',
 		'\n',
 		'\r',
 		'\f',
+	}
+
+	var keywords = map[string]bool{
+		"if":    true,
+		"for":   true,
+		"while": true,
+		"else":  true,
 	}
 
 	var tokenizer = tokenizer{
@@ -110,7 +111,7 @@ func countCFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 func countPythonFunctionCalls(buffer *bytes.Buffer, counts *map[string]int) {
 
 	// Since the open parenthesis for a function call must be on the same line as
-	// the name, I only ignore space and tabs.
+	// the name, I only ignore spaces and tabs.
 	var whitespace = []byte{
 		' ',
 		'\t',
