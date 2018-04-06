@@ -28,7 +28,6 @@ void main()
 	{
 		cout << "ERROR: " << e.what() << endl;
 	}
-	results.time = (int)(chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - start).count() * 1000);
 
 	Logger logger(path, &results);
 	try
@@ -39,7 +38,8 @@ void main()
 	{
 		cout << "ERROR: " << e.what() << endl;
 	}
-	cout << setw(24) << "Parsing Time before logging to file:" << results.time << "ms\n";
-	cout << setw(24) << "Time after logging to file './diffResult.txt':" << (int)(chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - start).count() * 1000) << "ms\n";
+
+	cout << setw(24) << "Statistics logged to file: './diffResult.txt'" <<"\n";
+	cout << setw(24) << "Execution time:" << (int)(chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - start).count() * 1000) << "ms\n";
 	system("pause");
 }

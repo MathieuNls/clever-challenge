@@ -18,6 +18,4 @@ struct Results
   int linesAdded = 0;
   int linesDeleted = 0;
   std::vector<std::pair<std::string, int>> functionCalls;
-
-  int time = 0;
 };

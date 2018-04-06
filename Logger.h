@@ -6,12 +6,11 @@ class Logger
 {
 public:
   Logger(std::string path, Results *results);
-  void Display();
   void SaveToDisk();
 
 private:
-  void Log(std::ostream &buf);
-
   Results *_results;
   std::string _path;
+
+  void Log(std::ostream &buf);
 };

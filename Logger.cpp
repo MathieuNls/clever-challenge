@@ -8,11 +8,6 @@ Logger::Logger(string path, Results *results)
   _results = results;
 }
 
-void Logger::Display()
-{
-  Log(cout);
-}
-
 void Logger::SaveToDisk()
 {
   ofstream file;
@@ -23,8 +18,6 @@ void Logger::SaveToDisk()
     throw exception(string("Could not create log file " + filename).c_str());
 
   Log(file);
-
- // Display();
 }
 
 void Logger::Log(ostream &buf)
@@ -32,10 +25,10 @@ void Logger::Log(ostream &buf)
 	buf << "\n========== Parsed .diff files  ==========\n";
 	for (int i = 0; i < _results->fileNames.size(); ++i)
 		buf << _results->fileNames.at(i) << endl;
+
 	buf << left << setw(24) << "Regions:" << _results->regions << "\n"
     << setw(24) << "Lines Added:" << _results->linesAdded << "\n"
     << setw(24) << "Lines Deleted:" << _results->linesDeleted << "\n"
-    << setw(24) << "Parsing Time before logging:" << _results->time << "ms\n"
     << setw(24) << "Files Count:" << _results->files.size() << "\n"
     << setw(24) << "Function Calls Count:" << _results->functionCalls.size() << "\n";
 
