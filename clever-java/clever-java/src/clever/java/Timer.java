@@ -8,9 +8,7 @@ public class Timer{
     private long startTime;
     private long stopTime;
 
-    Timer(){
-
-    }
+    Timer(){}
 
     public void start(){
         startTime = System.currentTimeMillis();
@@ -19,7 +17,7 @@ public class Timer{
         stopTime = System.currentTimeMillis();
     }
     public void printResult(){
-        System.out.printf("Computation took: %,.3f seconds",(stopTime-startTime)/60.0);
+        System.out.printf("\nComputation took: %,.3f seconds",(stopTime-startTime)/1000.0);
     }
 }
 
