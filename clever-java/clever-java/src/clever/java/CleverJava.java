@@ -37,8 +37,6 @@ public class CleverJava {
     public static Map<String, Integer> funcCallsAfter = new HashMap<String, Integer>();
     //Name of functions called and the number of time they have been called in the original file
     public static Map<String, Integer> funcCallsBefore = new HashMap<String, Integer>();
-    //Name of functions called and the number of time they have been called that have not been modified
-    public static Map<String, Integer> funcCallsCommon = new HashMap<String, Integer>();
     //The name of the files in the git diffs
     public static ArrayList<String> fileName = new ArrayList<String>();
 
@@ -63,8 +61,10 @@ public class CleverJava {
 
                 try {
                     System.out.println("Current file path: " + fileEntry.getPath());
+                    //Compute for each file in the directory
                     files.add(fileEntry.getName());
                     compute(fileEntry);
+                    
                 } catch (FileNotFoundException ex) {
                     System.out.println("Error - File: " + fileEntry.getName() + " not found");
                 } catch (IOException ex) {
@@ -75,8 +75,10 @@ public class CleverJava {
                 System.out.println("Directory Found" + fileEntry.getName());
             }
         }
+        //Stop counter
         stopWatch.stop();
         outputResults();
+        //prints the time it took to compute
         stopWatch.printResult();
     }
 
@@ -303,6 +305,7 @@ public class CleverJava {
         return false;
     }
     
+    //Return true if the character is a regex
     public static boolean regex_found(char c){
        for (char r : regex) {
             if (c == r) 
