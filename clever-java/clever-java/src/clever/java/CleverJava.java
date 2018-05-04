@@ -43,6 +43,7 @@ public class CleverJava {
     public static ArrayList<String> fileName = new ArrayList<String>();
 
     public static String[] keywords = {"for", "while", "if", "try", "catch"};
+    public static char[] regex = {' ','.','\t','-','+','>','"','$','&','#','*','!','~','%',',','\'','\\'};
 
     public static void main(String[] args) {
 
@@ -80,7 +81,7 @@ public class CleverJava {
     }
 
     public static void compute(File f) throws FileNotFoundException, IOException {
-        
+
         FileInputStream fstream = new FileInputStream(f);
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
@@ -150,9 +151,11 @@ public class CleverJava {
             for (int i = 0; i < strLine.length(); i++) {
 
                 //Checks for chuncks of code that do not have a function call
-                if (strLine.charAt(i) == ' ' || strLine.charAt(i) == '.' || strLine.charAt(i) == '\t') {
+                //Also, exclude first character for negation (!) or dereferencing (*pointer)
+                char currentChar = strLine.charAt(i);
+                if (regex_found(currentChar)) {
 
-                    if (strLine.charAt(i) == '>') {
+                    if (currentChar == '>') {
 
                         try {
                             if (strLine.charAt(i - 1) == '-') {
@@ -164,10 +167,11 @@ public class CleverJava {
                     }
                     //Clears temp it passes a chunk and there are no functions
                     temp = "";
-                } else if (strLine.charAt(i) == '(') {
+                } else if (currentChar == '(') {
                     //Pushes function call to stack
                     try {
-                        if (strLine.charAt(i - 1) != ' ' && !temp.isEmpty()) {
+                        //Push if the character before the ( is not ' ' or if it is not empty (should not happen but for precaution) and push if the first character if the function is not a digit
+                        if (strLine.charAt(i - 1) != ' ' && !temp.isEmpty() && !Character.isDigit(temp.charAt(0))) {
                             tempFunctionCall.push(temp);
                             temp = "";
                         }
@@ -177,7 +181,7 @@ public class CleverJava {
                         //Don't deal with. This means the first character == '('. Which doesn't mean anything 
                     }
 
-                } else if (strLine.charAt(i) == ')') {
+                } else if (currentChar == ')') {
                     String functionTemp = "";
 
                     try {
@@ -185,17 +189,25 @@ public class CleverJava {
                         if (strLine.charAt(i - 1) != ' ' && !temp.isEmpty()) { //Added function
                             functionTemp = tempFunctionCall.pop();
                             //Check if one of the tokens is a keyword (i.e. for, while, if, catch, etc.)
-                            if (!keywords_found(functionTemp)) {
-                                /** 
-                                 *The goal of this part is to count the number of functions before and after the modification. This allows one to understand what changed between the original file
-                                 * and the modified one. The lines of code without any special first characters are seen as common lines and a stored separately (instead of having duplicates).
-                                 **/
+                            if (!keywords_found(functionTemp)) { 
+                                /**
+                                 * The goal of this part is to count the number
+                                 * of functions before and after the
+                                 * modification. This allows one to understand
+                                 * what changed between the original file and
+                                 * the modified one. The lines of code without
+                                 * any special first characters are seen as
+                                 * common lines and a stored separately (instead
+                                 * of having duplicates).
+                                 *
+                                 */
                                 if (firstChar == '+') {
                                     addFunctionToMap(functionTemp, funcCallsAfter);
                                 } else if (firstChar == '-') {
                                     addFunctionToMap(functionTemp, funcCallsBefore);
                                 } else {
-                                    addFunctionToMap(functionTemp, funcCallsCommon);
+                                    addFunctionToMap(functionTemp, funcCallsAfter);
+                                    addFunctionToMap(functionTemp, funcCallsBefore);
                                 }
                             }
                         }
@@ -216,12 +228,14 @@ public class CleverJava {
                         } else if (firstChar == '-') {
                             addFunctionToMap(temporaryFunctionName, funcCallsBefore);
                         } else {
-                            addFunctionToMap(temporaryFunctionName, funcCallsCommon);
+                            //addFunctionToMap(temporaryFunctionName, funcCallsCommon);
+                            addFunctionToMap(temporaryFunctionName, funcCallsAfter);
+                            addFunctionToMap(temporaryFunctionName, funcCallsBefore);
                         }
                     }
 
                 } else {
-                    temp += strLine.charAt(i);
+                    temp += currentChar;
                 }
             }
 
@@ -229,9 +243,9 @@ public class CleverJava {
 
         //Close the input stream
         br.close();
-        
+
     }
-    
+
     //Adds a function to a specified Map<> and increments the number of calls if it already exists
     public static void addFunctionToMap(String functionName, Map<String, Integer> map) {
         if (map.containsKey(functionName)) {
@@ -260,25 +274,25 @@ public class CleverJava {
         System.out.println("Regions: " + regions);
 
         System.out.println("===================Functions=======================");
-        System.out.println("\nOriginal:");
+        System.out.println("\n***************Original:***************");
         System.out.println("Name : number of calls");
-        for (Map.Entry<String, Integer> entry : funcCallsCommon.entrySet()) {
+        /*for (Map.Entry<String, Integer> entry : funcCallsCommon.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
-        }
+        }*/
         for (Map.Entry<String, Integer> entry : funcCallsBefore.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
 
-        System.out.println("\nModified:");
+        System.out.println("\n***************Modified:***************");
         System.out.println("Name : number of calls");
-        for (Map.Entry<String, Integer> entry : funcCallsCommon.entrySet()) {
+        /*for (Map.Entry<String, Integer> entry : funcCallsCommon.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
-        }
+        }*/
         for (Map.Entry<String, Integer> entry : funcCallsAfter.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
     }
-    
+
     //Returns true if the String s is a keyword in C++ or Java (very basic version)
     public static boolean keywords_found(String s) {
         for (String key : keywords) {
@@ -289,8 +303,16 @@ public class CleverJava {
         return false;
     }
     
+    public static boolean regex_found(char c){
+       for (char r : regex) {
+            if (c == r) 
+                return true;
+        }
+        return false; 
+    }
+
     //Returns the name of a modified file within a diff
-    private static void getFileName(String strLine) {
+    public static void getFileName(String strLine) {
         String[] string_temp = strLine.split(" ");
         fileName.add(string_temp[1]);
     }

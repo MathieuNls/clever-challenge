@@ -1,0 +1,27 @@
+@@ -43,6 +48,7 @@ ____xchg(_u16, volatile short *m, unsigned long val)
+ {
+ 	unsigned long ret, tmp, addr64;
+ 
++	smp_mb();
+ 	__asm__ __volatile__(
+ 	"	andnot	%4,7,%3\n"
+ 	"	inswl	%1,%4,%1\n"
+@@ -52,12 +58,12 @@ ____xchg(_u16, volatile short *m, unsigned long val)
+ 	"	or	%1,%2,%2\n"
+ 	"	stq_c	%2,0(%3)\n"
+ 	"	beq	%2,2f\n"
+-		__ASM__MB
+ 	".subsection 2\n"
+ 	"2:	br	1b\n"
+ 	".previous"
+ 	: "=&r" (ret), "=&r" (val), "=&r" (tmp), "=&r" (addr64)
+ 	: "r" ((long)m), "1" (val) : "memory");
++	smp_mb();
+ 
+ 	return ret;
+ }
+@@ -67,17 +73,18 @@ ____xchg(_u32, volatile int *m, unsigned long val)
+ {
+ 	unsigned long dummy;
+ 
++	smp_mb();
