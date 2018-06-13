@@ -67,7 +67,7 @@ If you don't feel comfortable sharing your pull-request with the world (pull-req
 
 We are also looking for permanent members to join our team. If you are interested, mail our human resource [contact](mailto:alison.laplante-rayworth@ubisoft.com?subject=Clever-Initiative) with your resume. You can submit your pull request for the challenge. However, you'll be subjected to an in-depth (much harder) coding test. This one has been conceived for students only and it might not be worth your time to take it ;).
 
-- [ ] Software Engineer
-- [ ] Software Engineer
-- [ ] Software Engineer
+- [ ] Software Engineer (go, angular, mysql, ts, ...)
+- [ ] Software Engineer (go, ast, cfg, mysql, ...)
+- [ ] Software Engineer (k8s, docker, go, redis, ...)
 - [x] Software Engineer / Data Engineer
