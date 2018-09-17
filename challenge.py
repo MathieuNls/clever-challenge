@@ -59,6 +59,7 @@ if __name__ == "__main__":
   try:
     os.remove(List_files)
     os.remove(List_calls)
+    os.remove(result_stat)
   except OSError:
     pass
   #Variable declaration
@@ -95,13 +96,22 @@ if __name__ == "__main__":
     with open(List_calls, 'w') as f:
       for key, value in counts.items():
         f.write('%s:%s\n' % (key, value))
+    f.close()
+
   #print results of deleted, added and region
-  print("deleted lines : %d" % delLines)
-  print("added lines : %d" % addLines)
-  print("region lines : %d" % regionLines)
+    # print("deleted lines : %d" % delLines)
+    # print("added lines : %d" % addLines)
+    # print("region lines : %d" % regionLines)
+  with open( result_stat, 'w' ) as f:
+    f.write(str(delLines)+'\n')
+    f.write(str(addLines)+'\n')
+    f.write(str(regionLines)+'\n')
+  f.close()
   #Write all files name in the 
   if (flag_file == 1):
     all_files = np.unique(all_files)
     with open(List_files, 'w') as f:
       for file in all_files:
         f.write("%s\n" % file)
+    f.close()
+
