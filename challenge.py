@@ -3,7 +3,7 @@ import re
 import numpy as np
 
 List_calls = "calls.txt"
-List_files = "output.txt"
+List_files = "list_files.txt"
 flag_file = 1
 flag_calls = 1
 def result(filename):
@@ -18,7 +18,7 @@ def result(filename):
   regex_Del = "^-(?!--).*"
   regex_Add = "^\+(?!\+\+).*"
   regex_region = "^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)?\ @@[ ]?.*"
-  regex_functionCall = "\b(?!if\b)\b(?!while\b)\b(?!switch\b)\b(?!for\b)([\w]+)\s*(?=\()"
+  regex_functionCall = "([\w]+)(?=\()"
   #catch les nom des fonctions avec le regex, les mettres dans une liste, ensuite appliquer la fonction de l'occurence
   regex_FileNamePattern = re.compile(regex_FileName)
   regex_DelPattern = re.compile(regex_Del,re.DOTALL)
