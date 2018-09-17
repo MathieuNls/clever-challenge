@@ -2156,7 +2156,6 @@ perf_evsel_menu__run:2
 perf_evlist__mmap_read_backward:2
 perf_evlist__mmap_read_catchup:2
 perf_mmap__read:5
-while:1
 perf_mmap__read_head:5
 refcount_read:1
 perf_mmap__push:2

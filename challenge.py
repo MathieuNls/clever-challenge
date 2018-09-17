@@ -4,6 +4,7 @@ import numpy as np
 
 List_calls = "calls.txt"
 List_files = "list_files.txt"
+result_stat = "stat.txt"
 flag_file = 1
 flag_calls = 1
 def result(filename):
@@ -41,12 +42,14 @@ def result(filename):
       pass
     elif ( line.startswith("-") ):
       for match in re.findall(regex_functionCallPattern, line):
-        calls.append(match)
+        if match not in ('if', 'while', 'for', 'switch'):
+          calls.append(match)
       for match in re.findall(regex_DelPattern, line):
         deleted = deleted + 1
     elif ( line.startswith("+") ):
       for match in re.findall(regex_functionCallPattern, line):
-        calls.append(match)
+        if match not in ('if', 'while', 'for', 'switch'):
+          calls.append(match)
       for match in re.findall(regex_AddPattern, line):
         added = added + 1
   return [Files_array,deleted,added,region,calls]
