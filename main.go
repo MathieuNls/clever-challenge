@@ -1,8 +1,13 @@
 package main
 
 import (
+    "os/exec"
 	"fmt"
 	"time"
+    "bufio"
+    "os"
+    "strconv"
+    "strings"
 )
 
 //timeTrack tracks the time it took to do things.
@@ -32,6 +37,53 @@ func main() {
 //	number of line deleted
 //	list of function calls seen in the diffs and their number of calls
 func compute() *result {
+    var r result
 
-	return nil
+    exec.Command("python3 challenge.py").Run()
+	r.files = returnFiles()
+	r.lineDeleted, r.lineAdded, r.regions = returnStat()
+	r.functionCalls = returnCalls()
+
+	return &r
+}
+
+func returnFiles() []string {
+	return FileToLines("list_files.txt")
+}
+
+func returnStat() (int, int, int) {
+	stat := FileToLines("stat.txt")
+		
+	deletedLines, _ := strconv.Atoi(stat[0])
+	addedLines, _ := strconv.Atoi(stat[1])
+	regions, _ := strconv.Atoi(stat[2])
+
+ 	return deletedLines, addedLines, regions
+}
+
+func returnCalls() map[string]int {
+    m := make(map[string]int)
+ 	
+ 	calls := FileToLines("calls.txt")
+	for _, call := range calls{
+		line := strings.Split(call,":")	
+		function := line[0]
+		occurence,_ := strconv.Atoi(line[1])
+		m[function] = occurence
+	}
+	return m
+}
+
+
+func FileToLines(filePath string) []string {
+      var lines []string
+      f, _ := os.Open(filePath)
+      defer f.Close()
+
+      scanner := bufio.NewScanner(f)
+      for scanner.Scan() {
+              lines = append(lines, scanner.Text())
+      }
+      
+      return lines
 }
