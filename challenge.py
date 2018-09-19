@@ -85,14 +85,6 @@ def result(filename):
 
 if __name__ == "__main__":
   
-  #Delete old results files if exist
-  try:
-    os.remove(List_files)
-    os.remove(List_calls)
-    os.remove(result_stat)
-  except OSError:
-    pass
-
   #Variable declaration
   repository = "diffs"
   delLines = 0
