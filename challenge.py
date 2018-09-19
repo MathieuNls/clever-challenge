@@ -33,12 +33,8 @@ def result(filename):
   for line in open(filename):
   # to optimize we did test to be sure we use a useful line
    
-    # ignore lines starting with "+++" or "---" or "index" or "deleted" or "new"
-    if ( line.startswith("+++") or line.startswith("---") or line.startswith("index") or line.startswith("deleted") or line.startswith("new")):
-      pass
-    
     # Enter here only in lines starting with diff
-    elif ( line.startswith("diff") ):
+    if ( line.startswith("diff") ):
       # check if we got a match with regex file name
       for match in re.findall(regex_FileNamePattern, line):
         Files_array.append(match)
