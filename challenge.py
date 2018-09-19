@@ -6,9 +6,6 @@ List_calls = "calls.txt"
 List_files = "list_files.txt"
 result_stat = "stat.txt"
 
-#set flags to optimise computation files or call if not needed
-flag_file = 1
-flag_calls = 1
 def result(filename):
   
   #local variable declaration
@@ -106,10 +103,8 @@ if __name__ == "__main__":
     delLines = delLines + data[1]
     addLines = addLines + data[2]
     regionLines = regionLines + data[3]
-    if (flag_calls == 1):
-      all_calls += data[4]
-    if (flag_file == 1):
-      all_files += data[0]
+    all_calls += data[4]
+    all_files += data[0]
   
   #count the occurence of call functions and put 
   #results in dictionary count
@@ -120,11 +115,10 @@ if __name__ == "__main__":
       counts[call] = 1
   
   #write all call functions founded in diffs
-  if (flag_calls == 1):
-    with open(List_calls, 'w') as f:
-      for key, value in counts.items():
-        f.write('%s:%s\n' % (key, value))
-    f.close()
+  with open(List_calls, 'w') as f:
+    for key, value in counts.items():
+      f.write('%s:%s\n' % (key, value))
+  f.close()
 
   #print results of deleted, added and region
     # print("deleted lines : %d" % delLines)
@@ -139,10 +133,9 @@ if __name__ == "__main__":
   f.close()
 
   #Write all files name of diffs
-  if (flag_file == 1):
-    all_files = set(all_files)
-    with open(List_files, 'w') as f:
-      for file in all_files:
-        f.write("%s\n" % file)
-    f.close()
+  all_files = set(all_files)
+  with open(List_files, 'w') as f:
+    for file in all_files:
+      f.write("%s\n" % file)
+  f.close()
 
