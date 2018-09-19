@@ -8,52 +8,52 @@ result_stat = "stat.txt"
 
 def result(filename):
   
-  #local variable declaration
+  # local variable declaration
   deleted = 0 
   added = 0 
   region = 0 
   calls = []
   Files_array = []
   
-  #Regular expression declaration 
+  # Regular expression declaration 
   regex_FileName = '^diff --git a.+[ ]b/(.+?)\n'
   regex_Del = "^-(?!--).*"
   regex_Add = "^\+(?!\+\+).*"
   regex_region = "^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)?\ @@[ ]?.*"
   regex_functionCall = "([\w]+)(?=\()"
   
-  #catch les nom des fonctions avec le regex, les mettres dans une liste, ensuite appliquer la fonction de l'occurence
+  # Compile Regex
   regex_FileNamePattern = re.compile(regex_FileName)
   regex_DelPattern = re.compile(regex_Del,re.DOTALL)
   regex_AddPattern = re.compile(regex_Add,re.DOTALL)
   regex_regionPattern = re.compile(regex_region)
   regex_functionCallPattern = re.compile(regex_functionCall)
   
-  #parcour each line of diff file
+  # parcour each line of diff file
   for line in open(filename):
-  #to optimize we did test to be sure we use a useful line
+  # to optimize we did test to be sure we use a useful line
    
-    #ignore lines starting with "+++" or "---" or "index" or "deleted" or "new"
+    # ignore lines starting with "+++" or "---" or "index" or "deleted" or "new"
     if ( line.startswith("+++") or line.startswith("---") or line.startswith("index") or line.startswith("deleted") or line.startswith("new")):
       pass
-    #Enter here only in lines starting with diff
-   
+    
+    # Enter here only in lines starting with diff
     elif ( line.startswith("diff") ):
-      #check if we got a match with regex file name
+      # check if we got a match with regex file name
       for match in re.findall(regex_FileNamePattern, line):
         Files_array.append(match)
    
-    #Enter here only in lines starting with @@ to detect regions
+    # Enter here only in lines starting with @@ to detect regions
     elif ( line.startswith("@@") ):
 
-      #regex to get region numbers
+      # regex to get region numbers
       for match in re.findall(regex_regionPattern, line):
         region = region + 1
     
-    #Enter here only in lines starting with - to detect deleted lines in diffs
+    # Enter here only in lines starting with - to detect deleted lines in diffs
     elif ( line.startswith("-") ):
       
-      #regex to get name of functions from deleted lines
+      # regex to get name of functions from deleted lines
       for match in re.findall(regex_functionCallPattern, line):
         #ignore detected statment as a functions names
         if match not in ('if', 'while', 'for', 'switch'):
@@ -63,26 +63,26 @@ def result(filename):
       for match in re.findall(regex_DelPattern, line):
         deleted = deleted + 1
 
-    #Enter here only in lines starting with + to detect deleted lines in diffs
+    # Enter here only in lines starting with + to detect deleted lines in diffs
     elif ( line.startswith("+") ):
       
-      #regex to get name of functions from added lines
+      # regex to get name of functions from added lines
       for match in re.findall(regex_functionCallPattern, line):
-        #ignore detected statment as a functions names
+        # ignore detected statment as a functions names
         if match not in ('if', 'while', 'for', 'switch'):
           calls.append(match)
       
-      #regex to get number of deleted lines
+      # regex to get number of deleted lines
       for match in re.findall(regex_AddPattern, line):
         added = added + 1
   
-  #Return all results of diff file 
+  # Return all results of diff file 
   return [Files_array,deleted,added,region,calls]
 
 
 if __name__ == "__main__":
   
-  #Variable declaration
+  # Variable declaration
   repository = "diffs"
   delLines = 0
   addLines = 0
@@ -94,7 +94,7 @@ if __name__ == "__main__":
   
   #ls files in repository diff
   for file in os.listdir(repository):
-    #create path of the file by joining repository with file name
+    # create path of the file by joining repository with file name
     file_path = os.path.join(repository,file)
     
     #collect results of one diff file
@@ -106,15 +106,15 @@ if __name__ == "__main__":
     all_calls += data[4]
     all_files += data[0]
   
-  #count the occurence of call functions and put 
-  #results in dictionary count
+  # count the occurence of call functions and put 
+  # results in dictionary count
   for call in all_calls:
     if call in counts:
       counts[call] += 1
     else:
       counts[call] = 1
   
-  #write all call functions founded in diffs
+  # write all call functions founded in diffs
   with open(List_calls, 'w') as f:
     for key, value in counts.items():
       f.write('%s:%s\n' % (key, value))
@@ -125,14 +125,14 @@ if __name__ == "__main__":
     # print("added lines : %d" % addLines)
     # print("region lines : %d" % regionLines)
   
-  #write statistic diffs in file
+  # Write statistic diffs in file
   with open( result_stat, 'w' ) as f:
     f.write(str(delLines)+'\n')
     f.write(str(addLines)+'\n')
     f.write(str(regionLines)+'\n')
   f.close()
 
-  #Write all files name of diffs
+  # Write all files name of diffs
   all_files = set(all_files)
   with open(List_files, 'w') as f:
     for file in all_files:
