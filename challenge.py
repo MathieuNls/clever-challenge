@@ -1,6 +1,6 @@
 import os
 import re
-import numpy as np
+
 
 List_calls = "calls.txt"
 List_files = "list_files.txt"
@@ -27,14 +27,14 @@ def result(filename):
   regex_regionPattern = re.compile(regex_region)
   regex_functionCallPattern = re.compile(regex_functionCall)
   calls = []
-  Files_array = np.array([])
+  Files_array = []
   #parcour each line of diff file
   for line in open(filename):
     #to optimize we did test to be sure we use a useful line
     if ( line.startswith("diff") ):
       #check if we got a match with regex file name
       for match in re.findall(regex_FileNamePattern, line):
-        Files_array = np.append(Files_array, match)
+        Files_array.append(match)
     elif ( line.startswith("@@") ):
       for match in re.findall(regex_regionPattern, line):
         region = region + 1
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     if (flag_calls == 1):
       all_calls += data[4]
     if (flag_file == 1):
-      all_files = np.append(all_files , data[0])
+      all_files += data[0]
   
   #count the occurence of call functions and put 
   #results in dictionary count
@@ -109,7 +109,7 @@ if __name__ == "__main__":
   f.close()
   #Write all files name in the 
   if (flag_file == 1):
-    all_files = np.unique(all_files)
+    all_files = set(all_files)
     with open(List_files, 'w') as f:
       for file in all_files:
         f.write("%s\n" % file)
