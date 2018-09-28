@@ -9,7 +9,7 @@ import (
 	"os"
 	"io/ioutil"
 	"log"
-	"path"
+	"path/filepath"
 	"regexp"
 )
 
@@ -41,72 +41,77 @@ func main() {
 //	list of function calls seen in the diffs and their number of calls
 func compute() *result {
 	const diff_dir_path = "./diffs/"
-    files, err := ioutil.ReadDir(diff_dir_path)
-    if err != nil {
-        log.Fatal(err)
-    }
+	files, err := ioutil.ReadDir(diff_dir_path)
+	if err != nil {
+		log.Fatal(err)
+	}
 	res := result{}
-    for _, f := range files {
-		file_path := path.Join(diff_dir_path, f.Name())
-        get_data(&res, &file_path)
-    }
+	for _, f := range files {
+		file_path := filepath.Join(diff_dir_path, f.Name())
+		get_data(&res, &file_path)
+	}
 	return &res
 }
 
-func get_data(res *result, file_path *string) {
-    file, err := os.Open(*file_path)
-	defer file.Close()
-    if err != nil {
-        log.Fatal(err)
-    }
-    scanner := bufio.NewScanner(file)
+const (
+	DIFF = iota
+	REGION = iota
+	UPDATE = iota
+)
 
-	task_list := []string{"DIFF", "REGION", "UPDATE"}
-    for scanner.Scan() {
-		if scanner.Text() != "" {
-			if len(scanner.Text()) > 0 {
-				for _, task := range task_list {
-					success, on_success := execute_task(&task, scanner.Text(), res)
-					if success && len(on_success) == 0 {
-						continue
-					} else if success {
-						task_list = on_success
-						break
-					}
+func get_data(res *result, file_path *string) {
+	file, err := os.Open(*file_path)
+	defer file.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+	scanner := bufio.NewScanner(file)
+
+	// the method executes tasks to detect various states of walk of the diff files being walked
+	// tasks find clues about transitioning to a new state, states being 
+	// 'in a diff headline' (DIFF), 'in a region headline' (REGION) 'in diff content' (UPDATE)
+	task_list := []uint{DIFF, REGION, UPDATE}
+	var line string
+	for scanner.Scan() {
+		line = scanner.Text()
+		if line != "" && len(line) > 0 {
+			for _, task := range task_list {
+				success, on_success := execute_task(&task, &line, res)
+				if success {
+					task_list = on_success
+					break
 				}
 			}
 		}
-    }
-    if err := scanner.Err(); err != nil {
-        log.Fatal(err)
-    }
+	}
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
 }
 
-func execute_task(task *string, line string, res *result) (bool, []string) {
-	success := false
-	on_success := make([]string, 0)
-	if *task == "DIFF" {
-		if is_new_diff(&line, res) {
-			success = true
-			on_success = append(on_success, "REGION")
-		}
-	} else if *task == "REGION" {
-		if is_new_region(&line, res) {
-			success = true
-			on_success = append(on_success, "DIFF", "REGION", "UPDATE")
-		}
-	} else if *task == "UPDATE" {
-		parse_line_update(line[0], res)
-		// is function
-		if c_code(res) {
+func execute_task(task *uint, line *string, res *result) (bool, []uint) {
+	var on_success []uint
+	var success bool
+	success = false
+	on_success = make([]uint, 0)
+	if *task == DIFF && is_new_diff(line, res) {
+		success = true
+		on_success = append(on_success, REGION)
+	} else if *task == REGION && is_new_region(line, res) {
+		success = true
+		on_success = append(on_success, DIFF, REGION, UPDATE)
+	} else if *task == UPDATE {
+		parse_line_update((*line)[0], res)
+		// search function call pattern
+		if len(res.files) > 0 && filepath.Ext(res.files[len(res.files) - 1]) == ".c" {
 			c_func_pattern := regexp.MustCompile(`[_a-zA-Z]+[_a-zA-Z0-9]*\w*\(.*\)[\w/]*;`)
-			match := c_func_pattern.FindAllStringIndex(line, -1)
+			match := c_func_pattern.FindAllStringIndex(*line, -1)
 			for _, val := range match {
-				func_name := line[val[0] : val[1]]
+				func_name := (*line)[val[0] : val[1]]
 				opening_parenthesis := regexp.MustCompile(`\(`)
 				match_par := opening_parenthesis.FindStringIndex(func_name)
 				if len(match_par) == 2 {
-					func_name := line[val[0] : val[0] + match_par[0]]
+					func_name := (*line)[val[0] : val[0] + match_par[0]]
 					if _, ok := res.functionCalls[func_name]; ok {
 						res.functionCalls[func_name]++
 					} else if res.functionCalls != nil {
@@ -114,6 +119,8 @@ func execute_task(task *string, line string, res *result) (bool, []string) {
 					} else {
 						res.functionCalls = map[string]int{func_name : 1}
 					}
+				} else {
+					log.Fatal("%v", match)
 				}
 			}
 		}
@@ -121,31 +128,17 @@ func execute_task(task *string, line string, res *result) (bool, []string) {
 	return success, on_success
 }
 
-func c_code(res *result) bool {
-	has_c_ext := false
-	if len(res.files) > 0 {
-		if path.Ext(res.files[len(res.files) - 1]) == ".c" {
-			has_c_ext = true
-		}
-	}
-	return has_c_ext
-}
-
 // Extract $file_path_a and $file_path_b if line = 'diff --git a/$file_path_a b/$file_path_b'
 func is_new_diff(line *string, res *result) bool {
 	new_diff := false
-	if line != nil {
-		if len(*line) > 10 {
-			if (*line)[:11] == "diff --git " {
-				file_a_pattern := regexp.MustCompile(`a/.* b/`)
-				match := file_a_pattern.FindStringIndex(*line)
-				if len(match) == 2 {
-					file_a := (*line)[match[0] + 2 : match[1] - 3]
-					file_b := strings.TrimSpace((*line)[match[1] :])
-					res.files = append(res.files, file_a, file_b)
-					new_diff = true
-				}
-			}
+	if line != nil && strings.HasPrefix((*line), "diff --git") {
+		file_a_pattern := regexp.MustCompile(`a/.* b/`)
+		match := file_a_pattern.FindStringIndex(*line)
+		if len(match) == 2 {
+			file_a := (*line)[match[0] + 2 : match[1] - 3]
+			file_b := strings.TrimSpace((*line)[match[1] :])
+			res.files = append(res.files, file_a, file_b)
+			new_diff = true
 		}
 	}
 	return new_diff
@@ -166,9 +159,9 @@ func is_new_region(line *string, res *result) bool {
 // Track reference of '+' or '-' in front_char of a line 
 // to indicate added / removed lines in diff
 func parse_line_update(front_char byte, res *result) {
-    if front_char == '+' {
-        res.lineAdded += 1
+	if front_char == '+' {
+		res.lineAdded += 1
 	} else if front_char == '-' {
-        res.lineDeleted += 1
+		res.lineDeleted += 1
 	}
 }
