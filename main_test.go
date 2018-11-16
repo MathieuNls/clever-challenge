@@ -16,26 +16,26 @@ func BenchmarkConcurrencyReadingOnly(b *testing.B) {
 	}
 }
 
-func BenchmarkConcurrency(b *testing.B) {
+func BenchmarkConcurrencyChannelsOneGoroutinePerLine(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		compute()
+		computeConcurrencyChannelsOneGoroutinePerLine()
 	}
 }
 
-func BenchmarkConcurrencyMutexes(b *testing.B) {
+func BenchmarkConcurrencyMutexesOneGoroutinePerLine(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		computeConcurrencyMutexes()
+		computeConcurrencyMutexesOneGoroutinePerLine()
 	}
 }
 
-func BenchmarkConcurrencyMutexesWithWorkers(b *testing.B) {
+func BenchmarkConcurrencyMutexesOneGoroutinePerCPU(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		computeConcurrencyMutexesWithWorkers()
+		computeConcurrencyMutexesOneGoroutinePerCPU()
 	}
 }
 
-func BenchmarkConcurrencyChannelsWithWorkers(b *testing.B) {
+func BenchmarkConcurrencyChannelsOneGoroutinePerCPU(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		computeConcurrencyChannelsWithWorkers()
+		computeConcurrencyChannelsOneGoroutinePerCPU()
 	}
 }
