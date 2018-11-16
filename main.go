@@ -40,7 +40,7 @@ func main() {
 func compute() *result {
 	root := "./diffs"
 
-	re, err := regexp.Compile("[A-Za-z_][A-Za-z0-9_]+\\(")
+	re, err := regexp.Compile("[A-Za-z_][A-Za-z0-9_]*\\(")
 	if err != nil {
 		fmt.Println(err)
 	}
