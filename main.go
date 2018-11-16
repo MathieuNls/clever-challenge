@@ -122,8 +122,8 @@ func compute() *result {
 
 					matches := re.FindAllString(line, -1)
 					for _, match := range matches {
-						// We'll keep only the function name i.e. remove the parentheses and params
-						functionCall := match[:len(match)-1]
+						// We'll keep only the function name i.e. remove the bracket '('
+						functionCall := strings.TrimSuffix(match, "(")
 						functionCallsChan <- functionCall
 					}
 				}
