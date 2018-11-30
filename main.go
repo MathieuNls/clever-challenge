@@ -23,15 +23,4 @@ func main() {
 	fmt.Println(compute())
 }
 
-//compute parses the git diffs in ./diffs and returns
-//a result struct that contains all the relevant informations
-//about these diffs
-//	list of files in the diffs
-//	number of regions
-//	number of line added
-//	number of line deleted
-//	list of function calls seen in the diffs and their number of calls
-func compute() *result {
-
-	return nil
-}
+var compute = computeConcurrencyChannelsOneGoroutinePerCPU
