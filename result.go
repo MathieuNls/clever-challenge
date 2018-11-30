@@ -9,14 +9,14 @@ import (
 type result struct {
 	//The name of the files seen
 	files []string
-	//How many region we have (i.e. seperated by @@)
+	//The name of the files seen
 	regions int
 	//How many line were added total
 	lineAdded int
 	//How many line were deleted totla
 	lineDeleted int
-	//How many times the function seen in the code are called.
-	functionCalls map[string]int
+	//How many times the functionj seen in the code are called before and after
+	functionCalls map[string]struct{ before, after int }
 }
 
 //String returns the value of results as a formated string
@@ -33,9 +33,15 @@ func (r *result) String() string {
 	r.appendIntValueToBuffer(r.lineAdded, "LA", &buffer)
 	r.appendIntValueToBuffer(r.lineDeleted, "LD", &buffer)
 
-	buffer.WriteString("Functions calls: \n")
+	buffer.WriteString("Function calls (before, after): \n")
 	for key, value := range r.functionCalls {
-		r.appendIntValueToBuffer(value, key, &buffer)
+		buffer.WriteString("\t")
+		buffer.WriteString(key)
+		buffer.WriteString(" : ")
+		buffer.WriteString(strconv.Itoa(value.before))
+		buffer.WriteString(", ")
+		buffer.WriteString(strconv.Itoa(value.after))
+		buffer.WriteString("\n")
 	}
 
 	return buffer.String()
