@@ -1,5 +1,7 @@
 #![allow(non_snake_case)]
 use std::time::Instant;
+use std::path::Path;
+use std::collections::{HashMap, HashSet};
 
 mod result;
 use result::Result;
@@ -27,7 +29,7 @@ fn timeTrack(start: Instant, string: &'static str) {
 fn main() {
     let now = Instant::now();
 
-    println!("{}", compute());
+    println!("{}", compute().unwrap());
 
     timeTrack(now, "compute diff");
 }
@@ -40,6 +42,18 @@ fn main() {
 //  number of line added
 //  number of line deleted
 //  list of function calls seen in the diffs and their number of calls
-fn compute() -> Result {
-    Result::empty()
+fn compute() -> std::result::Result<Result, std::io::Error> {
+    let mut retVal = Result::empty();
+    let data_folder = Path::new("./diffs");
+
+    for entry in data_folder.read_dir()? {
+        let entry = entry?;
+        if entry.path().is_file() {
+            let mut files = HashSet::new();
+            files.insert(entry.file_name().into_string().unwrap());
+            retVal += Result::new(files, 0, 0, 0, HashMap::new());
+        }
+    }
+
+    Ok(retVal)
 }
