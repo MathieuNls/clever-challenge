@@ -22,7 +22,7 @@ impl Result {
         Self::new(HashSet::new(), 0, 0, 0, HashMap::new())
     }
 
-    // Constructor for a Result struct that expects everything to be handed to it.  
+    // Constructor for a Result struct that expects everything to be handed to it.
     pub fn new(files: HashSet<String>,
                regions: usize,
                lineAdded: usize,
@@ -39,7 +39,7 @@ impl Result {
     }
 }
 
-// Implementation of the formating system in rust ensuring that the structure may be 
+// Implementation of the formating system in rust ensuring that the structure may be
 // printed in a way close to that of the print statment provided in the go structure.
 impl fmt::Display for Result {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -63,13 +63,19 @@ impl fmt::Display for Result {
 // how results are combined.
 impl AddAssign for Result {
     fn add_assign(&mut self, mut other: Result) {
-        other.files.drain().for_each(|file| {self.files.insert(file);});
+        other
+            .files
+            .drain()
+            .for_each(|file| { self.files.insert(file); });
         self.regions += other.regions;
         self.lineAdded += other.lineAdded;
         self.lineDeleted += other.lineDeleted;
-        other.functionCalls.drain().for_each(|(key, value)| {
-            let to_add = *self.functionCalls.get(&key).unwrap_or(&0);
-            self.functionCalls.insert(key, value + to_add);
-        });
+        other
+            .functionCalls
+            .drain()
+            .for_each(|(key, value)| {
+                          let to_add = *self.functionCalls.get(&key).unwrap_or(&0);
+                          self.functionCalls.insert(key, value + to_add);
+                      });
     }
 }
