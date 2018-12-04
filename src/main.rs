@@ -1,10 +1,11 @@
 #![allow(non_snake_case)]
 use std::time::Instant;
 use std::path::Path;
-use std::collections::{HashMap, HashSet};
 
 mod result;
 use result::Result;
+
+mod diff;
 
 // timeTrack has been modified in the conversion from go to Rust.
 // Unfortunetly, the time library has many direct time functions
@@ -49,9 +50,10 @@ fn compute() -> std::result::Result<Result, std::io::Error> {
     for entry in data_folder.read_dir()? {
         let entry = entry?;
         if entry.path().is_file() {
-            let mut files = HashSet::new();
-            files.insert(entry.file_name().into_string().unwrap());
-            retVal += Result::new(files, 0, 0, 0, HashMap::new());
+            match diff::diffStats(entry.path().as_path()) {
+                Some(result) => retVal += result,
+                None => eprintln!("Error reading stats for path {}.  Are you sure it exists?", entry.path().display())
+            }
         }
     }
 
