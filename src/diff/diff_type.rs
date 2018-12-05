@@ -12,6 +12,16 @@ pub enum DiffType {
     Subtraction,
 }
 
+impl DiffType {
+    pub fn is_file_body(&self) -> bool {
+        match self {
+            DiffType::FileLine | DiffType::Addition | DiffType::Subtraction |
+            DiffType::NewRegion => true,
+            _ => false,
+        }
+    }
+}
+
 /// Returns the diff status of a line.  There are a few states, including the different header
 /// lines, normal file lines, additions, and subtractions.
 ///

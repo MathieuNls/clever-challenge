@@ -7,7 +7,7 @@ mod diff_type;
 use self::diff_type::{DiffType, DiffFormatTyper};
 
 mod diff_parse;
-use self::diff_parse::header_filenames;
+use self::diff_parse::{find_functions, header_filenames};
 
 /// Given a file, return statistical information about the file as if it were a diff file.
 /// Returns Some Result if the file could be read and None if the reading failed.
@@ -35,7 +35,8 @@ pub fn diffStats(file: &Path) -> Option<Result> {
         let mut diff_format_typer = DiffFormatTyper::new();
         let lines = file_data.lines();
         for line in lines {
-            match diff_format_typer.type_line(line) {
+            let diff_type = diff_format_typer.type_line(line);
+            match diff_type {
                 None => break,
                 Some(DiffType::Header) => {
                     let (file1, file2) = header_filenames(line);
@@ -47,6 +48,11 @@ pub fn diffStats(file: &Path) -> Option<Result> {
                 Some(DiffType::Subtraction) => retVal.count_removed_line(),
                 _ => {}
             };
+            if let Some(diff_type) = diff_type {
+                if diff_type.is_file_body() {
+                    find_functions(line, &mut retVal);
+                }
+            }
         }
 
         Some(retVal)

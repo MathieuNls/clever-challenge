@@ -42,6 +42,11 @@ impl Result {
         self.files.insert(filename);
     }
 
+    pub fn add_function_call(&mut self, function: String) {
+        let current = *self.functionCalls.get(&function).unwrap_or(&0);
+        self.functionCalls.insert(function,current + 1);
+    }
+
     pub fn add_region(&mut self) {
         self.regions += 1
     }
