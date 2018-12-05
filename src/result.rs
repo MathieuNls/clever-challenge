@@ -41,6 +41,14 @@ impl Result {
     pub fn add_region(&mut self) {
         self.regions += 1
     }
+
+    pub fn count_added_line(&mut self) {
+        self.lineAdded += 1
+    }
+
+    pub fn count_removed_line(&mut self) {
+        self.lineDeleted += 1
+    }
 }
 
 // Implementation of the formating system in rust ensuring that the structure may be

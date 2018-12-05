@@ -37,8 +37,8 @@ pub fn diffStats(file: &Path) -> Option<Result> {
                 Some(DiffType::NewFile) => {}
                 Some(DiffType::NewRegion) => retVal.add_region(),
                 Some(DiffType::FileLine) => {}
-                Some(DiffType::Addition) => {}
-                Some(DiffType::Subtraction) => {}
+                Some(DiffType::Addition) => retVal.count_added_line(),
+                Some(DiffType::Subtraction) => retVal.count_removed_line(),
             };
         }
 
