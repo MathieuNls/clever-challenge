@@ -37,6 +37,10 @@ impl Result {
             functionCalls,
         }
     }
+
+    pub fn add_region(&mut self) {
+        self.regions += 1
+    }
 }
 
 // Implementation of the formating system in rust ensuring that the structure may be
