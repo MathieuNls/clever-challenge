@@ -31,15 +31,10 @@ pub fn diffStats(file: &Path) -> Option<Result> {
         for line in lines {
             match diff_format_typer.type_line(line) {
                 None => break,
-                Some(DiffType::Header) => {}
-                Some(DiffType::Index) => {}
-                Some(DiffType::OriginalFile) => {}
-                Some(DiffType::NewFile) => {}
-                Some(DiffType::NewMode) => {}
                 Some(DiffType::NewRegion) => retVal.add_region(),
-                Some(DiffType::FileLine) => {}
                 Some(DiffType::Addition) => retVal.count_added_line(),
                 Some(DiffType::Subtraction) => retVal.count_removed_line(),
+                _ => {}
             };
         }
 
@@ -58,6 +53,7 @@ enum DiffType {
     NewFile,
     NewMode,
     NewRegion,
+    FileDeleted,
     FileLine,
     Addition,
     Subtraction,
@@ -111,7 +107,7 @@ impl DiffFormatTyper {
         let diff_type = diff_type(line);
         let diff_type_fixed = match self.last.clone() {
             None => {
-                match diff_type { 
+                match diff_type {
                     DiffType::Header => Some(DiffType::Header),
                     _ => None,
                 }
@@ -119,14 +115,22 @@ impl DiffFormatTyper {
             Some(last_type) => {
                 match last_type {
                     DiffType::Header => {
-                        match diff_type { 
+                        match diff_type {
                             this @ DiffType::Index |
                             this @ DiffType::NewMode => Some(this),
+                            DiffType::Header => {
+                                if line.starts_with("deleted") {
+                                    Some(DiffType::FileDeleted)
+                                } else {
+                                    None
+                                }
+                            }
                             _ => None,
                         }
                     }
                     DiffType::Index => {
-                        match diff_type { 
+                        match diff_type {
+                            this @ DiffType::Header => Some(this),
                             DiffType::Subtraction => {
                                 if line.starts_with("---") {
                                     Some(DiffType::OriginalFile)
@@ -138,7 +142,7 @@ impl DiffFormatTyper {
                         }
                     }
                     DiffType::OriginalFile => {
-                        match diff_type { 
+                        match diff_type {
                             DiffType::Addition => {
                                 if line.starts_with("+++") {
                                     Some(DiffType::NewFile)
@@ -150,13 +154,19 @@ impl DiffFormatTyper {
                         }
                     }
                     DiffType::NewFile => {
-                        match diff_type { 
-                            DiffType::NewRegion => Some(DiffType::NewRegion),
+                        match diff_type {
+                            this @ DiffType::NewRegion => Some(this),
                             _ => None,
                         }
                     }
                     DiffType::NewMode => {
-                        match diff_type { 
+                        match diff_type {
+                            this @ DiffType::Index => Some(this),
+                            _ => None,
+                        }
+                    }
+                    DiffType::FileDeleted => {
+                        match diff_type {
                             this @ DiffType::Index => Some(this),
                             _ => None,
                         }
