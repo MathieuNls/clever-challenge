@@ -26,20 +26,21 @@ pub fn diffStats(file: &Path) -> Option<Result> {
                 return None;
             }
         };
-        file_data
-            .lines()
-            .for_each(|line| {
-                match diff_type(line) {
-                    DiffType::Header => {}
-                    DiffType::Index => {}
-                    DiffType::OriginalFile => {}
-                    DiffType::NewFile => {}
-                    DiffType::NewRegion => retVal.add_region(),
-                    DiffType::FileLine => {}
-                    DiffType::Addition => {}
-                    DiffType::Subtraction => {}
-                };
-            });
+        let mut diff_format_typer = DiffFormatTyper::new();
+        let lines = file_data.lines();
+        for line in lines {
+            match diff_format_typer.type_line(line) {
+                None => break,
+                Some(DiffType::Header) => {}
+                Some(DiffType::Index) => {}
+                Some(DiffType::OriginalFile) => {}
+                Some(DiffType::NewFile) => {}
+                Some(DiffType::NewRegion) => retVal.add_region(),
+                Some(DiffType::FileLine) => {}
+                Some(DiffType::Addition) => {}
+                Some(DiffType::Subtraction) => {}
+            };
+        }
 
         Some(retVal)
     } else {
@@ -48,6 +49,7 @@ pub fn diffStats(file: &Path) -> Option<Result> {
 }
 
 
+#[derive(Debug, Clone)]
 enum DiffType {
     Header,
     Index,
@@ -93,6 +95,85 @@ fn diff_type(line: &str) -> DiffType {
     }
 }
 
+struct DiffFormatTyper {
+    last: Option<DiffType>,
+}
+
+impl DiffFormatTyper {
+    fn new() -> Self {
+        DiffFormatTyper { last: None }
+    }
+
+    fn type_line(&mut self, line: &str) -> Option<DiffType> {
+        let diff_type = diff_type(line);
+        let diff_type_fixed = match self.last.clone() {
+            None => {
+                match diff_type { 
+                    DiffType::Header => Some(DiffType::Header),
+                    _ => None,
+                }
+            }
+            Some(last_type) => {
+                match last_type {
+                    DiffType::Header => {
+                        match diff_type { 
+                            this @ DiffType::Index => Some(this),
+                            _ => None,
+                        }
+                    }
+                    DiffType::Index => {
+                        match diff_type { 
+                            DiffType::Subtraction => {
+                                if line.starts_with("---") {
+                                    Some(DiffType::OriginalFile)
+                                } else {
+                                    None
+                                }
+                            }
+                            _ => None,
+                        }
+                    }
+                    DiffType::OriginalFile => {
+                        match diff_type { 
+                            DiffType::Addition => {
+                                if line.starts_with("+++") {
+                                    Some(DiffType::NewFile)
+                                } else {
+                                    None
+                                }
+                            }
+                            _ => None,
+                        }
+                    }
+                    DiffType::NewFile => {
+                        match diff_type { 
+                            DiffType::NewRegion => Some(DiffType::NewRegion),
+                            _ => None,
+                        }
+                    }
+                    DiffType::NewRegion | DiffType::FileLine | DiffType::Addition |
+                    DiffType::Subtraction => {
+                        match diff_type {
+                            this @ DiffType::FileLine |
+                            this @ DiffType::Addition |
+                            this @ DiffType::Subtraction |
+                            this @ DiffType::NewRegion |
+                            this @ DiffType::Header => Some(this),
+                            _ => None,
+                        }
+                    }
+                }
+            }
+        };
+        if let None = diff_type_fixed {
+            eprintln!("Error: Diff file is not formated correctly.  Line {} after {:?} was unexpected.",
+                      line,
+                      self.last);
+        }
+        self.last = diff_type_fixed;
+        self.last.clone()
+    }
+}
 
 
 #[cfg(test)]
