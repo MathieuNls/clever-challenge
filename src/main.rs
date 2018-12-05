@@ -33,9 +33,11 @@ fn timeTrack(start: Instant, string: &'static str) {
 fn main() {
     let now = Instant::now();
 
-    println!("{}", compute().unwrap());
-
+    let compute = compute().unwrap();
     timeTrack(now, "compute diff");
+    let now = Instant::now();
+    println!("{}", compute);
+    timeTrack(now, "compute print");
 }
 
 // compute parses the git diffs in ./diffs and returns
