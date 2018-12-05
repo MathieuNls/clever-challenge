@@ -1,4 +1,7 @@
 #![allow(non_snake_case)]
+extern crate regex;
+#[macro_use] extern crate lazy_static;
+
 use std::time::Instant;
 use std::path::Path;
 

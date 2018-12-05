@@ -38,6 +38,10 @@ impl Result {
         }
     }
 
+    pub fn add_filename(&mut self, filename: String) {
+        self.files.insert(filename);
+    }
+
     pub fn add_region(&mut self) {
         self.regions += 1
     }

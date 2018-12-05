@@ -6,6 +6,9 @@ use std::path::Path;
 mod diff_type;
 use self::diff_type::{DiffType, DiffFormatTyper};
 
+mod diff_parse;
+use self::diff_parse::header_filenames;
+
 /// Given a file, return statistical information about the file as if it were a diff file.
 /// Returns Some Result if the file could be read and None if the reading failed.
 ///
@@ -34,6 +37,11 @@ pub fn diffStats(file: &Path) -> Option<Result> {
         for line in lines {
             match diff_format_typer.type_line(line) {
                 None => break,
+                Some(DiffType::Header) => {
+                    let (file1, file2) = header_filenames(line);
+                    retVal.add_filename(file1);
+                    retVal.add_filename(file2);
+                }
                 Some(DiffType::NewRegion) => retVal.add_region(),
                 Some(DiffType::Addition) => retVal.count_added_line(),
                 Some(DiffType::Subtraction) => retVal.count_removed_line(),
