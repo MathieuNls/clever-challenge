@@ -35,6 +35,7 @@ pub fn diffStats(file: &Path) -> Option<Result> {
                 Some(DiffType::Index) => {}
                 Some(DiffType::OriginalFile) => {}
                 Some(DiffType::NewFile) => {}
+                Some(DiffType::NewMode) => {}
                 Some(DiffType::NewRegion) => retVal.add_region(),
                 Some(DiffType::FileLine) => {}
                 Some(DiffType::Addition) => retVal.count_added_line(),
@@ -55,6 +56,7 @@ enum DiffType {
     Index,
     OriginalFile,
     NewFile,
+    NewMode,
     NewRegion,
     FileLine,
     Addition,
@@ -87,6 +89,7 @@ fn diff_type(line: &str) -> DiffType {
     match line.chars().next().unwrap_or(' ') {
         'd' => DiffType::Header,
         'i' => DiffType::Index,
+        'n' => DiffType::NewMode,
         '@' => DiffType::NewRegion,
         '+' => DiffType::Addition,
         '-' => DiffType::Subtraction,
@@ -117,7 +120,8 @@ impl DiffFormatTyper {
                 match last_type {
                     DiffType::Header => {
                         match diff_type { 
-                            this @ DiffType::Index => Some(this),
+                            this @ DiffType::Index |
+                            this @ DiffType::NewMode => Some(this),
                             _ => None,
                         }
                     }
@@ -148,6 +152,12 @@ impl DiffFormatTyper {
                     DiffType::NewFile => {
                         match diff_type { 
                             DiffType::NewRegion => Some(DiffType::NewRegion),
+                            _ => None,
+                        }
+                    }
+                    DiffType::NewMode => {
+                        match diff_type { 
+                            this @ DiffType::Index => Some(this),
                             _ => None,
                         }
                     }
