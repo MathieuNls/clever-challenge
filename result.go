@@ -19,6 +19,8 @@ type result struct {
 	functionCalls map[string]int
 }
 
+
+
 //String returns the value of results as a formated string
 func (r *result) String() string {
 
