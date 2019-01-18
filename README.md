@@ -25,7 +25,19 @@ A trainee applicant must:
 
 ## The Challenge
 
-The challenge for trainee applicant consists in parsing a few diffs--in the most efficient way possible (speed, maintainability, evolvability, ...)--and compute the following statistics:
+To enter the challenge:
+
+- Fork this repository
+- Implement your solution
+- Open a pull request with your solution. In the body of the pull request, you can explain the choices you made if necessary.
+
+You can alter the data structure, add files, remove files ... you can even start from scratch in another language if you feel like it.
+However, note that we do use golang internally.
+
+If you don't feel comfortable sharing your pull-request with the world (pull-request are public) you can invite me (@mathieunls for github, bitbucket and gitlab) and Florent Jousset (@heeko for github, bitbucket and gitlab) to a private repo of yours. Don't bother to send code by email, we won't read it.
+
+### Part 1
+The first part of the challenge consists in parsing a few diffs--in the most efficient way possible (speed, maintainability, evolvability, ...)--and compute the following statistics:
 
 - list of files in the diffs
 - number of regions
@@ -52,16 +64,41 @@ func compute() *result {
 }
 ```
 
-To enter the challenge:
 
-- Fork this repository
-- Implement your solution
-- Open a pull request with your solution. In the body of the pull request, you can explain the choices you made if necessary.
 
-You can alter the data structure, add files, remove files ... you can even start from scratch in another language if you feel like it.
-However, note that we do use golang internally.
+### Part 2
+The second part of the challenge consists manipuling [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree). The problem consist of parsing an AST and return all declared variables in the given format _{variable-type}{variable}_:
 
-If you don't feel comfortable sharing your pull-request with the world (pull-request are public) you can invite me (@mathieunls for github, bitbucket and gitlab) and Florent Jousset (@heeko for github, bitbucket and gitlab) to a private repo of yours. Don't bother to send code by email, we won't read it.
+```
+{int}{myInt}
+{string}{myInt}
+{Foo}{myFooObject}
+...
+```
+
+You can find the AST in a JSON format [here](ast/astChallenge.json) and a visualization of it [here](ast/astChallengeViz.svg). This AST was generated for this piece of **C#** code:
+```C#
+void Main()
+{
+	//while bubble sort
+	var mas = new int[] { 5, 8, 0, 5, 2, 3 };
+	bool t = true;
+	while (t)
+	{
+		t = false;
+		for (int i = 0; i < mas.Length-1; i++)
+		{
+			if (mas[i] > mas[i + 1])
+			{
+				int temp = mas[i];
+				mas[i] = mas[i + 1];
+				mas[i + 1] = temp;
+				t = true;
+			}
+		}
+	}
+}
+```
 
 ## Permanent Positions
 
