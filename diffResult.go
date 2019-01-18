@@ -6,7 +6,7 @@ import (
 )
 
 //result contains an analysis of a set of commit
-type result struct {
+type diffResult struct {
 	//The name of the files seen
 	files []string
 	//How many region we have (i.e. seperated by @@)
@@ -20,7 +20,7 @@ type result struct {
 }
 
 //String returns the value of results as a formated string
-func (r *result) String() string {
+func (r *diffResult) String() string {
 
 	var buffer bytes.Buffer
 	buffer.WriteString("Files: \n")
@@ -42,7 +42,7 @@ func (r *result) String() string {
 }
 
 //appendIntValueToBuffer appends int value to a bytes buffer
-func (r result) appendIntValueToBuffer(value int, label string, buffer *bytes.Buffer) {
+func (r diffResult) appendIntValueToBuffer(value int, label string, buffer *bytes.Buffer) {
 	buffer.WriteString(label)
 	buffer.WriteString(" : ")
 	buffer.WriteString(strconv.Itoa(value))

@@ -1,0 +1,1258 @@
+{
+  "uuid": "",
+  "Root": {
+    "Type": "CompilationUnit",
+    "ValueText": null,
+    "Children": [
+      {
+        "Type": "MethodDeclaration",
+        "ValueText": null,
+        "Children": [
+          {
+            "Type": "PredefinedType",
+            "ValueText": null,
+            "Children": [
+              {
+                "Type": "VoidKeyword",
+                "ValueText": "void",
+                "Children": []
+              }
+            ]
+          },
+          {
+            "Type": "IdentifierToken",
+            "ValueText": "Main",
+            "Children": []
+          },
+          {
+            "Type": "ParameterList",
+            "ValueText": null,
+            "Children": [
+              {
+                "Type": "OpenParenToken",
+                "ValueText": "(",
+                "Children": []
+              },
+              {
+                "Type": "CloseParenToken",
+                "ValueText": ")",
+                "Children": []
+              }
+            ]
+          },
+          {
+            "Type": "Block",
+            "ValueText": null,
+            "Children": [
+              {
+                "Type": "OpenBraceToken",
+                "ValueText": "{",
+                "Children": []
+              },
+              {
+                "Type": "LocalDeclarationStatement",
+                "ValueText": null,
+                "Children": [
+                  {
+                    "Type": "VariableDeclaration",
+                    "ValueText": null,
+                    "Children": [
+                      {
+                        "Type": "IdentifierName(Type)",
+                        "ValueText": null,
+                        "Children": [
+                          {
+                            "Type": "IdentifierToken",
+                            "ValueText": "var",
+                            "Children": []
+                          }
+                        ]
+                      },
+                      {
+                        "Type": "VariableDeclarator",
+                        "ValueText": null,
+                        "Children": [
+                          {
+                            "Type": "IdentifierToken",
+                            "ValueText": "mas",
+                            "Children": []
+                          },
+                          {
+                            "Type": "EqualsValueClause",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "EqualsToken",
+                                "ValueText": "=",
+                                "Children": []
+                              },
+                              {
+                                "Type": "ArrayCreationExpression",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "NewKeyword",
+                                    "ValueText": "new",
+                                    "Children": []
+                                  },
+                                  {
+                                    "Type": "ArrayType",
+                                    "ValueText": null,
+                                    "Children": [
+                                      {
+                                        "Type": "PredefinedType",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "IntKeyword",
+                                            "ValueText": "int",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "ArrayRankSpecifier",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "OpenBracketToken",
+                                            "ValueText": "[",
+                                            "Children": []
+                                          },
+                                          {
+                                            "Type": "OmittedArraySizeExpression",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "OmittedArraySizeExpressionToken",
+                                                "ValueText": "",
+                                                "Children": []
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "Type": "CloseBracketToken",
+                                            "ValueText": "]",
+                                            "Children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "Type": "ArrayInitializerExpression",
+                                    "ValueText": null,
+                                    "Children": [
+                                      {
+                                        "Type": "OpenBraceToken",
+                                        "ValueText": "{",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "NumericLiteralExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "NumericLiteralToken",
+                                            "ValueText": "5",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "CommaToken",
+                                        "ValueText": ",",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "NumericLiteralExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "NumericLiteralToken",
+                                            "ValueText": "8",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "CommaToken",
+                                        "ValueText": ",",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "NumericLiteralExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "NumericLiteralToken",
+                                            "ValueText": "0",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "CommaToken",
+                                        "ValueText": ",",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "NumericLiteralExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "NumericLiteralToken",
+                                            "ValueText": "5",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "CommaToken",
+                                        "ValueText": ",",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "NumericLiteralExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "NumericLiteralToken",
+                                            "ValueText": "2",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "CommaToken",
+                                        "ValueText": ",",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "NumericLiteralExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "NumericLiteralToken",
+                                            "ValueText": "3",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "CloseBraceToken",
+                                        "ValueText": "}",
+                                        "Children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "SemicolonToken",
+                    "ValueText": ";",
+                    "Children": []
+                  }
+                ]
+              },
+              {
+                "Type": "LocalDeclarationStatement",
+                "ValueText": null,
+                "Children": [
+                  {
+                    "Type": "VariableDeclaration",
+                    "ValueText": null,
+                    "Children": [
+                      {
+                        "Type": "PredefinedType",
+                        "ValueText": null,
+                        "Children": [
+                          {
+                            "Type": "BoolKeyword",
+                            "ValueText": "bool",
+                            "Children": []
+                          }
+                        ]
+                      },
+                      {
+                        "Type": "VariableDeclarator",
+                        "ValueText": null,
+                        "Children": [
+                          {
+                            "Type": "IdentifierToken",
+                            "ValueText": "t",
+                            "Children": []
+                          },
+                          {
+                            "Type": "EqualsValueClause",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "EqualsToken",
+                                "ValueText": "=",
+                                "Children": []
+                              },
+                              {
+                                "Type": "TrueLiteralExpression",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "TrueKeyword",
+                                    "ValueText": "true",
+                                    "Children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "SemicolonToken",
+                    "ValueText": ";",
+                    "Children": []
+                  }
+                ]
+              },
+              {
+                "Type": "WhileStatement",
+                "ValueText": null,
+                "Children": [
+                  {
+                    "Type": "WhileKeyword",
+                    "ValueText": "while",
+                    "Children": []
+                  },
+                  {
+                    "Type": "OpenParenToken",
+                    "ValueText": "(",
+                    "Children": []
+                  },
+                  {
+                    "Type": "IdentifierName",
+                    "ValueText": null,
+                    "Children": [
+                      {
+                        "Type": "IdentifierToken",
+                        "ValueText": "t",
+                        "Children": []
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "CloseParenToken",
+                    "ValueText": ")",
+                    "Children": []
+                  },
+                  {
+                    "Type": "Block",
+                    "ValueText": null,
+                    "Children": [
+                      {
+                        "Type": "OpenBraceToken",
+                        "ValueText": "{",
+                        "Children": []
+                      },
+                      {
+                        "Type": "ExpressionStatement",
+                        "ValueText": null,
+                        "Children": [
+                          {
+                            "Type": "SimpleAssignmentExpression",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "IdentifierName",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "IdentifierToken",
+                                    "ValueText": "t",
+                                    "Children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "Type": "EqualsToken",
+                                "ValueText": "=",
+                                "Children": []
+                              },
+                              {
+                                "Type": "FalseLiteralExpression",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "FalseKeyword",
+                                    "ValueText": "false",
+                                    "Children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "Type": "SemicolonToken",
+                            "ValueText": ";",
+                            "Children": []
+                          }
+                        ]
+                      },
+                      {
+                        "Type": "ForStatement",
+                        "ValueText": null,
+                        "Children": [
+                          {
+                            "Type": "ForKeyword",
+                            "ValueText": "for",
+                            "Children": []
+                          },
+                          {
+                            "Type": "OpenParenToken",
+                            "ValueText": "(",
+                            "Children": []
+                          },
+                          {
+                            "Type": "VariableDeclaration",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "PredefinedType",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "IntKeyword",
+                                    "ValueText": "int",
+                                    "Children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "Type": "VariableDeclarator",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "IdentifierToken",
+                                    "ValueText": "i",
+                                    "Children": []
+                                  },
+                                  {
+                                    "Type": "EqualsValueClause",
+                                    "ValueText": null,
+                                    "Children": [
+                                      {
+                                        "Type": "EqualsToken",
+                                        "ValueText": "=",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "NumericLiteralExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "NumericLiteralToken",
+                                            "ValueText": "0",
+                                            "Children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "Type": "SemicolonToken",
+                            "ValueText": ";",
+                            "Children": []
+                          },
+                          {
+                            "Type": "LessThanExpression",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "IdentifierName",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "IdentifierToken",
+                                    "ValueText": "i",
+                                    "Children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "Type": "LessThanToken",
+                                "ValueText": "<",
+                                "Children": []
+                              },
+                              {
+                                "Type": "SubtractExpression",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "SimpleMemberAccessExpression",
+                                    "ValueText": null,
+                                    "Children": [
+                                      {
+                                        "Type": "IdentifierName",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "IdentifierToken",
+                                            "ValueText": "mas",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "DotToken",
+                                        "ValueText": ".",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "IdentifierName",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "IdentifierToken",
+                                            "ValueText": "Length",
+                                            "Children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "Type": "MinusToken",
+                                    "ValueText": "-",
+                                    "Children": []
+                                  },
+                                  {
+                                    "Type": "NumericLiteralExpression",
+                                    "ValueText": null,
+                                    "Children": [
+                                      {
+                                        "Type": "NumericLiteralToken",
+                                        "ValueText": "1",
+                                        "Children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "Type": "SemicolonToken",
+                            "ValueText": ";",
+                            "Children": []
+                          },
+                          {
+                            "Type": "PostIncrementExpression",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "IdentifierName",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "IdentifierToken",
+                                    "ValueText": "i",
+                                    "Children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "Type": "PlusPlusToken",
+                                "ValueText": "++",
+                                "Children": []
+                              }
+                            ]
+                          },
+                          {
+                            "Type": "CloseParenToken",
+                            "ValueText": ")",
+                            "Children": []
+                          },
+                          {
+                            "Type": "Block",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "OpenBraceToken",
+                                "ValueText": "{",
+                                "Children": []
+                              },
+                              {
+                                "Type": "IfStatement",
+                                "ValueText": null,
+                                "Children": [
+                                  {
+                                    "Type": "IfKeyword",
+                                    "ValueText": "if",
+                                    "Children": []
+                                  },
+                                  {
+                                    "Type": "OpenParenToken",
+                                    "ValueText": "(",
+                                    "Children": []
+                                  },
+                                  {
+                                    "Type": "GreaterThanExpression",
+                                    "ValueText": null,
+                                    "Children": [
+                                      {
+                                        "Type": "ElementAccessExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "IdentifierName",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "IdentifierToken",
+                                                "ValueText": "mas",
+                                                "Children": []
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "Type": "BracketedArgumentList",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "OpenBracketToken",
+                                                "ValueText": "[",
+                                                "Children": []
+                                              },
+                                              {
+                                                "Type": "Argument",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "IdentifierName",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "IdentifierToken",
+                                                        "ValueText": "i",
+                                                        "Children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "Type": "CloseBracketToken",
+                                                "ValueText": "]",
+                                                "Children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "GreaterThanToken",
+                                        "ValueText": ">",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "ElementAccessExpression",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "IdentifierName",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "IdentifierToken",
+                                                "ValueText": "mas",
+                                                "Children": []
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "Type": "BracketedArgumentList",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "OpenBracketToken",
+                                                "ValueText": "[",
+                                                "Children": []
+                                              },
+                                              {
+                                                "Type": "Argument",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "AddExpression",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "IdentifierName",
+                                                        "ValueText": null,
+                                                        "Children": [
+                                                          {
+                                                            "Type": "IdentifierToken",
+                                                            "ValueText": "i",
+                                                            "Children": []
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "Type": "PlusToken",
+                                                        "ValueText": "+",
+                                                        "Children": []
+                                                      },
+                                                      {
+                                                        "Type": "NumericLiteralExpression",
+                                                        "ValueText": null,
+                                                        "Children": [
+                                                          {
+                                                            "Type": "NumericLiteralToken",
+                                                            "ValueText": "1",
+                                                            "Children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "Type": "CloseBracketToken",
+                                                "ValueText": "]",
+                                                "Children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "Type": "CloseParenToken",
+                                    "ValueText": ")",
+                                    "Children": []
+                                  },
+                                  {
+                                    "Type": "Block",
+                                    "ValueText": null,
+                                    "Children": [
+                                      {
+                                        "Type": "OpenBraceToken",
+                                        "ValueText": "{",
+                                        "Children": []
+                                      },
+                                      {
+                                        "Type": "LocalDeclarationStatement",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "VariableDeclaration",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "PredefinedType",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "IntKeyword",
+                                                    "ValueText": "int",
+                                                    "Children": []
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "Type": "VariableDeclarator",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "IdentifierToken",
+                                                    "ValueText": "temp",
+                                                    "Children": []
+                                                  },
+                                                  {
+                                                    "Type": "EqualsValueClause",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "EqualsToken",
+                                                        "ValueText": "=",
+                                                        "Children": []
+                                                      },
+                                                      {
+                                                        "Type": "ElementAccessExpression",
+                                                        "ValueText": null,
+                                                        "Children": [
+                                                          {
+                                                            "Type": "IdentifierName",
+                                                            "ValueText": null,
+                                                            "Children": [
+                                                              {
+                                                                "Type": "IdentifierToken",
+                                                                "ValueText": "mas",
+                                                                "Children": []
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "Type": "BracketedArgumentList",
+                                                            "ValueText": null,
+                                                            "Children": [
+                                                              {
+                                                                "Type": "OpenBracketToken",
+                                                                "ValueText": "[",
+                                                                "Children": []
+                                                              },
+                                                              {
+                                                                "Type": "Argument",
+                                                                "ValueText": null,
+                                                                "Children": [
+                                                                  {
+                                                                    "Type": "IdentifierName",
+                                                                    "ValueText": null,
+                                                                    "Children": [
+                                                                      {
+                                                                        "Type": "IdentifierToken",
+                                                                        "ValueText": "i",
+                                                                        "Children": []
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "Type": "CloseBracketToken",
+                                                                "ValueText": "]",
+                                                                "Children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "Type": "SemicolonToken",
+                                            "ValueText": ";",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "ExpressionStatement",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "SimpleAssignmentExpression",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "ElementAccessExpression",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "IdentifierName",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "IdentifierToken",
+                                                        "ValueText": "mas",
+                                                        "Children": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "Type": "BracketedArgumentList",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "OpenBracketToken",
+                                                        "ValueText": "[",
+                                                        "Children": []
+                                                      },
+                                                      {
+                                                        "Type": "Argument",
+                                                        "ValueText": null,
+                                                        "Children": [
+                                                          {
+                                                            "Type": "IdentifierName",
+                                                            "ValueText": null,
+                                                            "Children": [
+                                                              {
+                                                                "Type": "IdentifierToken",
+                                                                "ValueText": "i",
+                                                                "Children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "Type": "CloseBracketToken",
+                                                        "ValueText": "]",
+                                                        "Children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "Type": "EqualsToken",
+                                                "ValueText": "=",
+                                                "Children": []
+                                              },
+                                              {
+                                                "Type": "ElementAccessExpression",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "IdentifierName",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "IdentifierToken",
+                                                        "ValueText": "mas",
+                                                        "Children": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "Type": "BracketedArgumentList",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "OpenBracketToken",
+                                                        "ValueText": "[",
+                                                        "Children": []
+                                                      },
+                                                      {
+                                                        "Type": "Argument",
+                                                        "ValueText": null,
+                                                        "Children": [
+                                                          {
+                                                            "Type": "AddExpression",
+                                                            "ValueText": null,
+                                                            "Children": [
+                                                              {
+                                                                "Type": "IdentifierName",
+                                                                "ValueText": null,
+                                                                "Children": [
+                                                                  {
+                                                                    "Type": "IdentifierToken",
+                                                                    "ValueText": "i",
+                                                                    "Children": []
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "Type": "PlusToken",
+                                                                "ValueText": "+",
+                                                                "Children": []
+                                                              },
+                                                              {
+                                                                "Type": "NumericLiteralExpression",
+                                                                "ValueText": null,
+                                                                "Children": [
+                                                                  {
+                                                                    "Type": "NumericLiteralToken",
+                                                                    "ValueText": "1",
+                                                                    "Children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "Type": "CloseBracketToken",
+                                                        "ValueText": "]",
+                                                        "Children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "Type": "SemicolonToken",
+                                            "ValueText": ";",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "ExpressionStatement",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "SimpleAssignmentExpression",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "ElementAccessExpression",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "IdentifierName",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "IdentifierToken",
+                                                        "ValueText": "mas",
+                                                        "Children": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "Type": "BracketedArgumentList",
+                                                    "ValueText": null,
+                                                    "Children": [
+                                                      {
+                                                        "Type": "OpenBracketToken",
+                                                        "ValueText": "[",
+                                                        "Children": []
+                                                      },
+                                                      {
+                                                        "Type": "Argument",
+                                                        "ValueText": null,
+                                                        "Children": [
+                                                          {
+                                                            "Type": "AddExpression",
+                                                            "ValueText": null,
+                                                            "Children": [
+                                                              {
+                                                                "Type": "IdentifierName",
+                                                                "ValueText": null,
+                                                                "Children": [
+                                                                  {
+                                                                    "Type": "IdentifierToken",
+                                                                    "ValueText": "i",
+                                                                    "Children": []
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "Type": "PlusToken",
+                                                                "ValueText": "+",
+                                                                "Children": []
+                                                              },
+                                                              {
+                                                                "Type": "NumericLiteralExpression",
+                                                                "ValueText": null,
+                                                                "Children": [
+                                                                  {
+                                                                    "Type": "NumericLiteralToken",
+                                                                    "ValueText": "1",
+                                                                    "Children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "Type": "CloseBracketToken",
+                                                        "ValueText": "]",
+                                                        "Children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "Type": "EqualsToken",
+                                                "ValueText": "=",
+                                                "Children": []
+                                              },
+                                              {
+                                                "Type": "IdentifierName",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "IdentifierToken",
+                                                    "ValueText": "temp",
+                                                    "Children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "Type": "SemicolonToken",
+                                            "ValueText": ";",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "ExpressionStatement",
+                                        "ValueText": null,
+                                        "Children": [
+                                          {
+                                            "Type": "SimpleAssignmentExpression",
+                                            "ValueText": null,
+                                            "Children": [
+                                              {
+                                                "Type": "IdentifierName",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "IdentifierToken",
+                                                    "ValueText": "t",
+                                                    "Children": []
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "Type": "EqualsToken",
+                                                "ValueText": "=",
+                                                "Children": []
+                                              },
+                                              {
+                                                "Type": "TrueLiteralExpression",
+                                                "ValueText": null,
+                                                "Children": [
+                                                  {
+                                                    "Type": "TrueKeyword",
+                                                    "ValueText": "true",
+                                                    "Children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "Type": "SemicolonToken",
+                                            "ValueText": ";",
+                                            "Children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Type": "CloseBraceToken",
+                                        "ValueText": "}",
+                                        "Children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "Type": "CloseBraceToken",
+                                "ValueText": "}",
+                                "Children": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "Type": "CloseBraceToken",
+                        "ValueText": "}",
+                        "Children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Type": "ExpressionStatement",
+                "ValueText": null,
+                "Children": [
+                  {
+                    "Type": "InvocationExpression",
+                    "ValueText": null,
+                    "Children": [
+                      {
+                        "Type": "SimpleMemberAccessExpression",
+                        "ValueText": null,
+                        "Children": [
+                          {
+                            "Type": "IdentifierName",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "IdentifierToken",
+                                "ValueText": "mas",
+                                "Children": []
+                              }
+                            ]
+                          },
+                          {
+                            "Type": "DotToken",
+                            "ValueText": ".",
+                            "Children": []
+                          },
+                          {
+                            "Type": "IdentifierName",
+                            "ValueText": null,
+                            "Children": [
+                              {
+                                "Type": "IdentifierToken",
+                                "ValueText": "Dump",
+                                "Children": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "Type": "ArgumentList",
+                        "ValueText": null,
+                        "Children": [
+                          {
+                            "Type": "OpenParenToken",
+                            "ValueText": "(",
+                            "Children": []
+                          },
+                          {
+                            "Type": "CloseParenToken",
+                            "ValueText": ")",
+                            "Children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "SemicolonToken",
+                    "ValueText": ";",
+                    "Children": []
+                  }
+                ]
+              },
+              {
+                "Type": "CloseBraceToken",
+                "ValueText": "}",
+                "Children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Type": "EndOfFileToken",
+        "ValueText": "",
+        "Children": []
+      }
+    ]
+  }
+}

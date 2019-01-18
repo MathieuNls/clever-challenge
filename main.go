@@ -20,18 +20,28 @@ func timeTrack(start time.Time, name string) {
 //to stdout.
 func main() {
 	defer timeTrack(time.Now(), "compute diff")
-	fmt.Println(compute())
+	fmt.Println(computeDiff())
+
+	defer timeTrack(time.Now(), "compute AST")
+	fmt.Println(computeAST())
 }
 
 //compute parses the git diffs in ./diffs and returns
-//a result struct that contains all the relevant informations
+//a diffResult struct that contains all the relevant informations
 //about these diffs
 //	list of files in the diffs
 //	number of regions
 //	number of line added
 //	number of line deleted
 //	list of function calls seen in the diffs and their number of calls
-func compute() *result {
+func computeDiff() *diffResult {
+
+	return nil
+}
+
+//computeAST go through the AST and returns
+//a astResult struct that contains all the variable declarations
+func computeAST() *astResult {
 
 	return nil
 }
