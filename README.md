@@ -102,6 +102,6 @@ void Main()
 
 We are also looking for permanent members to join our team. If you are interested, mail our human resource [contact](mailto:alison.laplante-rayworth@ubisoft.com?subject=Clever-Initiative) with your resume. You can submit your pull request for the challenge. However, you'll be subjected to an in-depth (much harder) coding test. This one has been conceived for students only and it might not be worth your time to take it ;).
 
-- [ ] Software Engineer / ML Dev (python, go, ml, sql, ...)
-- [ ] Software Engineer / Backend Dev (go, c, cfg, ast, k8s, redis, ...)
+- [x] Software Engineer / ML Dev (python, go, ml, sql, ...)
+- [x] Software Engineer / Backend Dev (go, c, cfg, ast, k8s, redis, ...)
 - [ ] Software Engineer / Tool devs (csharp, python, cfg, ast, ...)
