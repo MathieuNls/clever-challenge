@@ -64,10 +64,8 @@ func compute() *result {
 }
 ```
 
-
-
 ### Part 2
-The second part of the challenge consists manipuling [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree). The problem consist of parsing an AST and return all declared variables in the given format _{variable-type}{variable}_:
+The second part of the challenge consists in manipuling [ASTs](https://en.wikipedia.org/wiki/Abstract_syntax_tree). The problem consist of parsing an AST and return all the declared variables in the given format _{variable-type}{variable}_:
 
 ```
 {int}{myInt}
