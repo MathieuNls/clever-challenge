@@ -19,19 +19,33 @@ class DiffParser:
 
     def parse(self, file):
         # Regex Patterns
-        fileListRgx = r''
-        regionRgx = r'(@@) -\d+,\d+ \+\d+,\d+ (@@)[^\n]*'
-        addedRgx = r''
-        deletedRgx = r''
-        fnListRgx = r''
+        filelist_rgx = r''
+        region_rgx = r'^(@@) -\d+,\d+ \+\d+,\d+ (@@)[^\n]*'
+        added_rgx = r'^(\+){1}[^\n]*'
+        added_files = r'^(\+\+\+){1}( )[^\n]*'
+        deleted_rgx = r'^(\-){1}[^\n]*'
+        added_files = r'^(\-\-\-){1}( )[^\n]*'
+        fnList_rgx = r''
 
         # Object holding results
-        diffRes = DiffResult()
+        diff_res = DiffResult()
 
         lines = file.readlines()
         for line in lines:
-            if re.match(regionRgx, line):
-                diffRes.regions += 1
+            if re.match(region_rgx, line):
+                diff_res.regions += 1
+            if re.match(added_rgx, line):
+                diff_res.lineAdded += 1
+            if re.match(deleted_rgx, line):
+                diff_res.lineDeleted += 1
+            if re.match(added_files, line):
+                diff_res.lineAdded -= 1
+            if re.match(deleted_rgx, line):
+                diff_res.lineDeleted -= 1
 
-        return diffRes
+
+
+        return diff_res
+
+
 
