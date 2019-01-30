@@ -8,7 +8,8 @@ def main():
         print("Running Part 1 - Parsing diff files from... diffs/" + filename + "\n")
         diffParser = DiffParser()
         with open("diffs/" + filename) as file:
-            diffParser.parse(file)
+            result = diffParser.parse(file)
+        result.toText()
 
 
 
