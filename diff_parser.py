@@ -25,7 +25,7 @@ class DiffParser:
         added_files = r'^(\+\+\+){1}( )[^\n]*'
         deleted_rgx = r'^(\-){1}[^\n]*'
         deleted_files = r'^(\-\-\-){1}( )[^\n]*'
-        fnList_rgx = r''
+        fnList_rgx = r'[^\n]*int ([a-z,A-Z,0-9,_]*)'
 
         # Object holding results
         diff_res = DiffResult()
@@ -33,7 +33,8 @@ class DiffParser:
         lines = file.readlines()
         for line in lines:
             if re.match(filelist_rgx, line):
-                print(re.search(filelist_rgx, line))
+                for filepath in re.search(filelist_rgx, line).group(1).split(" "):
+                    diff_res.files.append(filepath)
             if re.match(region_rgx, line):
                 diff_res.regions += 1
             if re.match(added_rgx, line):
@@ -44,6 +45,10 @@ class DiffParser:
                 diff_res.lineAdded -= 1
             if re.match(deleted_files, line):
                 diff_res.lineDeleted -= 1
+            if re.match(fnList_rgx, line):
+                print(re.search(fnList_rgx, line).group(0))
+                diff_res.functionCalls[re.search(fnList_rgx, line).group(1)] += 1
+        print(diff_res.functionCalls)
         return diff_res
 
 
