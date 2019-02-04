@@ -1,3 +1,11 @@
+# Notes from Doriane Olewicki
+
+Here is my implementation of the two challenges. I implemented it in Java and provided a Makefile to run my code. This Makefile will work on MacOS but I have not tested it on a Linux are Windows environment.
+
+I left the golang files but they are not modified.  
+
+In the out.txt file, you can find my output results.
+
 # Clever Initiative Challenge
 
 The Clever-Initiative is a team of the Technology Group @ Ubisoft Montreal. Our goal is to discover, improve and promote state-of-the-art software engineering practices that aim to ease the production of quality. By augmenting the quality of our products, we mechanically improve the productivity of our teams as they can focus creating features rather than fixing bugs.
