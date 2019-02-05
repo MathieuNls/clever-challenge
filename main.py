@@ -11,8 +11,6 @@ def main():
             result = diffParser.parse(file)
         result.toText()
 
-
-
     elif part == "2":
         print("Running Part 2 - AST ")
 

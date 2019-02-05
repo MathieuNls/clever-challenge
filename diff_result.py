@@ -17,6 +17,7 @@ class DiffResult:
             output.write("Regions: " + str(self.regions) + "\n")
             output.write("Lines Added: " + str(self.lineAdded) + "\n")
             output.write("Lines Deleted: " + str(self.lineDeleted) + "\n")
+            output.write("Function Calls: \n")
             for key,value in self.functionCalls.items():
                 output.write("    - ")
                 output.write(key + ": " + str(value))
