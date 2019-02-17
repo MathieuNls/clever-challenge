@@ -64,3 +64,18 @@ index 3a2ca0f..d0c34df 100644
  			pr_info("Intel(R) Xeon(R) 7100 Errata AL30, processors may lock up on frequency changes: disabling acpi-cpufreq\n");
  			return -ENODEV;
  		    }
++void dell_smbios_unregister_device(struct device *d)
++{
++	struct smbios_device *priv;
++
++	mutex_lock(&smbios_mutex);
++	list_for_each_entry(priv, &smbios_device_list, list) {
++		if (priv->device == d) {
++			list_del(&priv->list);
++			put_device(d);
++			break;
++		}
++	}
++	mutex_unlock(&smbios_mutex);
++	dev_dbg(d, "Remove device: %s\n", d->driver->name);
++}

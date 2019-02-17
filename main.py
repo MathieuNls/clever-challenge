@@ -13,6 +13,11 @@ def main():
 
     elif part == "2":
         print("Running Part 2 - AST ")
+        astParser = ASTParser()
+        with open("ast/" + filename) as file:
+            result = astParser.parse(file)
+
+        result.toText()
 
 
 if __name__ == "__main__":
