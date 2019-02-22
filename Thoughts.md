@@ -15,3 +15,7 @@ DiffParser FunctionCall is still incorrect, but I have moved on to ASTParser.\
 ASTParser seems relatively simple, because we are only looking for declared variables. 
 - Recursive traversal of AST should return a node instead of variable_declaration
 - Should variable_declaration be in ast_result? Would a tuple suffice? 
+
+Feb 21st 2019\
+DiffParser is complete, but functionCall captures "8" as a functional when parsing assembly offset such as 8(%rdi).
+ASTParser is complete, not sure if the tree traversal is too hardcoded. 

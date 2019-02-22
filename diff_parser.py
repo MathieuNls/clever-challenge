@@ -20,10 +20,10 @@ class DiffParser:
     def parse(self, file):
         # Regex Patterns
         filelist_rgx = r'^diff --[^\s]* (.*)'
-        region_rgx = r'^(@@) -\d+(,\d+)? \+\d+(,\d+)? (@@).*'
+        region_rgx = r'^@@ -\d+(,\d+)? \+\d+(,\d+)? @@.*'
         added_rgx = r'^(\+).*'
         deleted_rgx = r'^(\-).*'
-        fnList_rgx = r'[^\n]*[^\s^\n]* ([a-z,A-Z,0-9,_, ]+)[(]'
+        fnList_rgx = r'(?<=(?:\s|\.))([\w]+)(?=\()'
 
         # Object holding results
         diff_res = DiffResult()
@@ -31,17 +31,17 @@ class DiffParser:
         lines = file.readlines()
         area_start = 0
         for line in lines:
-            if re.match(filelist_rgx, line):
+            if re.search(filelist_rgx, line):
                 for filepath in re.search(filelist_rgx, line).group(1).split(" "):
                     diff_res.files.append(filepath)
                 area_start = 4
-            if re.match(region_rgx, line):
+            if re.search(region_rgx, line):
                 diff_res.regions += 1
-            if re.match(added_rgx, line) and area_start < 0:
+            if re.search(added_rgx, line) and area_start < 0:
                 diff_res.lineAdded += 1
-            if re.match(deleted_rgx, line) and area_start < 0:
+            if re.search(deleted_rgx, line) and area_start < 0:
                 diff_res.lineDeleted += 1
-            if re.match(fnList_rgx, line):
+            if re.search(fnList_rgx, line):
                 diff_res.functionCalls[re.search(fnList_rgx, line).group(1)] += 1
             area_start -= 1
         return diff_res

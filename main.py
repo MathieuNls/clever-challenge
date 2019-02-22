@@ -16,7 +16,6 @@ def main():
         astParser = ASTParser()
         with open("ast/" + filename) as file:
             result = astParser.parse(file)
-
         result.toText()
 
 

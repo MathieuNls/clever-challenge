@@ -1,5 +1,5 @@
 import json
-from ast_result import ASTResult, variable_description
+from ast_result import ASTResult
 
 # *Goal*
 # Parse an AST to return all the declared variables in the following format
@@ -17,32 +17,27 @@ class ASTParser:
         y = json.load(file)
         ast_res = ASTResult()
         root = y['Root']
-        resultlist = []
-        traverseSearch(root, 'VariableDeclaration', resultlist)
-        ast_res.variableDeclarations = resultlist
+        varNodes = []
+        traverseSearch(root, 'VariableDeclaration', varNodes)
+        ast_res.variableDeclarations = nodeToVar(varNodes)
         return ast_res
 
+def nodeToVar(varNodes):
+    newList = []
+    for node in varNodes:
+        newList.append((findVal(node, 'PredefinedType'), findVal(node, 'VariableDeclarator')))
+    return newList
 
 def traverseSearch(root,lookfor, resultList):
     for child in root['Children']:
         if child['Type'] == lookfor:
-            resultList.append(variableDecl(child))
+            resultList.append(child)
         else:
-            traverseSearch(child,lookfor, resultList)
+            traverseSearch(child, lookfor, resultList)
 
-
-def variableDecl(node):
-    varName, varType = "", ""
-    for i,child in enumerate(node['Children']):
-        if child['Type'] == 'VariableDeclarator':
-            varName = child['Children'][0]['ValueText']
-        if child['Type'] == 'PredefinedType':
-            varType = child['Children'][0]['ValueText']
-        # if varType == "":
-        #     foobar = []
-        #     traverseSearch(child, 'PredefinedType', foobar)
-        #     if foobar:
-        #         varType = foobar[0]['Children'][0]['ValueText']
-    return variable_description(varName,varType)
-
+def findVal(varNode, searchFor):
+    found = []
+    traverseSearch(varNode, searchFor, found)
+    if found:
+        return found[0]['Children'][0]['ValueText']
 
