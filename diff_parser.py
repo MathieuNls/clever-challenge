@@ -29,6 +29,10 @@ class DiffParser:
         diff_res = DiffResult()
 
         lines = file.readlines()
+        # Lines such as
+        # +++ <filename>
+        # --- <filename>
+        # are caught in the regex for added lines, having a "bubble" after a region starts allows us to manually filter those out.
         area_start = 0
         for line in lines:
             if re.search(filelist_rgx, line):
