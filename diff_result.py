@@ -1,4 +1,5 @@
 from collections import defaultdict
+
 class DiffResult:
     def __init__(self):
         self.files = []
@@ -7,7 +8,7 @@ class DiffResult:
         self.lineDeleted = 0
         self.functionCalls = defaultdict(int)
 
-    def toText(self):
+    def to_text(self):
         with open('diffResult.txt', 'w') as output:
             output.write("Files: \n")
             for file in self.files:
