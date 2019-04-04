@@ -100,6 +100,18 @@ void Main()
 }
 ```
 
+## Part 3
+The third part of the challenge investigates sequences. In the `seq` folder, you will find two csv files. The first file `sample.csv` contains ~18k events that are classified into two classes: `0` and `1`.
+All events are uniquely identified by their `id` and occurs at a precise `timestamp`.
+In addition to the `id`, the `timestamp` and the `class` each event is further categories using 30 metrics (`f1`, ..., `f30`).
+
+Another file, named `res.csv` contains ids of the ressources used by the events describeb in `sample.csv`.
+
+In this part, we are interested in predicting, in advance, what will be the class of the next 1-,5- and 10- events.
+
+You are free to use the technics / languages of your choice.
+
+
 ## Permanent Positions
 
 We are also looking for permanent members to join our team. If you are interested, mail our human resource [contact](mailto:alison.laplante-rayworth@ubisoft.com?subject=Clever-Initiative) with your resume. You can submit your pull request for the challenge. However, you'll be subjected to an in-depth (much harder) coding test. This one has been conceived for students only and it might not be worth your time to take it ;).
