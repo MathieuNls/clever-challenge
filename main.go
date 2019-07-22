@@ -46,39 +46,29 @@ func computeDiff() *diffResult {
 		log.Fatal(err)
 	}
 
-	regionsChannel := make(chan int)
-	lineAddedChannel := make(chan int)
-	lineDeletedChannel := make(chan int)
+	resChannel := make(chan diffResult)
 
 	expectedResults := 0
 	for _, file := range diffFiles {
-		go parseFileDiff(rootFolder+file.Name(), regionsChannel, lineAddedChannel, lineDeletedChannel)
+		go parseFileDiff(rootFolder+file.Name(), resChannel)
 		expectedResults++
 	}
 
-	res := diffResult{
-		files:       make([]string, 0),
-		regions:     0,
-		lineAdded:   0,
-		lineDeleted: 0,
-	}
+	res := diffResult{}
 
 	for i := 0; i < expectedResults; i++ {
-		res.regions += <-regionsChannel
-	}
+		routineRes := <-resChannel
 
-	for i := 0; i < expectedResults; i++ {
-		res.lineAdded += <-lineAddedChannel
-	}
-
-	for i := 0; i < expectedResults; i++ {
-		res.lineDeleted += <-lineDeletedChannel
+		res.regions += routineRes.regions
+		res.lineAdded += routineRes.lineAdded
+		res.lineDeleted += routineRes.lineDeleted
+		res.files = append(res.files, routineRes.files...)
 	}
 
 	return &res
 }
 
-func parseFileDiff(filename string, regionsChannel chan int, lineAddedChannel chan int, lineDeletedChannel chan int) {
+func parseFileDiff(filename string, resChannel chan diffResult) {
 	fmt.Println(filename)
 
 	file, err := os.Open(filename)
@@ -87,10 +77,8 @@ func parseFileDiff(filename string, regionsChannel chan int, lineAddedChannel ch
 	}
 
 	scanner := bufio.NewScanner(file)
-	regionsCount := 0
-	diffCount := 0
-	addedLines := 0
-	deletedLines := 0
+
+	res := diffResult{}
 
 	var matched bool
 	var regexError error
@@ -100,30 +88,39 @@ func parseFileDiff(filename string, regionsChannel chan int, lineAddedChannel ch
 			log.Fatal(err)
 		}
 
-		matched, regexError = regexp.MatchString("@@.*", line)
+		//matched, regexError = regexp.MatchString("^diff --git", line)
+		//if matched && regexError == nil {
+		//	res.++
+		//	continue
+		//}
+
+		matched, regexError = regexp.MatchString("^@@", line)
 		if matched && regexError == nil {
-			regionsCount++
+			res.regions++
+			continue
 		}
 
-		matched, regexError = regexp.MatchString("diff --git .*", line)
+		regexRemoved := regexp.MustCompile(regexp.QuoteMeta("--- "))
+		matched, regexError = regexp.MatchString("^--- .*", line)
 		if matched && regexError == nil {
-			diffCount++
+			res.files = append(res.files, regexRemoved.ReplaceAllString(line, ""))
+			continue
 		}
 
-		matched, regexError = regexp.MatchString(regexp.QuoteMeta("-")+" .*", line)
+		matched, regexError = regexp.MatchString("^"+regexp.QuoteMeta("- "), line)
 		if matched && regexError == nil {
-			deletedLines++
+			res.lineDeleted++
+			continue
 		}
 
-		matched, regexError = regexp.MatchString(regexp.QuoteMeta("+")+" .*", line)
+		matched, regexError = regexp.MatchString("^"+regexp.QuoteMeta("+ "), line)
 		if matched && regexError == nil {
-			addedLines++
+			res.lineAdded++
+			continue
 		}
 	}
 
-	regionsChannel <- regionsCount
-	lineAddedChannel <- addedLines
-	lineDeletedChannel <- deletedLines
+	resChannel <- res
 
 	err = file.Close()
 	if err != nil {
