@@ -46,14 +46,39 @@ func computeDiff() *diffResult {
 		log.Fatal(err)
 	}
 
+	regionsChannel := make(chan int)
+	lineAddedChannel := make(chan int)
+	lineDeletedChannel := make(chan int)
+
+	expectedResults := 0
 	for _, file := range diffFiles {
-		parseFileDiff(rootFolder + file.Name())
+		go parseFileDiff(rootFolder+file.Name(), regionsChannel, lineAddedChannel, lineDeletedChannel)
+		expectedResults++
 	}
 
-	return nil
+	res := diffResult{
+		files:       make([]string, 0),
+		regions:     0,
+		lineAdded:   0,
+		lineDeleted: 0,
+	}
+
+	for i := 0; i < expectedResults; i++ {
+		res.regions += <-regionsChannel
+	}
+
+	for i := 0; i < expectedResults; i++ {
+		res.lineAdded += <-lineAddedChannel
+	}
+
+	for i := 0; i < expectedResults; i++ {
+		res.lineDeleted += <-lineDeletedChannel
+	}
+
+	return &res
 }
 
-func parseFileDiff(filename string) {
+func parseFileDiff(filename string, regionsChannel chan int, lineAddedChannel chan int, lineDeletedChannel chan int) {
 	fmt.Println(filename)
 
 	file, err := os.Open(filename)
@@ -64,8 +89,8 @@ func parseFileDiff(filename string) {
 	scanner := bufio.NewScanner(file)
 	regionsCount := 0
 	diffCount := 0
-	addCount := 0
-	delCount := 0
+	addedLines := 0
+	deletedLines := 0
 
 	var matched bool
 	var regexError error
@@ -87,19 +112,18 @@ func parseFileDiff(filename string) {
 
 		matched, regexError = regexp.MatchString(regexp.QuoteMeta("-")+" .*", line)
 		if matched && regexError == nil {
-			delCount++
+			deletedLines++
 		}
 
 		matched, regexError = regexp.MatchString(regexp.QuoteMeta("+")+" .*", line)
 		if matched && regexError == nil {
-			addCount++
+			addedLines++
 		}
 	}
 
-	fmt.Println("diff >> ", diffCount)
-	fmt.Println("header >> ", regionsCount)
-	fmt.Println("added >> ", addCount)
-	fmt.Println("removed >> ", delCount)
+	regionsChannel <- regionsCount
+	lineAddedChannel <- addedLines
+	lineDeletedChannel <- deletedLines
 
 	err = file.Close()
 	if err != nil {
