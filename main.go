@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -76,8 +77,6 @@ func computeDiff() *diffResult {
 }
 
 func parseFileDiff(filename string, resChannel chan diffResult) {
-	fmt.Println(filename)
-
 	file, err := os.Open(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -170,6 +169,113 @@ func extractMethodCalls(line string) *[]string {
 //computeAST go through the AST and returns
 //a astResult struct that contains all the variable declarations
 func computeAST() *astResult {
+	jsonData, err := ioutil.ReadFile("./ast/astChallenge.json")
+	// if we os.Open returns an error then handle it
+	if err != nil {
+		fmt.Println(err)
+	}
 
+	var ast Ast
+	err = json.Unmarshal([]byte(jsonData), &ast)
+	if err != nil {
+		fmt.Println("BAD")
+	}
+
+	return extractVariables(&ast.Root)
+}
+
+// Explore an AST and find variable declaration
+func extractVariables(node *JsonNode) *astResult {
+	res := astResult{}
+	if node.Type == "VariableDeclaration" {
+		nameNode := findNodeWithTypeSequence(node, []string{"VariableDeclarator", "IdentifierToken"})
+		var typeName string
+
+		// Get name of primitive type
+		if node.Children[0].Type == "PredefinedType" {
+			typeName = node.Children[0].Children[0].ValueText
+			// Get name of complex type
+		} else {
+			typeName = findNodeContainingNewKeywordChild(node)
+		}
+
+		res.variablesDeclarations = append(res.variablesDeclarations, variableDescription{typeName, nameNode.ValueText})
+
+	} else {
+		for _, child := range node.Children {
+			childRes := extractVariables(&child)
+			res.variablesDeclarations = append(res.variablesDeclarations, childRes.variablesDeclarations...)
+		}
+	}
+
+	return &res
+}
+
+// Look for a node with successive types
+func findNodeWithTypeSequence(node *JsonNode, typeName []string) *JsonNode {
+	if node.Type == typeName[0] {
+		// We found the last wanted Type name, this is the node we are looking for
+		if len(typeName) == 1 {
+			return node
+		} else { // We look for the next wanted type in the children trees
+			for _, child := range node.Children {
+				res := findNodeWithTypeSequence(&child, typeName[1:])
+				if res != nil {
+					return res
+				}
+			}
+		}
+
+		// We need to look deeper in the tree
+	} else {
+		for _, child := range node.Children {
+			res := findNodeWithTypeSequence(&child, typeName)
+			if res != nil {
+				return res
+			}
+		}
+	}
+
+	// If the types are not found in the tree with current node as root, we return nil
 	return nil
+}
+
+// Looks for a node that contains a child which type is NewKeyword and extracts the variable type from it
+func findNodeContainingNewKeywordChild(node *JsonNode) string {
+	for _, child := range node.Children {
+		if child.Type == "NewKeyword" {
+			return extractNewVarType(&node.Children[1])
+		} else {
+			res := findNodeContainingNewKeywordChild(&child)
+			if res != "" {
+				return res
+			}
+		}
+	}
+
+	return ""
+}
+
+// Parse all ValueText recursively from the given root node
+func extractNewVarType(node *JsonNode) string {
+	res := node.ValueText
+
+	for _, child := range node.Children {
+		res += extractNewVarType(&child)
+	}
+
+	return res
+}
+
+// Represents the AST first node
+type Ast struct {
+	uuid string
+	Root JsonNode
+}
+
+// Represents the AST node tree
+type JsonNode struct {
+	Type      string
+	ValueText string
+	Children  []JsonNode
 }
