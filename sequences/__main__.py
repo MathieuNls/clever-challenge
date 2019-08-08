@@ -47,9 +47,9 @@ def prepare_data(data):
     min_max_scaler = MinMaxScaler(feature_range=(0, 1))
     features = min_max_scaler.fit_transform(features)
 
-    # sel = SelectFromModel(RandomForestClassifier(n_estimators=100))
-    # sel.fit(features, classes)
-    # features = sel.transform(features)
+    sel = SelectFromModel(RandomForestClassifier(n_estimators=100))
+    sel.fit(features, classes)
+    features = sel.transform(features)
 
     prepared_data = np.insert(features, 0, values=classes, axis=1)
     return prepared_data
