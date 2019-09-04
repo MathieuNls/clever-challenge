@@ -107,7 +107,7 @@ In addition to the `id`, the `timestamp` and the `class` each event is further c
 
 Another file, named `res.csv` contains ids of the ressources used by the events describeb in `sample.csv`.
 
-In this part, we are interested in predicting, in advance, what will be the class of the next 1-,5- and 10- events.
+In this part, we are interested in predicting, in advance, what will be the class of the next 1-,5- and 10- events, given the information known at a precise time. For example, using the all relevent information we know after event `829454` (`f1` to `f30` and ressources information) can you predict the class of event `829455`, `829455@829459` and `829455@829464`.
 
 You are free to use the technics / languages of your choice.
 
