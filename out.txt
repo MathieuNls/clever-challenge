@@ -1,0 +1,3399 @@
+Files: 
+	-Documentation/accelerators/ocxl.rst
+	-Documentation/devicetree/bindings/dma/mv-xor-v2.txt
+	-Documentation/devicetree/bindings/net/renesas,ravb.txt
+	-Documentation/ia64/serial.txt
+	-Documentation/sphinx/kerneldoc.py
+	-Makefile
+	-arch/arm/mach-orion5x/Kconfig
+	-arch/arm/mach-orion5x/dns323-setup.c
+	-arch/arm/mach-orion5x/tsx09-common.c
+	-arch/arm64/kernel/cpu_errata.c
+	-arch/arm64/mm/mmu.c
+	-arch/ia64/include/asm/atomic.h
+	-arch/ia64/kernel/err_inject.c
+	-arch/ia64/scripts/unwcheck.py
+	-arch/mips/ath25/board.c
+	-arch/mips/cavium-octeon/octeon-irq.c
+	-arch/mips/kernel/smp-bmips.c
+	-arch/mips/loongson64/Kconfig
+	-arch/powerpc/boot/Makefile
+	-arch/powerpc/kernel/prom_init.c
+	-arch/powerpc/kvm/book3s_64_mmu_radix.c
+	-arch/powerpc/kvm/book3s_hv.c
+	-arch/powerpc/kvm/powerpc.c
+	-arch/powerpc/net/bpf_jit_comp64.c
+	-arch/s390/include/asm/mmu_context.h
+	-arch/s390/kernel/entry.S
+	-arch/s390/kernel/nospec-branch.c
+	-arch/s390/kvm/kvm-s390.c
+	-arch/x86/Kconfig
+	-arch/x86/entry/entry_64_compat.S
+	-arch/x86/entry/syscalls/syscall_32.tbl
+	-arch/x86/entry/vsyscall/vsyscall_64.c
+	-arch/x86/events/intel/uncore_snbep.c
+	-arch/x86/ia32/sys_ia32.c
+	-arch/x86/include/asm/pgtable_types.h
+	-arch/x86/include/asm/sections.h
+	-arch/x86/include/asm/sys_ia32.h
+	-arch/x86/include/uapi/asm/mce.h
+	-arch/x86/kernel/cpu/intel.c
+	-arch/x86/kernel/cpu/mcheck/mce.c
+	-arch/x86/kernel/cpu/microcode/core.c
+	-arch/x86/kernel/cpu/microcode/intel.c
+	-arch/x86/kernel/ioport.c
+	-arch/x86/kernel/kprobes/core.c
+	-arch/x86/kernel/signal_compat.c
+	-arch/x86/kernel/vmlinux.lds.S
+	-arch/x86/mm/pti.c
+	-drivers/bluetooth/btusb.c
+	-drivers/bluetooth/hci_bcm.c
+	-drivers/clocksource/Kconfig
+	-drivers/dma/mv_xor_v2.c
+	-drivers/dma/sh/rcar-dmac.c
+	-drivers/gpio/gpio-rcar.c
+	-drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+	-drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+	-drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+	-drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+	-drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+	-drivers/gpu/drm/amd/amdgpu/si.c
+	-drivers/gpu/drm/amd/amdgpu/si_dpm.c
+	-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+	-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+	-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+	-drivers/gpu/drm/amd/display/dc/core/dc.c
+	-drivers/gpu/drm/amd/display/dc/core/dc_link.c
+	-drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+	-drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+	-drivers/gpu/drm/amd/display/dc/dc.h
+	-drivers/gpu/drm/amd/display/dc/dc_stream.h
+	-drivers/gpu/drm/amd/display/dc/dce/dce_hwseq.h
+	-drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
+	-drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.h
+	-drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
+	-drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+	-drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+	-drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+	-drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+	-drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+	-drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+	-drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+	-drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+	-drivers/gpu/drm/amd/display/dc/irq/dce110/irq_service_dce110.c
+	-drivers/gpu/drm/amd/display/dc/virtual/virtual_link_encoder.c
+	-drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
+	-drivers/gpu/drm/amd/display/include/signal_types.h
+	-drivers/gpu/drm/i915/i915_gem.c
+	-drivers/gpu/drm/i915/i915_perf.c
+	-drivers/gpu/drm/i915/intel_lrc.c
+	-drivers/gpu/drm/radeon/cik.c
+	-drivers/gpu/drm/sun4i/sun4i_crtc.c
+	-drivers/gpu/drm/sun4i/sun4i_dotclock.c
+	-drivers/gpu/drm/sun4i/sun4i_rgb.c
+	-drivers/gpu/drm/sun4i/sun4i_tcon.c
+	-drivers/gpu/drm/sun4i/sun4i_tcon.h
+	-drivers/infiniband/core/addr.c
+	-drivers/infiniband/core/cq.c
+	-drivers/infiniband/core/device.c
+	-drivers/infiniband/core/sa_query.c
+	-drivers/infiniband/core/ucma.c
+	-drivers/infiniband/hw/bnxt_re/ib_verbs.c
+	-drivers/infiniband/hw/bnxt_re/ib_verbs.h
+	-drivers/infiniband/hw/bnxt_re/main.c
+	-drivers/infiniband/hw/bnxt_re/qplib_fp.c
+	-drivers/infiniband/hw/bnxt_re/qplib_fp.h
+	-drivers/infiniband/hw/bnxt_re/qplib_rcfw.c
+	-drivers/infiniband/hw/bnxt_re/qplib_rcfw.h
+	-drivers/infiniband/hw/bnxt_re/qplib_sp.c
+	-drivers/infiniband/hw/bnxt_re/roce_hsi.h
+	-drivers/infiniband/hw/mlx4/cq.c
+	-drivers/infiniband/hw/mlx4/main.c
+	-drivers/infiniband/hw/mlx5/cq.c
+	-drivers/infiniband/hw/mlx5/main.c
+	-drivers/infiniband/hw/mlx5/mr.c
+	-drivers/infiniband/hw/mlx5/qp.c
+	-drivers/infiniband/hw/qedr/qedr_iw_cm.c
+	-drivers/infiniband/hw/qedr/verbs.c
+	-drivers/input/keyboard/matrix_keypad.c
+	-drivers/input/mouse/synaptics.c
+	-drivers/input/touchscreen/mms114.c
+	-drivers/md/dm-bufio.c
+	-drivers/md/dm-mpath.c
+	-drivers/md/dm-raid.c
+	-drivers/md/dm-table.c
+	-drivers/md/dm.c
+	-drivers/misc/ocxl/file.c
+	-drivers/net/ethernet/freescale/gianfar.c
+	-drivers/net/ethernet/intel/ixgbe/ixgbe_main.c
+	-drivers/net/ethernet/mellanox/mlx5/core/health.c
+	-drivers/net/ethernet/mellanox/mlxsw/core_acl_flex_keys.h
+	-drivers/net/ethernet/mellanox/mlxsw/spectrum.c
+	-drivers/net/ethernet/mellanox/mlxsw/spectrum.h
+	-drivers/net/ethernet/mellanox/mlxsw/spectrum_fid.c
+	-drivers/net/ethernet/mellanox/mlxsw/spectrum_switchdev.c
+	-drivers/net/ethernet/renesas/sh_eth.c
+	-drivers/net/ethernet/renesas/sh_eth.h
+	-drivers/net/hyperv/netvsc.c
+	-drivers/net/hyperv/netvsc_drv.c
+	-drivers/net/hyperv/rndis_filter.c
+	-drivers/net/phy/phy.c
+	-drivers/net/phy/phy_device.c
+	-drivers/net/ppp/ppp_generic.c
+	-drivers/net/tun.c
+	-drivers/net/usb/cdc_ether.c
+	-drivers/net/usb/r8152.c
+	-drivers/net/virtio_net.c
+	-drivers/net/wan/hdlc_ppp.c
+	-drivers/pci/dwc/pcie-designware-host.c
+	-drivers/perf/arm_pmu.c
+	-drivers/platform/chrome/chromeos_laptop.c
+	-drivers/platform/x86/Kconfig
+	-drivers/platform/x86/Makefile
+	-drivers/platform/x86/dell-smbios-base.c
+	-drivers/platform/x86/dell-smbios-smm.c
+	-drivers/platform/x86/dell-smbios-wmi.c
+	-drivers/platform/x86/dell-smbios.c
+	-drivers/platform/x86/dell-smbios.h
+	-drivers/regulator/core.c
+	-drivers/regulator/stm32-vrefbuf.c
+	-drivers/s390/block/dasd.c
+	-drivers/s390/cio/device_fsm.c
+	-drivers/s390/cio/device_ops.c
+	-drivers/s390/cio/io_sch.h
+	-drivers/s390/net/qeth_core_main.c
+	-drivers/s390/net/qeth_l3.h
+	-drivers/s390/net/qeth_l3_main.c
+	-drivers/scsi/hosts.c
+	-drivers/scsi/megaraid/megaraid_sas_fusion.c
+	-drivers/scsi/mpt3sas/mpt3sas_base.c
+	-drivers/scsi/mpt3sas/mpt3sas_base.h
+	-drivers/scsi/mpt3sas/mpt3sas_scsih.c
+	-drivers/scsi/qedi/qedi_fw.c
+	-drivers/scsi/qla2xxx/qla_def.h
+	-drivers/scsi/qla2xxx/qla_gs.c
+	-drivers/scsi/qla2xxx/qla_init.c
+	-drivers/scsi/qla2xxx/qla_os.c
+	-drivers/scsi/qla2xxx/qla_target.c
+	-drivers/scsi/scsi_error.c
+	-drivers/scsi/scsi_lib.c
+	-drivers/scsi/storvsc_drv.c
+	-drivers/video/fbdev/sbuslib.c
+	-drivers/virtio/virtio_ring.c
+	-drivers/watchdog/f71808e_wdt.c
+	-drivers/watchdog/hpwdt.c
+	-drivers/watchdog/sbsa_gwdt.c
+	-drivers/xen/xenbus/xenbus_probe.c
+	-fs/gfs2/bmap.c
+	-fs/nfs/direct.c
+	-fs/nfs/pnfs.c
+	-fs/nfs/write.c
+	-fs/overlayfs/Kconfig
+	-fs/overlayfs/export.c
+	-fs/overlayfs/inode.c
+	-fs/overlayfs/namei.c
+	-fs/overlayfs/overlayfs.h
+	-fs/overlayfs/super.c
+	-fs/xfs/xfs_iomap.c
+	-include/linux/compat.h
+	-include/linux/of_pci.h
+	-include/linux/phy.h
+	-include/linux/skbuff.h
+	-include/net/devlink.h
+	-include/scsi/scsi_cmnd.h
+	-include/scsi/scsi_host.h
+	-include/uapi/asm-generic/siginfo.h
+	-include/uapi/misc/ocxl.h
+	-kernel/bpf/verifier.c
+	-kernel/compat.c
+	-kernel/events/core.c
+	-kernel/locking/rtmutex.c
+	-kernel/panic.c
+	-lib/bug.c
+	-lib/test_bpf.c
+	-lib/test_kmod.c
+	-mm/gup.c
+	-mm/hugetlb.c
+	-mm/memblock.c
+	-mm/page_alloc.c
+	-net/batman-adv/bat_iv_ogm.c
+	-net/batman-adv/bat_v.c
+	-net/batman-adv/bridge_loop_avoidance.c
+	-net/batman-adv/fragmentation.c
+	-net/batman-adv/hard-interface.c
+	-net/batman-adv/originator.c
+	-net/batman-adv/originator.h
+	-net/batman-adv/soft-interface.c
+	-net/batman-adv/types.h
+	-net/bridge/br_netfilter_hooks.c
+	-net/bridge/br_vlan.c
+	-net/bridge/netfilter/ebt_among.c
+	-net/bridge/netfilter/ebtables.c
+	-net/core/dev.c
+	-net/core/devlink.c
+	-net/core/ethtool.c
+	-net/core/skbuff.c
+	-net/ipv4/ip_forward.c
+	-net/ipv4/ip_gre.c
+	-net/ipv4/ip_output.c
+	-net/ipv4/ip_tunnel.c
+	-net/ipv4/netfilter/ipt_CLUSTERIP.c
+	-net/ipv4/netfilter/nf_flow_table_ipv4.c
+	-net/ipv4/route.c
+	-net/ipv4/tcp_illinois.c
+	-net/ipv4/tcp_input.c
+	-net/ipv4/xfrm4_output.c
+	-net/ipv6/ip6_output.c
+	-net/ipv6/ip6_tunnel.c
+	-net/ipv6/netfilter.c
+	-net/ipv6/netfilter/ip6t_rpfilter.c
+	-net/ipv6/netfilter/nf_flow_table_ipv6.c
+	-net/ipv6/netfilter/nf_nat_l3proto_ipv6.c
+	-net/ipv6/netfilter/nft_fib_ipv6.c
+	-net/ipv6/sit.c
+	-net/ipv6/xfrm6_output.c
+	-net/l2tp/l2tp_core.c
+	-net/l2tp/l2tp_core.h
+	-net/l2tp/l2tp_ip.c
+	-net/l2tp/l2tp_ip6.c
+	-net/l2tp/l2tp_ppp.c
+	-net/mac80211/rx.c
+	-net/mac80211/tx.c
+	-net/mpls/af_mpls.c
+	-net/netfilter/ipvs/ip_vs_ftp.c
+	-net/netfilter/nf_tables_api.c
+	-net/qrtr/smd.c
+	-net/rds/tcp_listen.c
+	-net/sched/sch_tbf.c
+	-net/smc/af_smc.c
+	-net/smc/smc_cdc.c
+	-net/smc/smc_core.c
+	-net/smc/smc_llc.c
+	-net/tipc/group.c
+	-net/tipc/socket.c
+	-net/tls/tls_main.c
+	-net/wireless/Kconfig
+	-net/xfrm/xfrm_device.c
+	-scripts/Makefile.lib
+	-scripts/basic/fixdep.c
+	-scripts/bloat-o-meter
+	-sound/core/seq/seq_clientmgr.c
+	-sound/core/seq/seq_fifo.c
+	-sound/core/seq/seq_memory.c
+	-sound/core/seq/seq_memory.h
+	-sound/pci/hda/patch_conexant.c
+	-sound/pci/hda/patch_realtek.c
+	-tools/arch/x86/include/asm/cpufeatures.h
+	-tools/include/uapi/linux/kvm.h
+	-tools/objtool/check.c
+	-tools/perf/Documentation/perf-kallsyms.txt
+	-tools/perf/builtin-record.c
+	-tools/perf/builtin-stat.c
+	-tools/perf/builtin-top.c
+	-tools/perf/perf.h
+	-tools/perf/ui/browsers/annotate.c
+	-tools/perf/util/auxtrace.c
+	-tools/perf/util/record.c
+	-tools/perf/util/trigger.h
+	-tools/testing/selftests/bpf/test_verifier.c
+	-tools/testing/selftests/memory-hotplug/Makefile
+	-tools/testing/selftests/powerpc/mm/subpage_prot.c
+	-tools/testing/selftests/powerpc/tm/Makefile
+	-tools/testing/selftests/powerpc/tm/tm-trap.c
+	-tools/testing/selftests/tc-testing/tc-tests/actions/skbmod.json
+	-tools/testing/selftests/vm/run_vmtests
+	-tools/testing/selftests/x86/test_vsyscall.c
+	-drivers/block/loop.c
+	-drivers/block/xen-blkfront.c
+	-drivers/md/bcache/super.c
+	-drivers/nvme/host/core.c
+	-drivers/nvme/host/fabrics.c
+	-drivers/nvme/host/fc.c
+	-drivers/nvme/host/multipath.c
+	-drivers/nvme/host/nvme.h
+	-drivers/nvme/host/pci.c
+	-.gitignore
+	-Documentation/ABI/testing/sysfs-devices-platform-dock
+	-Documentation/ABI/testing/sysfs-devices-system-cpu
+	-Documentation/ABI/testing/sysfs-platform-dptf
+	-Documentation/PCI/pci.txt
+	-Documentation/atomic_bitops.txt
+	-Documentation/devicetree/bindings/auxdisplay/arm-charlcd.txt
+	-Documentation/devicetree/bindings/eeprom/at24.txt
+	-Documentation/devicetree/bindings/interrupt-controller/renesas,irqc.txt
+	-Documentation/devicetree/bindings/misc/arm-charlcd.txt
+	-Documentation/devicetree/bindings/power/mti,mips-cpc.txt
+	-Documentation/devicetree/bindings/power/wakeup-source.txt
+	-Documentation/devicetree/bindings/thermal/imx-thermal.txt
+	-Documentation/features/sched/membarrier-sync-core/arch-support.txt
+	-Documentation/gpu/tve200.rst
+	-Documentation/i2c/busses/i2c-i801
+	-Documentation/locking/mutex-design.txt
+	-Documentation/media/dmx.h.rst.exceptions
+	-Documentation/media/uapi/dvb/dmx-qbuf.rst
+	-Documentation/networking/segmentation-offloads.txt
+	-Documentation/virtual/kvm/api.txt
+	-Documentation/virtual/kvm/cpuid.txt
+	-Documentation/virtual/kvm/msr.txt
+	-Documentation/x86/intel_rdt_ui.txt
+	-Documentation/x86/topology.txt
+	-MAINTAINERS
+	-arch/alpha/include/asm/cmpxchg.h
+	-arch/alpha/include/asm/xchg.h
+	-arch/arc/Kconfig
+	-arch/arc/boot/dts/axs101.dts
+	-arch/arc/boot/dts/axs10x_mb.dtsi
+	-arch/arc/boot/dts/haps_hs_idu.dts
+	-arch/arc/boot/dts/nsim_700.dts
+	-arch/arc/boot/dts/nsim_hs.dts
+	-arch/arc/boot/dts/nsim_hs_idu.dts
+	-arch/arc/boot/dts/nsimosci.dts
+	-arch/arc/boot/dts/nsimosci_hs.dts
+	-arch/arc/boot/dts/nsimosci_hs_idu.dts
+	-arch/arc/include/asm/bug.h
+	-arch/arc/include/asm/entry-arcv2.h
+	-arch/arc/kernel/mcip.c
+	-arch/arc/kernel/setup.c
+	-arch/arc/kernel/smp.c
+	-arch/arc/kernel/unwind.c
+	-arch/arc/mm/cache.c
+	-arch/arm/boot/dts/bcm11351.dtsi
+	-arch/arm/boot/dts/bcm21664.dtsi
+	-arch/arm/boot/dts/bcm2835.dtsi
+	-arch/arm/boot/dts/bcm2836.dtsi
+	-arch/arm/boot/dts/bcm2837.dtsi
+	-arch/arm/boot/dts/bcm283x.dtsi
+	-arch/arm/boot/dts/bcm958625hr.dts
+	-arch/arm/boot/dts/gemini-dlink-dns-313.dts
+	-arch/arm/boot/dts/imx6dl-icore-rqs.dts
+	-arch/arm/boot/dts/logicpd-som-lv.dtsi
+	-arch/arm/boot/dts/logicpd-torpedo-som.dtsi
+	-arch/arm/boot/dts/omap5-uevm.dts
+	-arch/arm/boot/dts/rk3036.dtsi
+	-arch/arm/boot/dts/rk322x.dtsi
+	-arch/arm/boot/dts/rk3288-phycore-som.dtsi
+	-arch/arm/boot/dts/zx296702.dtsi
+	-arch/arm/configs/omap2plus_defconfig
+	-arch/arm/kernel/time.c
+	-arch/arm/kvm/hyp/Makefile
+	-arch/arm/kvm/hyp/banked-sr.c
+	-arch/arm/mach-clps711x/board-dt.c
+	-arch/arm/mach-davinci/board-dm355-evm.c
+	-arch/arm/mach-davinci/board-dm355-leopard.c
+	-arch/arm/mach-davinci/board-dm365-evm.c
+	-arch/arm/mach-mvebu/Kconfig
+	-arch/arm/mach-omap1/clock.c
+	-arch/arm/mach-omap2/omap-wakeupgen.c
+	-arch/arm/mach-omap2/omap_hwmod.c
+	-arch/arm/mach-omap2/pm.c
+	-arch/arm/mach-omap2/timer.c
+	-arch/arm/mach-ux500/cpu-db8500.c
+	-arch/arm/plat-orion/common.c
+	-arch/arm64/boot/dts/amlogic/meson-axg.dtsi
+	-arch/arm64/boot/dts/amlogic/meson-gx.dtsi
+	-arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
+	-arch/arm64/boot/dts/cavium/thunder2-99xx.dtsi
+	-arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts
+	-arch/arm64/boot/dts/mediatek/mt8173.dtsi
+	-arch/arm64/boot/dts/qcom/apq8096-db820c.dtsi
+	-arch/arm64/boot/dts/qcom/msm8996.dtsi
+	-arch/arm64/boot/dts/rockchip/rk3328-rock64.dts
+	-arch/arm64/boot/dts/rockchip/rk3328.dtsi
+	-arch/arm64/boot/dts/rockchip/rk3368.dtsi
+	-arch/arm64/boot/dts/rockchip/rk3399-sapphire.dtsi
+	-arch/arm64/boot/dts/rockchip/rk3399.dtsi
+	-arch/arm64/include/asm/cputype.h
+	-arch/arm64/include/asm/hugetlb.h
+	-arch/arm64/include/asm/kvm_mmu.h
+	-arch/arm64/include/asm/mmu_context.h
+	-arch/arm64/include/asm/pgalloc.h
+	-arch/arm64/include/asm/pgtable.h
+	-arch/arm64/include/asm/stacktrace.h
+	-arch/arm64/include/asm/uaccess.h
+	-arch/arm64/kernel/armv8_deprecated.c
+	-arch/arm64/kernel/cpufeature.c
+	-arch/arm64/kernel/efi.c
+	-arch/arm64/kernel/hibernate.c
+	-arch/arm64/kernel/perf_event.c
+	-arch/arm64/kernel/process.c
+	-arch/arm64/kernel/ptrace.c
+	-arch/arm64/kernel/stacktrace.c
+	-arch/arm64/kernel/sys_compat.c
+	-arch/arm64/kernel/time.c
+	-arch/arm64/kernel/traps.c
+	-arch/arm64/kvm/hyp/switch.c
+	-arch/arm64/mm/dump.c
+	-arch/arm64/mm/fault.c
+	-arch/arm64/mm/hugetlbpage.c
+	-arch/arm64/mm/kasan_init.c
+	-arch/arm64/mm/pageattr.c
+	-arch/arm64/mm/proc.S
+	-arch/arm64/net/bpf_jit_comp.c
+	-arch/cris/include/arch-v10/arch/bug.h
+	-arch/ia64/include/asm/bug.h
+	-arch/ia64/kernel/Makefile
+	-arch/m68k/include/asm/bug.h
+	-arch/mips/boot/Makefile
+	-arch/mips/include/asm/compat.h
+	-arch/mips/kernel/mips-cpc.c
+	-arch/mips/kernel/setup.c
+	-arch/parisc/include/asm/cacheflush.h
+	-arch/parisc/include/asm/processor.h
+	-arch/parisc/kernel/cache.c
+	-arch/parisc/kernel/head.S
+	-arch/parisc/kernel/pacache.S
+	-arch/parisc/kernel/smp.c
+	-arch/parisc/kernel/time.c
+	-arch/parisc/mm/init.c
+	-arch/powerpc/include/asm/book3s/32/pgtable.h
+	-arch/powerpc/include/asm/book3s/64/hash-4k.h
+	-arch/powerpc/include/asm/book3s/64/hash-64k.h
+	-arch/powerpc/include/asm/book3s/64/hash.h
+	-arch/powerpc/include/asm/book3s/64/pgalloc.h
+	-arch/powerpc/include/asm/book3s/64/pgtable.h
+	-arch/powerpc/include/asm/exception-64s.h
+	-arch/powerpc/include/asm/firmware.h
+	-arch/powerpc/include/asm/hw_irq.h
+	-arch/powerpc/include/asm/kexec.h
+	-arch/powerpc/include/asm/nohash/32/pgtable.h
+	-arch/powerpc/include/asm/nohash/64/pgtable.h
+	-arch/powerpc/include/asm/topology.h
+	-arch/powerpc/kernel/eeh_driver.c
+	-arch/powerpc/kernel/exceptions-64e.S
+	-arch/powerpc/kernel/exceptions-64s.S
+	-arch/powerpc/kernel/sysfs.c
+	-arch/powerpc/kvm/book3s_xive.c
+	-arch/powerpc/mm/drmem.c
+	-arch/powerpc/mm/hash64_4k.c
+	-arch/powerpc/mm/hash64_64k.c
+	-arch/powerpc/mm/hash_utils_64.c
+	-arch/powerpc/mm/hugetlbpage-hash64.c
+	-arch/powerpc/mm/init-common.c
+	-arch/powerpc/mm/numa.c
+	-arch/powerpc/mm/pgtable-radix.c
+	-arch/powerpc/mm/pgtable_64.c
+	-arch/powerpc/mm/tlb_hash64.c
+	-arch/powerpc/net/bpf_jit_comp.c
+	-arch/powerpc/platforms/powernv/opal-imc.c
+	-arch/powerpc/platforms/powernv/pci-ioda.c
+	-arch/powerpc/platforms/powernv/setup.c
+	-arch/powerpc/platforms/powernv/vas-window.c
+	-arch/powerpc/platforms/pseries/hotplug-cpu.c
+	-arch/powerpc/platforms/pseries/ras.c
+	-arch/powerpc/platforms/pseries/setup.c
+	-arch/powerpc/sysdev/xive/spapr.c
+	-arch/riscv/Kconfig
+	-arch/riscv/include/asm/barrier.h
+	-arch/riscv/kernel/entry.S
+	-arch/riscv/kernel/head.S
+	-arch/riscv/kernel/setup.c
+	-arch/s390/kvm/intercept.c
+	-arch/s390/kvm/interrupt.c
+	-arch/s390/kvm/kvm-s390.h
+	-arch/s390/kvm/priv.c
+	-arch/s390/kvm/vsie.c
+	-arch/sh/boot/dts/Makefile
+	-arch/sparc/Kconfig
+	-arch/sparc/include/asm/bug.h
+	-arch/x86/.gitignore
+	-arch/x86/Kconfig.cpu
+	-arch/x86/Makefile
+	-arch/x86/boot/compressed/eboot.c
+	-arch/x86/crypto/sha512-mb/sha512_mb_mgr_init_avx2.c
+	-arch/x86/entry/calling.h
+	-arch/x86/entry/entry_32.S
+	-arch/x86/entry/entry_64.S
+	-arch/x86/events/intel/core.c
+	-arch/x86/events/intel/lbr.c
+	-arch/x86/events/intel/p6.c
+	-arch/x86/include/asm/acpi.h
+	-arch/x86/include/asm/apm.h
+	-arch/x86/include/asm/asm-prototypes.h
+	-arch/x86/include/asm/barrier.h
+	-arch/x86/include/asm/bitops.h
+	-arch/x86/include/asm/bug.h
+	-arch/x86/include/asm/cpufeature.h
+	-arch/x86/include/asm/cpufeatures.h
+	-arch/x86/include/asm/efi.h
+	-arch/x86/include/asm/kvm_host.h
+	-arch/x86/include/asm/microcode.h
+	-arch/x86/include/asm/mmu_context.h
+	-arch/x86/include/asm/nospec-branch.h
+	-arch/x86/include/asm/page_64.h
+	-arch/x86/include/asm/paravirt.h
+	-arch/x86/include/asm/paravirt_types.h
+	-arch/x86/include/asm/percpu.h
+	-arch/x86/include/asm/pgtable.h
+	-arch/x86/include/asm/pgtable_32.h
+	-arch/x86/include/asm/pgtable_64.h
+	-arch/x86/include/asm/processor.h
+	-arch/x86/include/asm/refcount.h
+	-arch/x86/include/asm/rmwcc.h
+	-arch/x86/include/asm/smp.h
+	-arch/x86/include/asm/tlbflush.h
+	-arch/x86/include/uapi/asm/hyperv.h
+	-arch/x86/include/uapi/asm/kvm_para.h
+	-arch/x86/kernel/amd_nb.c
+	-arch/x86/kernel/apic/apic.c
+	-arch/x86/kernel/apic/io_apic.c
+	-arch/x86/kernel/apic/vector.c
+	-arch/x86/kernel/apic/x2apic_uv_x.c
+	-arch/x86/kernel/asm-offsets_32.c
+	-arch/x86/kernel/cpu/amd.c
+	-arch/x86/kernel/cpu/bugs.c
+	-arch/x86/kernel/cpu/centaur.c
+	-arch/x86/kernel/cpu/common.c
+	-arch/x86/kernel/cpu/cyrix.c
+	-arch/x86/kernel/cpu/intel_rdt.c
+	-arch/x86/kernel/cpu/intel_rdt_rdtgroup.c
+	-arch/x86/kernel/cpu/mcheck/mce-internal.h
+	-arch/x86/kernel/cpu/microcode/amd.c
+	-arch/x86/kernel/cpu/mtrr/generic.c
+	-arch/x86/kernel/cpu/mtrr/main.c
+	-arch/x86/kernel/cpu/proc.c
+	-arch/x86/kernel/head_32.S
+	-arch/x86/kernel/head_64.S
+	-arch/x86/kernel/kvm.c
+	-arch/x86/kernel/machine_kexec_64.c
+	-arch/x86/kernel/module.c
+	-arch/x86/kernel/mpparse.c
+	-arch/x86/kernel/paravirt.c
+	-arch/x86/kernel/setup.c
+	-arch/x86/kernel/setup_percpu.c
+	-arch/x86/kernel/smpboot.c
+	-arch/x86/kernel/traps.c
+	-arch/x86/kernel/unwind_orc.c
+	-arch/x86/kvm/cpuid.c
+	-arch/x86/kvm/lapic.c
+	-arch/x86/kvm/mmu.c
+	-arch/x86/kvm/svm.c
+	-arch/x86/kvm/vmx.c
+	-arch/x86/kvm/x86.c
+	-arch/x86/lib/Makefile
+	-arch/x86/lib/cpu.c
+	-arch/x86/lib/error-inject.c
+	-arch/x86/lib/retpoline.S
+	-arch/x86/mm/cpu_entry_area.c
+	-arch/x86/mm/fault.c
+	-arch/x86/mm/init_32.c
+	-arch/x86/mm/init_64.c
+	-arch/x86/mm/ioremap.c
+	-arch/x86/mm/kmmio.c
+	-arch/x86/mm/mem_encrypt_boot.S
+	-arch/x86/mm/pgtable_32.c
+	-arch/x86/mm/tlb.c
+	-arch/x86/net/bpf_jit_comp.c
+	-arch/x86/oprofile/nmi_int.c
+	-arch/x86/platform/intel-mid/intel-mid.c
+	-arch/x86/platform/uv/tlb_uv.c
+	-arch/x86/realmode/rm/trampoline_64.S
+	-arch/x86/tools/relocs.c
+	-arch/x86/xen/enlighten_pv.c
+	-arch/x86/xen/mmu_pv.c
+	-arch/x86/xen/smp.c
+	-arch/x86/xen/suspend.c
+	-arch/xtensa/kernel/pci-dma.c
+	-arch/xtensa/mm/init.c
+	-block/blk-cgroup.c
+	-block/blk-core.c
+	-block/blk-mq.c
+	-block/genhd.c
+	-block/ioctl.c
+	-block/kyber-iosched.c
+	-block/mq-deadline.c
+	-block/partition-generic.c
+	-block/sed-opal.c
+	-certs/blacklist_nohashes.c
+	-crypto/asymmetric_keys/pkcs7_trust.c
+	-crypto/asymmetric_keys/pkcs7_verify.c
+	-crypto/asymmetric_keys/public_key.c
+	-crypto/asymmetric_keys/restrict.c
+	-crypto/sha3_generic.c
+	-drivers/acpi/bus.c
+	-drivers/acpi/ec.c
+	-drivers/acpi/property.c
+	-drivers/acpi/spcr.c
+	-drivers/android/binder.c
+	-drivers/base/core.c
+	-drivers/base/power/wakeirq.c
+	-drivers/base/property.c
+	-drivers/block/amiflop.c
+	-drivers/block/ataflop.c
+	-drivers/block/brd.c
+	-drivers/block/floppy.c
+	-drivers/block/nbd.c
+	-drivers/block/pktcdvd.c
+	-drivers/block/swim.c
+	-drivers/block/z2ram.c
+	-drivers/bus/ti-sysc.c
+	-drivers/char/hw_random/via-rng.c
+	-drivers/char/tpm/st33zp24/st33zp24.c
+	-drivers/char/tpm/tpm-interface.c
+	-drivers/char/tpm/tpm2-cmd.c
+	-drivers/char/tpm/tpm_i2c_infineon.c
+	-drivers/char/tpm/tpm_i2c_nuvoton.c
+	-drivers/char/tpm/tpm_tis_core.c
+	-drivers/clocksource/arc_timer.c
+	-drivers/clocksource/fsl_ftm_timer.c
+	-drivers/clocksource/mips-gic-timer.c
+	-drivers/clocksource/timer-sun5i.c
+	-drivers/cpufreq/Kconfig.arm
+	-drivers/cpufreq/acpi-cpufreq.c
+	-drivers/cpufreq/longhaul.c
+	-drivers/cpufreq/p4-clockmod.c
+	-drivers/cpufreq/powernow-k7.c
+	-drivers/cpufreq/s3c24xx-cpufreq.c
+	-drivers/cpufreq/scpi-cpufreq.c
+	-drivers/cpufreq/speedstep-centrino.c
+	-drivers/cpufreq/speedstep-lib.c
+	-drivers/crypto/caam/ctrl.c
+	-drivers/crypto/ccp/psp-dev.c
+	-drivers/crypto/padlock-aes.c
+	-drivers/crypto/s5p-sss.c
+	-drivers/crypto/sunxi-ss/sun4i-ss-prng.c
+	-drivers/crypto/talitos.c
+	-drivers/dax/super.c
+	-drivers/edac/amd64_edac.c
+	-drivers/edac/sb_edac.c
+	-drivers/extcon/extcon-axp288.c
+	-drivers/extcon/extcon-intel-int3496.c
+	-drivers/gpio/gpiolib-of.c
+	-drivers/gpu/drm/amd/amdgpu/amdgpu.h
+	-drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+	-drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+	-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+	-drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+	-drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+	-drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+	-drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+	-drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+	-drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+	-drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+	-drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+	-drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+	-drivers/gpu/drm/cirrus/cirrus_mode.c
+	-drivers/gpu/drm/drm_atomic_helper.c
+	-drivers/gpu/drm/drm_edid.c
+	-drivers/gpu/drm/drm_framebuffer.c
+	-drivers/gpu/drm/drm_mm.c
+	-drivers/gpu/drm/drm_probe_helper.c
+	-drivers/gpu/drm/exynos/exynos_drm_g2d.c
+	-drivers/gpu/drm/exynos/exynos_drm_rotator.h
+	-drivers/gpu/drm/exynos/exynos_hdmi.c
+	-drivers/gpu/drm/exynos/regs-fimc.h
+	-drivers/gpu/drm/exynos/regs-hdmi.h
+	-drivers/gpu/drm/i915/gvt/kvmgt.c
+	-drivers/gpu/drm/i915/gvt/mmio_context.c
+	-drivers/gpu/drm/i915/gvt/trace.h
+	-drivers/gpu/drm/i915/i915_drv.c
+	-drivers/gpu/drm/i915/i915_drv.h
+	-drivers/gpu/drm/i915/i915_gem_context.c
+	-drivers/gpu/drm/i915/i915_gem_execbuffer.c
+	-drivers/gpu/drm/i915/i915_gem_request.c
+	-drivers/gpu/drm/i915/i915_oa_cflgt3.c
+	-drivers/gpu/drm/i915/i915_oa_cnl.c
+	-drivers/gpu/drm/i915/i915_pmu.c
+	-drivers/gpu/drm/i915/i915_pmu.h
+	-drivers/gpu/drm/i915/i915_reg.h
+	-drivers/gpu/drm/i915/intel_audio.c
+	-drivers/gpu/drm/i915/intel_bios.c
+	-drivers/gpu/drm/i915/intel_breadcrumbs.c
+	-drivers/gpu/drm/i915/intel_cdclk.c
+	-drivers/gpu/drm/i915/intel_engine_cs.c
+	-drivers/gpu/drm/i915/intel_ringbuffer.h
+	-drivers/gpu/drm/meson/meson_crtc.c
+	-drivers/gpu/drm/meson/meson_drv.h
+	-drivers/gpu/drm/meson/meson_plane.c
+	-drivers/gpu/drm/msm/mdp/mdp5/mdp5_kms.c
+	-drivers/gpu/drm/nouveau/nouveau_connector.c
+	-drivers/gpu/drm/nouveau/nv50_display.c
+	-drivers/gpu/drm/nouveau/nvkm/subdev/therm/base.c
+	-drivers/gpu/drm/radeon/radeon_connectors.c
+	-drivers/gpu/drm/radeon/radeon_device.c
+	-drivers/gpu/drm/radeon/radeon_pm.c
+	-drivers/gpu/drm/scheduler/gpu_scheduler.c
+	-drivers/gpu/drm/virtio/virtgpu_ioctl.c
+	-drivers/gpu/ipu-v3/ipu-common.c
+	-drivers/gpu/ipu-v3/ipu-cpmem.c
+	-drivers/gpu/ipu-v3/ipu-csi.c
+	-drivers/gpu/ipu-v3/ipu-pre.c
+	-drivers/gpu/ipu-v3/ipu-prg.c
+	-drivers/hid/hid-ids.h
+	-drivers/hid/hid-quirks.c
+	-drivers/hwmon/coretemp.c
+	-drivers/hwmon/hwmon-vid.c
+	-drivers/hwmon/k10temp.c
+	-drivers/hwmon/k8temp.c
+	-drivers/i2c/busses/Kconfig
+	-drivers/i2c/busses/i2c-bcm2835.c
+	-drivers/i2c/busses/i2c-designware-master.c
+	-drivers/i2c/busses/i2c-i801.c
+	-drivers/i2c/busses/i2c-octeon-core.c
+	-drivers/i2c/busses/i2c-octeon-core.h
+	-drivers/i2c/busses/i2c-sirf.c
+	-drivers/ide/ide-probe.c
+	-drivers/iio/adc/aspeed_adc.c
+	-drivers/iio/adc/stm32-adc.c
+	-drivers/iio/imu/adis_trigger.c
+	-drivers/iio/industrialio-buffer.c
+	-drivers/iio/proximity/Kconfig
+	-drivers/infiniband/core/core_priv.h
+	-drivers/infiniband/core/rdma_core.c
+	-drivers/infiniband/core/restrack.c
+	-drivers/infiniband/core/uverbs_cmd.c
+	-drivers/infiniband/core/uverbs_ioctl.c
+	-drivers/infiniband/core/uverbs_ioctl_merge.c
+	-drivers/infiniband/core/uverbs_main.c
+	-drivers/infiniband/core/uverbs_std_types.c
+	-drivers/infiniband/core/verbs.c
+	-drivers/infiniband/hw/bnxt_re/bnxt_re.h
+	-drivers/infiniband/hw/vmw_pvrdma/pvrdma_cq.c
+	-drivers/infiniband/hw/vmw_pvrdma/pvrdma_srq.c
+	-drivers/infiniband/hw/vmw_pvrdma/pvrdma_verbs.c
+	-drivers/infiniband/ulp/ipoib/ipoib_fs.c
+	-drivers/iommu/intel-svm.c
+	-drivers/irqchip/irq-bcm7038-l1.c
+	-drivers/irqchip/irq-bcm7120-l2.c
+	-drivers/irqchip/irq-brcmstb-l2.c
+	-drivers/irqchip/irq-gic-v2m.c
+	-drivers/irqchip/irq-gic-v3-its-pci-msi.c
+	-drivers/irqchip/irq-gic-v3-its-platform-msi.c
+	-drivers/irqchip/irq-gic-v3-its.c
+	-drivers/irqchip/irq-gic-v3.c
+	-drivers/irqchip/irq-mips-gic.c
+	-drivers/macintosh/macio_asic.c
+	-drivers/md/bcache/request.c
+	-drivers/md/md-multipath.c
+	-drivers/md/md.c
+	-drivers/md/md.h
+	-drivers/md/raid1.c
+	-drivers/md/raid1.h
+	-drivers/md/raid10.c
+	-drivers/md/raid10.h
+	-drivers/md/raid5-log.h
+	-drivers/md/raid5-ppl.c
+	-drivers/md/raid5.c
+	-drivers/md/raid5.h
+	-drivers/media/Kconfig
+	-drivers/media/common/videobuf2/Kconfig
+	-drivers/media/common/videobuf2/Makefile
+	-drivers/media/common/videobuf2/vb2-trace.c
+	-drivers/media/dvb-core/Makefile
+	-drivers/media/dvb-core/dmxdev.c
+	-drivers/media/dvb-core/dvb_demux.c
+	-drivers/media/dvb-core/dvb_net.c
+	-drivers/media/dvb-core/dvb_vb2.c
+	-drivers/media/dvb-frontends/m88ds3103.c
+	-drivers/media/i2c/tvp5150.c
+	-drivers/media/pci/ttpci/av7110.c
+	-drivers/media/pci/ttpci/av7110_av.c
+	-drivers/media/usb/au0828/Kconfig
+	-drivers/media/usb/ttusb-dec/ttusb_dec.c
+	-drivers/media/v4l2-core/Kconfig
+	-drivers/media/v4l2-core/Makefile
+	-drivers/media/v4l2-core/vb2-trace.c
+	-drivers/memory/brcmstb_dpfe.c
+	-drivers/message/fusion/mptctl.c
+	-drivers/misc/mei/bus.c
+	-drivers/misc/mei/client.c
+	-drivers/misc/mei/hw-me-regs.h
+	-drivers/misc/mei/pci-me.c
+	-drivers/mmc/core/mmc_ops.c
+	-drivers/mmc/host/bcm2835.c
+	-drivers/mmc/host/dw_mmc-exynos.c
+	-drivers/mmc/host/dw_mmc-k3.c
+	-drivers/mmc/host/dw_mmc-rockchip.c
+	-drivers/mmc/host/dw_mmc-zx.c
+	-drivers/mmc/host/dw_mmc.c
+	-drivers/mmc/host/dw_mmc.h
+	-drivers/mmc/host/meson-gx-mmc.c
+	-drivers/mmc/host/sdhci-pci-core.c
+	-drivers/mtd/nand/Kconfig
+	-drivers/mtd/nand/vf610_nfc.c
+	-drivers/net/ethernet/amd/xgbe/xgbe-pci.c
+	-drivers/net/ethernet/aquantia/atlantic/aq_pci_func.c
+	-drivers/net/ethernet/broadcom/tg3.c
+	-drivers/net/ethernet/broadcom/tg3.h
+	-drivers/net/ethernet/cavium/common/cavium_ptp.c
+	-drivers/net/ethernet/cavium/thunder/nicvf_main.c
+	-drivers/net/ethernet/cavium/thunder/nicvf_queues.c
+	-drivers/net/ethernet/cavium/thunder/nicvf_queues.h
+	-drivers/net/ethernet/chelsio/cxgb4/cudbg_lib.c
+	-drivers/net/ethernet/chelsio/cxgb4/cxgb4_cudbg.c
+	-drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
+	-drivers/net/ethernet/chelsio/cxgb4/t4_hw.c
+	-drivers/net/ethernet/ibm/ibmvnic.c
+	-drivers/net/ethernet/marvell/mvpp2.c
+	-drivers/net/ethernet/mellanox/mlx5/core/diag/fs_tracepoint.c
+	-drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+	-drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+	-drivers/net/ethernet/mellanox/mlx5/core/en_selftest.c
+	-drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
+	-drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
+	-drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
+	-drivers/net/ethernet/mellanox/mlx5/core/fs_core.c
+	-drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c
+	-drivers/net/ethernet/mellanox/mlx5/core/main.c
+	-drivers/net/ethernet/mellanox/mlxsw/spectrum_router.c
+	-drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+	-drivers/net/ethernet/qualcomm/rmnet/rmnet_map_command.c
+	-drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c
+	-drivers/net/ethernet/renesas/ravb_main.c
+	-drivers/net/ethernet/smsc/Kconfig
+	-drivers/net/macvlan.c
+	-drivers/net/thunderbolt.c
+	-drivers/net/usb/smsc75xx.c
+	-drivers/net/wireless/mac80211_hwsim.c
+	-drivers/net/xen-netfront.c
+	-drivers/nvdimm/pmem.c
+	-drivers/nvme/host/fabrics.h
+	-drivers/nvme/host/rdma.c
+	-drivers/nvme/target/core.c
+	-drivers/nvme/target/io-cmd.c
+	-drivers/nvme/target/loop.c
+	-drivers/of/property.c
+	-drivers/opp/cpu.c
+	-drivers/pci/quirks.c
+	-drivers/pci/setup-res.c
+	-drivers/perf/arm_pmu_acpi.c
+	-drivers/perf/arm_pmu_platform.c
+	-drivers/pinctrl/meson/pinctrl-meson-axg.c
+	-drivers/platform/x86/dell-laptop.c
+	-drivers/platform/x86/ideapad-laptop.c
+	-drivers/platform/x86/intel-hid.c
+	-drivers/platform/x86/intel-vbtn.c
+	-drivers/platform/x86/wmi.c
+	-drivers/s390/virtio/virtio_ccw.c
+	-drivers/scsi/Makefile
+	-drivers/scsi/aacraid/linit.c
+	-drivers/scsi/aic7xxx/aiclib.c
+	-drivers/scsi/bnx2fc/bnx2fc_io.c
+	-drivers/scsi/csiostor/csio_lnode.c
+	-drivers/scsi/device_handler/scsi_dh_alua.c
+	-drivers/scsi/ibmvscsi/ibmvfc.h
+	-drivers/scsi/qedi/qedi_main.c
+	-drivers/scsi/qla2xxx/qla_iocb.c
+	-drivers/scsi/qla2xxx/qla_isr.c
+	-drivers/scsi/qla4xxx/ql4_def.h
+	-drivers/scsi/qla4xxx/ql4_os.c
+	-drivers/scsi/sym53c8xx_2/sym_hipd.c
+	-drivers/scsi/ufs/ufshcd.c
+	-drivers/soc/imx/gpc.c
+	-drivers/staging/android/ashmem.c
+	-drivers/staging/android/ion/ion_cma_heap.c
+	-drivers/staging/fsl-mc/bus/Kconfig
+	-drivers/staging/fsl-mc/bus/irq-gic-v3-its-fsl-mc-msi.c
+	-drivers/staging/iio/adc/ad7192.c
+	-drivers/staging/iio/impedance-analyzer/ad5933.c
+	-drivers/usb/Kconfig
+	-drivers/usb/class/cdc-acm.c
+	-drivers/usb/core/quirks.c
+	-drivers/usb/dwc2/gadget.c
+	-drivers/usb/dwc3/core.c
+	-drivers/usb/dwc3/core.h
+	-drivers/usb/dwc3/dwc3-of-simple.c
+	-drivers/usb/dwc3/dwc3-omap.c
+	-drivers/usb/dwc3/ep0.c
+	-drivers/usb/dwc3/gadget.c
+	-drivers/usb/gadget/function/f_fs.c
+	-drivers/usb/gadget/function/f_uac2.c
+	-drivers/usb/gadget/udc/Kconfig
+	-drivers/usb/gadget/udc/bdc/bdc_pci.c
+	-drivers/usb/gadget/udc/core.c
+	-drivers/usb/gadget/udc/fsl_udc_core.c
+	-drivers/usb/gadget/udc/renesas_usb3.c
+	-drivers/usb/host/Kconfig
+	-drivers/usb/host/ehci-hub.c
+	-drivers/usb/host/ehci-q.c
+	-drivers/usb/host/ohci-hcd.c
+	-drivers/usb/host/ohci-hub.c
+	-drivers/usb/host/ohci-q.c
+	-drivers/usb/host/pci-quirks.c
+	-drivers/usb/host/pci-quirks.h
+	-drivers/usb/host/xhci-debugfs.c
+	-drivers/usb/host/xhci-hub.c
+	-drivers/usb/host/xhci-pci.c
+	-drivers/usb/host/xhci.c
+	-drivers/usb/host/xhci.h
+	-drivers/usb/misc/ldusb.c
+	-drivers/usb/musb/musb_core.c
+	-drivers/usb/musb/musb_host.c
+	-drivers/usb/phy/phy-mxs-usb.c
+	-drivers/usb/renesas_usbhs/fifo.c
+	-drivers/usb/serial/option.c
+	-drivers/usb/usbip/stub_dev.c
+	-drivers/usb/usbip/vhci_hcd.c
+	-drivers/vfio/vfio_iommu_type1.c
+	-drivers/video/fbdev/geode/video_gx.c
+	-drivers/watchdog/Kconfig
+	-drivers/xen/events/events_base.c
+	-drivers/xen/pvcalls-back.c
+	-drivers/xen/pvcalls-front.c
+	-drivers/xen/tmem.c
+	-drivers/xen/xenbus/xenbus.h
+	-drivers/xen/xenbus/xenbus_comms.c
+	-drivers/xen/xenbus/xenbus_xs.c
+	-fs/block_dev.c
+	-fs/btrfs/backref.c
+	-fs/btrfs/ctree.h
+	-fs/btrfs/delayed-ref.c
+	-fs/btrfs/extent-tree.c
+	-fs/btrfs/inode-item.c
+	-fs/btrfs/inode.c
+	-fs/btrfs/qgroup.c
+	-fs/btrfs/relocation.c
+	-fs/btrfs/send.c
+	-fs/btrfs/super.c
+	-fs/btrfs/sysfs.c
+	-fs/btrfs/transaction.c
+	-fs/btrfs/tree-log.c
+	-fs/btrfs/volumes.c
+	-fs/ceph/caps.c
+	-fs/ceph/dir.c
+	-fs/ceph/super.c
+	-fs/ceph/super.h
+	-fs/direct-io.c
+	-fs/efivarfs/file.c
+	-fs/nfs/callback_proc.c
+	-fs/nfs/nfs3proc.c
+	-fs/nfs/nfs4client.c
+	-fs/proc/kcore.c
+	-fs/signalfd.c
+	-fs/xfs/scrub/agheader.c
+	-fs/xfs/xfs_refcount_item.c
+	-fs/xfs/xfs_rmap_item.c
+	-fs/xfs/xfs_super.c
+	-include/asm-generic/bitops/lock.h
+	-include/asm-generic/bug.h
+	-include/drm/drm_atomic.h
+	-include/drm/drm_crtc_helper.h
+	-include/drm/drm_drv.h
+	-include/linux/acpi.h
+	-include/linux/bio.h
+	-include/linux/blkdev.h
+	-include/linux/compiler-clang.h
+	-include/linux/compiler-gcc.h
+	-include/linux/compiler.h
+	-include/linux/cpuidle.h
+	-include/linux/cpumask.h
+	-include/linux/dma-mapping.h
+	-include/linux/fs.h
+	-include/linux/fwnode.h
+	-include/linux/genhd.h
+	-include/linux/init.h
+	-include/linux/jump_label.h
+	-include/linux/kconfig.h
+	-include/linux/kcore.h
+	-include/linux/kernel.h
+	-include/linux/kvm_host.h
+	-include/linux/memcontrol.h
+	-include/linux/mm_inline.h
+	-include/linux/mutex.h
+	-include/linux/nospec.h
+	-include/linux/perf/arm_pmu.h
+	-include/linux/property.h
+	-include/linux/ptr_ring.h
+	-include/linux/sched/mm.h
+	-include/linux/sched/user.h
+	-include/linux/semaphore.h
+	-include/linux/swap.h
+	-include/linux/workqueue.h
+	-include/media/demux.h
+	-include/media/dmxdev.h
+	-include/media/dvb_demux.h
+	-include/media/dvb_vb2.h
+	-include/net/mac80211.h
+	-include/net/regulatory.h
+	-include/net/udplite.h
+	-include/rdma/restrack.h
+	-include/rdma/uverbs_ioctl.h
+	-include/soc/arc/mcip.h
+	-include/sound/ac97/regs.h
+	-include/trace/events/xen.h
+	-include/uapi/drm/virtgpu_drm.h
+	-include/uapi/linux/blktrace_api.h
+	-include/uapi/linux/dvb/dmx.h
+	-include/uapi/linux/if_ether.h
+	-include/uapi/linux/kvm.h
+	-include/uapi/linux/libc-compat.h
+	-include/uapi/linux/psp-sev.h
+	-include/uapi/linux/ptrace.h
+	-include/uapi/rdma/rdma_user_ioctl.h
+	-init/main.c
+	-kernel/bpf/arraymap.c
+	-kernel/bpf/core.c
+	-kernel/bpf/cpumap.c
+	-kernel/bpf/lpm_trie.c
+	-kernel/bpf/sockmap.c
+	-kernel/extable.c
+	-kernel/fork.c
+	-kernel/irq/irqdomain.c
+	-kernel/irq/matrix.c
+	-kernel/jump_label.c
+	-kernel/kprobes.c
+	-kernel/locking/qspinlock.c
+	-kernel/memremap.c
+	-kernel/printk/printk.c
+	-kernel/relay.c
+	-kernel/sched/core.c
+	-kernel/sched/cpufreq_schedutil.c
+	-kernel/sched/deadline.c
+	-kernel/sched/rt.c
+	-kernel/seccomp.c
+	-kernel/time/timer.c
+	-kernel/trace/bpf_trace.c
+	-kernel/user.c
+	-kernel/workqueue.c
+	-lib/Kconfig.debug
+	-lib/dma-debug.c
+	-lib/dma-direct.c
+	-lib/idr.c
+	-lib/radix-tree.c
+	-lib/vsprintf.c
+	-mm/memory-failure.c
+	-mm/memory.c
+	-mm/mlock.c
+	-mm/swap.c
+	-mm/vmalloc.c
+	-mm/vmscan.c
+	-mm/zpool.c
+	-mm/zswap.c
+	-net/9p/trans_virtio.c
+	-net/bridge/br_sysfs_if.c
+	-net/bridge/netfilter/ebt_limit.c
+	-net/ceph/ceph_common.c
+	-net/core/filter.c
+	-net/core/gen_estimator.c
+	-net/decnet/af_decnet.c
+	-net/ipv4/fib_semantics.c
+	-net/ipv4/ip_sockglue.c
+	-net/ipv4/netfilter/arp_tables.c
+	-net/ipv4/netfilter/ip_tables.c
+	-net/ipv4/netfilter/ipt_ECN.c
+	-net/ipv4/netfilter/ipt_REJECT.c
+	-net/ipv4/netfilter/ipt_rpfilter.c
+	-net/ipv4/tcp_output.c
+	-net/ipv4/udp.c
+	-net/ipv6/ip6_checksum.c
+	-net/ipv6/ipv6_sockglue.c
+	-net/ipv6/netfilter/ip6_tables.c
+	-net/ipv6/netfilter/ip6t_REJECT.c
+	-net/ipv6/netfilter/ip6t_srh.c
+	-net/mac80211/agg-rx.c
+	-net/mac80211/cfg.c
+	-net/mac80211/ieee80211_i.h
+	-net/mac80211/mesh.c
+	-net/mac80211/spectmgmt.c
+	-net/mac80211/sta_info.c
+	-net/netfilter/nf_nat_proto_common.c
+	-net/netfilter/x_tables.c
+	-net/netfilter/xt_AUDIT.c
+	-net/netfilter/xt_CHECKSUM.c
+	-net/netfilter/xt_CONNSECMARK.c
+	-net/netfilter/xt_CT.c
+	-net/netfilter/xt_DSCP.c
+	-net/netfilter/xt_HL.c
+	-net/netfilter/xt_HMARK.c
+	-net/netfilter/xt_IDLETIMER.c
+	-net/netfilter/xt_LED.c
+	-net/netfilter/xt_NFQUEUE.c
+	-net/netfilter/xt_SECMARK.c
+	-net/netfilter/xt_TCPMSS.c
+	-net/netfilter/xt_TPROXY.c
+	-net/netfilter/xt_addrtype.c
+	-net/netfilter/xt_bpf.c
+	-net/netfilter/xt_cgroup.c
+	-net/netfilter/xt_cluster.c
+	-net/netfilter/xt_connbytes.c
+	-net/netfilter/xt_connlabel.c
+	-net/netfilter/xt_connmark.c
+	-net/netfilter/xt_conntrack.c
+	-net/netfilter/xt_dscp.c
+	-net/netfilter/xt_ecn.c
+	-net/netfilter/xt_hashlimit.c
+	-net/netfilter/xt_helper.c
+	-net/netfilter/xt_ipcomp.c
+	-net/netfilter/xt_ipvs.c
+	-net/netfilter/xt_l2tp.c
+	-net/netfilter/xt_limit.c
+	-net/netfilter/xt_nat.c
+	-net/netfilter/xt_nfacct.c
+	-net/netfilter/xt_physdev.c
+	-net/netfilter/xt_policy.c
+	-net/netfilter/xt_recent.c
+	-net/netfilter/xt_set.c
+	-net/netfilter/xt_socket.c
+	-net/netfilter/xt_state.c
+	-net/netfilter/xt_time.c
+	-net/netlink/af_netlink.c
+	-net/nfc/llcp_commands.c
+	-net/nfc/netlink.c
+	-net/rds/connection.c
+	-net/rxrpc/output.c
+	-net/rxrpc/recvmsg.c
+	-net/sched/cls_api.c
+	-net/sched/cls_u32.c
+	-net/sctp/debug.c
+	-net/sctp/input.c
+	-net/sctp/stream.c
+	-net/sctp/stream_interleave.c
+	-net/tipc/bearer.c
+	-net/tipc/bearer.h
+	-net/tipc/net.c
+	-net/tipc/net.h
+	-net/tipc/netlink_compat.c
+	-net/unix/af_unix.c
+	-net/wireless/mesh.c
+	-net/wireless/sme.c
+	-samples/seccomp/Makefile
+	-scripts/Makefile.build
+	-scripts/coccinelle/api/memdup.cocci
+	-scripts/kallsyms.c
+	-scripts/kconfig/confdata.c
+	-scripts/kconfig/kxgettext.c
+	-scripts/kconfig/lkc.h
+	-scripts/kconfig/lxdialog/check-lxdialog.sh
+	-scripts/kconfig/menu.c
+	-scripts/kconfig/symbol.c
+	-scripts/kconfig/util.c
+	-scripts/kconfig/zconf.l
+	-scripts/kconfig/zconf.y
+	-scripts/link-vmlinux.sh
+	-security/integrity/digsig.c
+	-security/keys/big_key.c
+	-sound/ac97/Kconfig
+	-sound/core/control.c
+	-sound/pci/hda/hda_intel.c
+	-sound/usb/mixer.c
+	-sound/usb/pcm.c
+	-sound/usb/quirks-table.h
+	-sound/usb/quirks.c
+	-sound/x86/intel_hdmi_audio.c
+	-tools/arch/powerpc/include/uapi/asm/kvm.h
+	-tools/arch/s390/include/uapi/asm/unistd.h
+	-tools/bpf/bpftool/main.c
+	-tools/bpf/bpftool/prog.c
+	-tools/cgroup/Makefile
+	-tools/gpio/Makefile
+	-tools/hv/Makefile
+	-tools/iio/Makefile
+	-tools/include/uapi/drm/i915_drm.h
+	-tools/include/uapi/linux/if_link.h
+	-tools/kvm/kvm_stat/kvm_stat
+	-tools/kvm/kvm_stat/kvm_stat.txt
+	-tools/laptop/freefall/Makefile
+	-tools/leds/Makefile
+	-tools/lib/bpf/libbpf.c
+	-tools/objtool/builtin-check.c
+	-tools/objtool/builtin-orc.c
+	-tools/objtool/builtin.h
+	-tools/objtool/check.h
+	-tools/perf/Documentation/perf-data.txt
+	-tools/perf/Makefile.perf
+	-tools/perf/arch/s390/Makefile
+	-tools/perf/arch/s390/entry/syscalls/mksyscalltbl
+	-tools/perf/arch/s390/entry/syscalls/syscall.tbl
+	-tools/perf/builtin-c2c.c
+	-tools/perf/builtin-report.c
+	-tools/perf/check-headers.sh
+	-tools/perf/pmu-events/arch/arm64/cortex-a53/branch.json
+	-tools/perf/pmu-events/arch/arm64/cortex-a53/bus.json
+	-tools/perf/pmu-events/arch/arm64/cortex-a53/cache.json
+	-tools/perf/pmu-events/arch/arm64/cortex-a53/memory.json
+	-tools/perf/pmu-events/arch/arm64/cortex-a53/other.json
+	-tools/perf/pmu-events/arch/arm64/cortex-a53/pipeline.json
+	-tools/perf/pmu-events/arch/arm64/mapfile.csv
+	-tools/perf/tests/backward-ring-buffer.c
+	-tools/perf/tests/shell/trace+probe_libc_inet_pton.sh
+	-tools/perf/ui/browsers/hists.c
+	-tools/perf/ui/browsers/hists.h
+	-tools/perf/util/evlist.c
+	-tools/perf/util/evlist.h
+	-tools/perf/util/evsel.c
+	-tools/perf/util/evsel.h
+	-tools/perf/util/hist.h
+	-tools/perf/util/mmap.c
+	-tools/perf/util/mmap.h
+	-tools/perf/util/util.c
+	-tools/power/acpi/Makefile.config
+	-tools/scripts/Makefile.include
+	-tools/spi/Makefile
+	-tools/testing/radix-tree/idr-test.c
+	-tools/testing/radix-tree/linux.c
+	-tools/testing/radix-tree/linux/compiler_types.h
+	-tools/testing/radix-tree/linux/gfp.h
+	-tools/testing/radix-tree/linux/slab.h
+	-tools/testing/selftests/android/Makefile
+	-tools/testing/selftests/bpf/.gitignore
+	-tools/testing/selftests/bpf/test_maps.c
+	-tools/testing/selftests/bpf/test_tcpbpf_kern.c
+	-tools/testing/selftests/futex/Makefile
+	-tools/testing/selftests/memfd/Makefile
+	-tools/testing/selftests/memfd/config
+	-tools/testing/selftests/powerpc/alignment/alignment_handler.c
+	-tools/testing/selftests/pstore/config
+	-tools/testing/selftests/seccomp/seccomp_bpf.c
+	-tools/testing/selftests/sync/Makefile
+	-tools/testing/selftests/vDSO/Makefile
+	-tools/testing/selftests/vm/.gitignore
+	-tools/testing/selftests/x86/Makefile
+	-tools/testing/selftests/x86/mpx-mini-test.c
+	-tools/testing/selftests/x86/protection_keys.c
+	-tools/testing/selftests/x86/single_step_syscall.c
+	-tools/testing/selftests/x86/test_mremap_vdso.c
+	-tools/testing/selftests/x86/test_vdso.c
+	-tools/usb/Makefile
+	-tools/vm/Makefile
+	-tools/wmi/Makefile
+	-virt/kvm/arm/arch_timer.c
+	-virt/kvm/kvm_main.c
+1248
+Regions : 4336
+LA : 20140
+LD : 14438
+Functions calls: 
+native_smp_cpus_done : 5
+arm_kprobe_ftrace : 2
+its_pmsi_of_init : 1
+musb_platform_enable : 1
+htons : 9
+bnxt_re_mod_exit : 1
+local_irq_save : 7
+bio_endio : 2
+page_to_phys : 1
+htonl : 4
+set_nlink : 2
+omap_pm_end : 1
+show_cpuinfo_misc : 1
+i_size_read : 2
+ip6_dst_idev : 2
+sock_orphan : 2
+xfs_trans_get_rud : 1
+wake_up_klogd : 1
+EBT_ALIGN : 4
+skx_deadline_rev : 1
+cpu_install_idmap : 1
+pmd_offset : 26
+DEFINE_WAKE_Q : 3
+native_read_msr : 2
+tbnet_tear_down : 4
+start_kernel : 1
+create_stream_for_sink : 3
+get_rc6 : 1
+check_ptr_alignment : 4
+find_patch : 7
+nvme_fc_init_aen_ops : 2
+nvme_rdma_set_sg_null : 1
+flush_tlb_page : 2
+clear_bit_unlock : 1
+ioremap_nocache : 1
+jump_label_unlock : 1
+self.screen.refresh : 3
+bnxt_qplib_lock_buddy_cq : 15
+get_netdev_rx_queue_index : 2
+dump_stack : 1
+qla4_83xx_set_idc_dontreset : 1
+binder_send_failed_reply : 1
+__pagevec_lru_add_fn : 1
+do_BUG : 1
+ufshcd_set_queue_depth : 1
+__mod_lruvec_state : 1
+intel_rc6_residency_ns : 2
+__fill_rsb : 1
+irq_pm_init : 1
+self._get_filters : 1
+usb_endpoint_dir_in : 1
+skb_gso_mac_seglen : 2
+cpu_list.readline : 1
+fdput : 1
+skb_dst_set : 4
+l2tp_tunnel_inc_refcount : 4
+time.sleep : 1
+mlx5_core_event : 6
+put_disk_and_module : 8
+pci_disable_pcie_error_reporting : 2
+mdev_get_drvdata : 1
+skb_gso_network_seglen : 6
+kvmppc_create_pte : 3
+release_login_rsp_buffer : 2
+gic_send_sgi : 1
+xs_request_enter : 1
+pte_pagesize_index : 1
+intel_mid_calibrate_tsc : 1
+memcpy : 3
+kvm_s390_set_psw_cc : 1
+iov_iter_rw : 1
+apply_microcode_intel : 10
+time_before_eq : 1
+handle_ri : 1
+get_qedr_cq : 3
+swsusp_arch_suspend : 1
+dell_smbios_exit : 6
+show_regs_print_info : 1
+free_group : 9
+snd_seq_write_pool_allocated : 3
+rdt_quirks : 1
+strlen : 2
+memcmp : 1
+pmd_clear : 5
+vmemmap_pud_populate : 2
+payload : 1
+ovl_get_nlink : 2
+handle_store_cpu_address : 1
+_static_cpu_has : 1
+mcip_probe_n_setup : 1
+ebt_among_wh_dst : 2
+cpu_of : 1
+__tipc_nl_bearer_enable : 1
+radix__pgd_alloc : 1
+mei_cl_set_disconnected : 1
+big_key_alloc_buffer : 2
+pte_val : 7
+virtio_ccw_set_transport_rev : 1
+check : 4
+ArchPPC : 2
+virtnet_get_headroom : 7
+strerror : 3
+xhci_debugfs_exit : 3
+Stats : 6
+init_cpu_present : 1
+isc_to_isc_bits : 1
+armpmu_alloc_atomic : 1
+irq_save_context : 1
+pte_clear_fixmap : 1
+BTRFS_I : 4
+btrfs_sysfs_remove_fsid : 1
+ebt_mac_wormhash_size : 4
+init_vsys : 2
+mem_abort_decode : 1
+usbhsf_fifo_clear : 1
+handle_pfmf : 1
+paths.append : 1
+blk_mq_start_request : 1
+set_vtimer_irq_phys_active : 2
+recompute_smt_state : 1
+esw_vport_create_drop_counters : 2
+reset_all_zones_managed_pages : 2
+axp288_chrg_detect_complete : 1
+fput : 2
+ip6_tnl_create2 : 4
+radeon_connector_analog_encoder_conflict_solve : 1
+gfs2_stuffed_iomap : 2
+dvb_dmx_swfilter_section_new : 2
+__xt_ct_tg_timeout_put : 1
+tcp_write_queue_purge : 2
+disable_percpu_irq : 7
+kvm_s390_inject_program_int : 1
+BIT : 11
+disable_nest_pmu_counters : 1
+tcp_sk : 1
+setup_force_cpu_cap : 3
+__ilog2 : 6
+module_param : 9
+cpu_maps_update_done : 1
+vcpu_vtimer : 4
+ixgbe_rx_pg_size : 2
+__napi_schedule : 2
+_wait_for_commands_to_complete : 2
+pud_set_huge : 2
+handle_last_fault : 1
+__native_flush_tlb_global : 2
+mark_rodata_ro : 1
+xenbus_switch_state : 2
+inet_compute_pseudo : 1
+round_up : 2
+qdisc_net : 1
+skb_gso_validate_mtu : 12
+bnxt_re_ib_reg : 3
+check_online_cpus : 6
+write : 1
+kernel_fpu_end : 1
+match_strdup : 2
+BPF_STX_XADD : 6
+mlxsw_sp_fib_create : 4
+drop_caps_for_unlink : 1
+mlxsw_sp_sfd_op : 4
+EMIT3 : 4
+AMD_MODEL_RANGE_FAMILY : 1
+EMIT4 : 1
+bnxt_qplib_add_flush_qp : 15
+skb_transport_header : 8
+dce110_update_info_frame : 3
+xen_arch_pre_suspend : 1
+log_exit : 1
+TestClearPageMlocked : 2
+gup : 3
+ctypes.c_int : 2
+__builtin_constant_p : 2
+dc_create_plane_state : 6
+put_online_cpus : 3
+EMIT1 : 1
+EMIT2 : 8
+drm_crtc_commit_get : 1
+tvp5150_get_vbi : 2
+pci_disable_device : 2
+local_irq_restore : 7
+__nfs_commit_inode : 6
+pvcalls_front_free_map : 2
+big_key_crypt : 4
+malloc : 2
+ENDPROC_CFI : 1
+s3c_cpufreq_initclks : 1
+pmd_clear_flags : 1
+HDMI_I2S_SEL_SDATA2 : 2
+kvm_s390_handle_lctl : 1
+HDMI_I2S_SEL_SDATA3 : 1
+HDMI_I2S_SEL_SDATA0 : 1
+HDMI_I2S_SEL_SDATA1 : 2
+virt_to_phys : 2
+PageActive : 2
+snd_hda_apply_pincfgs : 1
+pud_clear_flags : 1
+kprobe_disabled : 2
+evsel__hists : 1
+sk_wmem_free_skb : 1
+pnfs_put_layout_hdr : 6
+x86_stepping : 2
+device_set_wakeup_path : 3
+tick_suspend_local : 1
+add_page_to_lru_list : 2
+ipt_next_entry : 1
+unregister_cpu_online : 1
+Copyright : 1
+cpu_online : 1
+kfree_rcu : 5
+i915_gem_reset_prepare_engine : 3
+current_work : 1
+bio_copy_data : 1
+pipe : 1
+PCIE_FW_MASTER_G : 2
+mce_restart : 3
+x86_family : 3
+dev_open : 2
+clear_thread_flag : 1
+path_get : 1
+snd_seq_client_enqueue_event : 3
+swap : 1
+kvm_s390_handle_lpsw : 1
+qla2x00_update_fcport : 2
+mddev_lock_nointr : 1
+self._show_help_interactive : 1
+is_valid_cqe : 3
+btrfs_qgroup_trace_extent_post : 2
+btrfs_header_nritems : 1
+wait_and_poll : 2
+check_access : 1
+firmware_restrict_branch_speculation_start : 4
+blk_rq_bytes : 1
+list_for_each_entry : 2
+tvp5150_write : 3
+drm_crtc_vblank_on : 3
+l2tp_session_priv : 4
+dvb_dmx_swfilter_payload : 1
+kvm_timer_vcpu_load_user : 1
+musb_start_urb : 1
+HDMI_I2S_SEL_LRCK : 1
+page_to_pfn : 3
+vnic_client_data_len : 1
+sched_rt_avg_update : 1
+sun4i_tcon_init_clocks : 3
+smu7_enable_power_containment : 1
+CC_SET : 5
+flush_user_dcache_range_asm : 2
+ovl_dentry_upper : 4
+get_entry : 1
+stats.get : 3
+BPF_LDX_MEM : 4
+set_cntvoff : 1
+ebt_mac_wormhash_check_integrity : 2
+flush_kernel_icache_range_asm : 1
+skb_mac_header : 2
+PP_CAP : 2
+pte_mkwrite : 2
+get_tod_clock : 1
+amd_cache_northbridges : 1
+__fls : 1
+sctp_ulpevent_idata : 1
+do_compat_cache_op : 1
+os.path.exists : 3
+__constant_htonl : 3
+to_talitos_ptr : 1
+enable_percpu_irq : 4
+fork_lazy_child : 1
+set_thread_uses_vas : 1
+mmap : 1
+swp_entry : 1
+__pa : 7
+IS_ERR : 2
+irq_desc_get_handler_data : 2
+__deliver_ckc : 1
+XEN_FLEX_RING_SIZE : 2
+cpus_read_unlock : 3
+__bnxt_qplib_del_flush_qp : 3
+cpu_to_be32 : 2
+get_disk_and_module : 2
+prop_add_env : 1
+MLXSW_AFK_ELEMENT_INFO_U32 : 30
+usbhs_pipe_config_change_bfre : 1
+microcode_check : 7
+mm_inc_nr_pmds : 2
+usbhsf_fifo_select : 1
+irq_domain_free_irqs_parent : 2
+dmi_get_system_info : 1
+len : 8
+__arm_kprobe : 1
+bdput : 17
+kvm_s390_set_cpuflags : 5
+self.show_help_interactive : 1
+trace_i915_gem_request_execute : 2
+defined : 32
+DISABLE_INTERRUPTS : 1
+ath25_find_config : 2
+memcpy_fromio : 2
+i2c_nuvoton_ready : 1
+pmd_set_huge : 2
+fixmap_pmd : 3
+DEFINE_IDR : 1
+sock_hold : 8
+wrmsrl : 5
+keccakf : 1
+nvme_fc_init_queue : 2
+kvm_s390_handle_diag : 1
+dwc3_core_soft_reset : 2
+cpu_to_node : 1
+may_hard_irq_enable : 1
+btrfs_update_inode_fallback : 1
+cpu_data : 1
+huge_pmd_share : 2
+Group : 1
+BPF_LD_IMM64 : 1
+debug_checkwx : 1
+TracepointProvider : 6
+qedr_gsi_poll_cq : 3
+pgd_pgtable_alloc : 1
+__tipc_nl_bearer_set : 1
+get_cqe_l4_hdr_type : 2
+trace_hardirqs_on : 3
+vcpu_put : 3
+dm_atomic_check_plane_state_fb : 3
+pgtable_cache_add : 2
+qdisc_drop : 2
+btrfs_inode_extref_index : 2
+apic_chip_data : 1
+BUG : 3
+irq_data_get_irq_chip_data : 1
+might_sleep : 1
+flush_data_cache : 2
+OFFSET : 8
+sock_net : 2
+__armpmu_alloc : 2
+qla2x00_wait_for_hba_ready : 1
+set_capacity : 1
+kern_addr_valid : 1
+__dn_getsockopt : 1
+self.show_vm_selection_by_guest_name : 1
+kvm_phys_timer_read : 1
+kasan_pte_populate : 2
+azx_add_card_list : 1
+kvm_init_msr_list : 1
+xstrdup : 4
+__deliver_io : 1
+fs_path_alloc : 1
+sock_net_uid : 2
+handle_set_clock : 1
+pte_offset_kimg : 2
+rdmsr : 1
+UDP_SKB_CB : 1
+radix__early_init_mmu_secondary : 1
+DebugfsProvider : 5
+perf_mmap__read_init : 1
+device_initcall : 3
+cpu_idle_poll_ctrl : 1
+BPF_MOV64_IMM : 11
+l2tp_tunnel_dec_refcount : 8
+intel_engine_last_submit : 3
+div_u64 : 1
+bpf_array_alloc_percpu : 2
+mlxsw_sp_port_vlan_find_by_vid : 2
+_ib_create_qp : 2
+closure_debug_destroy : 1
+ARCH.tracepoint_is_child : 2
+handle_lpswe : 1
+__i915_pmu_event_read : 4
+ia64_atomic64_sub : 2
+qeth_l3_delete_ip : 2
+scsi_host_alloc : 2
+aead_request_set_callback : 1
+smp_init_cpus : 2
+blk_mq_rq_to_pdu : 5
+for_each_port : 2
+rcu_read_unlock_bh : 2
+put_page : 14
+pte_set_hidx : 8
+BITS_TO_LONGS : 1
+ccw_device_set_timeout : 16
+btrfs_inode_ref_index : 2
+self._print_all_gnames : 1
+kasan_alloc_zeroed_page : 5
+dell_smbios_smm_exit : 6
+curses.curs_set : 10
+handle_iske : 1
+local_bh_disable : 4
+lm_alias : 1
+clean_rx_pools : 1
+get_sorted_events : 1
+syscall : 3
+sun4i_tcon_get_clk_delay : 1
+lock_sock : 9
+acpi_ec_enter_noirq : 1
+barrier_data : 1
+__native_flush_tlb_one_user : 2
+kernel_fpu_begin : 1
+early_pgtable_alloc : 1
+radix_init_iamr : 2
+init_mac80211_hwsim : 1
+napi_alloc_frag : 1
+for_each_cpu : 2
+kzalloc : 20
+EMIT1_off32 : 1
+cpu_to_be16 : 11
+raid5_free_percpu : 1
+netdev_priv : 14
+ASSERT_RTNL : 3
+inet_csk : 3
+timers_dead_cpu : 1
+priv_to_devlink : 2
+pud_offset_kimg : 6
+virt_to_page : 2
+bnxt_qplib_rcfw_free_sbuf : 1
+Provider : 1
+__CLOBBERS_MEM : 4
+get_user_pages_fast : 2
+func : 1
+handle_test_block : 1
+pfn_next : 1
+call_fn : 6
+time : 3
+perf_evsel_browser__new : 1
+stop_machine : 1
+irq_domain_debug_show_one : 1
+for_each_oldnew_crtc_in_state : 3
+test_bpf : 2
+mei_cl_disconnect : 1
+pgd_val : 2
+module_pci_driver : 3
+BPF_MOV64_REG : 4
+native_pud_val : 4
+fixmap_pte : 4
+__deliver_pfault_done : 1
+jump_label_type : 2
+self._show_set_update_interval : 1
+xen_set_default_idle : 1
+l2tp_tunnel_sock_put : 2
+for_each_online_cpu : 3
+ip6t_next_entry : 1
+eeh_dev_to_pdn : 1
+ovl_check_encode_origin : 2
+hex : 1
+dwc2_gadget_config_nonisoc_xfer_ddma : 1
+fixmap_pud : 5
+update_stream_signal : 3
+hlist_for_each_entry_rcu : 7
+__in_dev_get_rcu : 2
+is_skylake_era : 1
+cpus_read_lock : 2
+mpt3sas_wait_for_commands_to_complete : 6
+pppol2tp_put_sk : 2
+__tipc_nl_media_set : 1
+FUNCTION : 8
+bnxt_re_dev_stop : 1
+get_device : 6
+s390_handle_mcck : 1
+__count_memcg_events : 1
+reset_numa_cpu_lookup_table : 1
+do_tls_setsockopt : 2
+chained_irq_enter : 2
+ib_req_notify_cq : 3
+__pgprot : 4
+ENTRY_CFI : 2
+__flush_tlb_global : 1
+self.screen.getmaxyx : 2
+set_thread_flag : 1
+udp_hdr : 1
+ERR_CAST : 1
+ctypes.get_errno : 1
+negotiate_mq : 6
+arpt_next_entry : 1
+program_gamut_remap : 3
+skb_pull : 2
+res_to_dev : 1
+part_to_disk : 1
+__set_current_state : 1
+guest_enter : 3
+clk_prepare_enable : 3
+eth_type_trans : 6
+__fpsimd_enabled : 1
+pud_addr_end : 3
+kasan_copy_shadow : 2
+batadv_gw_check_client_stop : 2
+snd_usb_combine_bytes : 1
+ptrace : 1
+fixup_mipi_sequences : 1
+BMIPS_GET_CBR : 1
+_scsih_fw_event_cleanup_queue : 4
+ARM64_FTR_BITS : 8
+kmem_cache_destroy : 2
+__mod_lruvec_page_state : 1
+enable_irq : 1
+stop_login : 1
+qnap_tsx09_find_mac_addr : 2
+ib_mask_to_mlx5_opt : 3
+get_online_cpus : 6
+test_emulation : 6
+arch_within_kprobe_blacklist : 3
+__ASM_SIZE : 6
+do_floppy_init : 1
+get_cpu_cap : 1
+dm_set_vblank : 6
+btrfs_tree_unlock : 3
+kernel_text_address : 2
+construct_default_ISA_mptable : 1
+xt_ematch_foreach : 2
+azx_bus : 1
+firmware_restrict_branch_speculation_end : 4
+amdgpu_device_vram_scratch_fini : 2
+handle_stfl : 1
+current_thread_info : 2
+tcp_hdrlen : 4
+uobj_put_obj_read : 1
+DXEPTSIZ_PKTCNT : 1
+ENTRY : 25
+clear_flush : 1
+engine_event_destroy : 1
+handle_store_prefix : 1
+ib_device_unregister_rdmacg : 3
+skb_get_hash_raw : 1
+kvm_sigset_deactivate : 3
+tcf_block_insert : 1
+armpmu_free_irq : 4
+rndis_filter_set_packet_filter : 2
+test_vsys_r : 3
+__read_cr3 : 1
+irq_desc_get_chip : 2
+pagevec_lookup_entries : 1
+xive_alloc_order : 1
+rdma_translate_ip : 6
+pud_none : 1
+spectre_v2_parse_cmdline : 3
+debugfs_add_domain_dir : 1
+intel_bios_init : 1
+arm_pmu_acpi_parse_irqs : 2
+check_powernow : 1
+dwc3_resume_common : 4
+pud_set_flags : 1
+pv_wait_node : 1
+overwrite_item : 1
+clk_rate_exclusive_put : 3
+rdclock : 2
+handle_essa : 1
+pending_irqs_no_gisa : 1
+SetPageLRU : 3
+kvm_arch_hardware_enable : 1
+self._show_vm_selection_by_guest : 1
+pv_init_node : 1
+nmi_setup : 1
+read_one_inode : 1
+to_brport : 1
+cpu_set_reserved_ttbr0 : 1
+__native_flush_tlb_single : 2
+IPCB : 2
+curses.noecho : 3
+perf_mmap__read_done : 3
+dwc3_phy_setup : 2
+tun_put : 4
+vmemmap_pgd_populate : 2
+WARN_ON : 3
+pud_val : 4
+register_page_bootmem_info : 1
+mcip_update_debug_halt_mask : 2
+build_tokens_sysfs : 6
+pgtable_free_tlb : 2
+round_down : 1
+min_t : 1
+device_init_wakeup : 1
+RCFW_CMD_PREP : 3
+bvec_nr_vecs : 1
+ccw_device_online_verify : 2
+kvm_vcpu_reset : 1
+preempt_enable : 20
+vid_which_vrm : 1
+kvm_guest_cpu_init : 1
+skb_pull_rcsum : 2
+mlxsw_sp_resource_size_params_prepare : 2
+get_hard_smp_processor_id : 2
+alloc_percpu_gfp : 2
+dc_create_stream_for_sink : 3
+get_page : 2
+apply_microcode_amd : 5
+find_best_token : 1
+hsx_deadline_rev : 2
+blk_mq_complete_request : 1
+ppp_unlock : 2
+ARRAY_SIZE : 47
+for_each_sg : 3
+ewma_pkt_len_read : 4
+esw_apply_vport_conf : 1
+to_brport_attr : 1
+ip6_skb_dst_mtu : 2
+walk_pte : 2
+read_sysreg : 1
+pgd_bad : 2
+aarch32_insn_extract_reg_num : 1
+skb_shinfo : 7
+this_cpu_xchg : 2
+handle_stidp : 1
+__range_ok : 3
+self._restore : 1
+dwc3_core_get_phy : 2
+bdx_deadline_rev : 2
+radeon_connector_update_scratch_regs : 3
+tipc_media_find : 1
+pte_offset_map : 2
+engine_event_sample : 1
+MV643XX_ETH_PHY_ADDR : 4
+pud_sect : 1
+dwc3_ulpi_exit : 2
+exit_dell_smbios_wmi : 15
+TASK_TI_FLAGS : 1
+__nvme_fc_abort_op : 4
+dget : 3
+fix_to_virt : 1
+nf_flow_nat_ip_l4proto : 2
+local_irq_enable : 5
+amdgpu_free_static_csa : 2
+ntohl : 1
+Arch : 2
+write_aux_reg : 4
+armpmu_get_platdata : 2
+ovl_lookup_real_ancestor : 6
+self.refresh_header : 9
+drm_modeset_unlock_all : 1
+ia64_abort : 1
+handle_ptff : 1
+alua_rtpg_queue : 1
+tipc_bearer_find : 2
+NFS_SERVER : 3
+os.strerror : 1
+dvb_vb2_fill_buffer : 2
+this_cpu_write : 1
+perf_mmap__read_backward : 1
+XP_IOWRITE : 1
+mips_cpc_default_phys_base : 1
+memblock_region_memory_base_pfn : 1
+microcode_reload_late : 6
+__deliver_service : 1
+__get_valid_kprobe : 1
+__tipc_nl_net_set : 1
+i915_gem_request_get_rcu : 1
+flush_tlb_pgtable : 1
+get_paca : 1
+KMEM_CACHE : 1
+__mod_memcg_state : 1
+qlt_schedule_sess_for_deletion : 8
+pud_alloc : 2
+signal : 4
+pud_mkold : 1
+xchg_tail : 2
+__timer_snapshot_state : 2
+disable_irq_nosync : 3
+lazy_irq_pending : 1
+its_pci_of_msi_init : 1
+cpumask_first_and : 1
+platform_device_unregister : 6
+l2tp_sock_to_tunnel : 10
+get_user_pages : 2
+pgd_offset_k : 16
+sg_dma_address : 4
+netdev_master_upper_dev_link : 1
+self.restore : 1
+gfar_process_frame : 4
+_base_make_ioc_ready : 2
+pud_bad : 2
+walk_pud : 2
+tg3_ape_lock_init : 1
+cancel_work_sync : 1
+to_tvp5150 : 2
+freeze_array : 1
+self.get_gname_from_pid : 3
+ia64_atomic_sub : 4
+kvm_s390_handle_sigp : 1
+ASSERT : 1
+mmc_of_parse : 1
+qnap_tsx09_check_mac_addr : 2
+blk_mq_rq_update_state : 1
+schedule : 3
+plpar_int_set_queue_config : 3
+flush_user_icache_range_asm : 2
+print : 2
+calculate_max_logical_packages : 4
+_enable_optional_clocks : 2
+pgtable_cache_init : 2
+btrfs_search_slot : 1
+deliverable_irqs : 1
+strdup : 5
+gmc_v9_0_ecc_available : 1
+map_kernel : 2
+dev_get_drvdata : 8
+get_order : 2
+__mcip_cmd : 2
+to_i2c_client : 1
+numa_update_cpu_topology : 2
+sys32_readahead : 3
+dm_dp_mst_dc_sink_create : 3
+acpi_device_get_match_data : 1
+platform_device_add : 6
+pgd_addr_end : 3
+QETH_MAX_BUFFER_ELEMENTS : 4
+kasan_pmd_offset : 2
+rmnet_unregister_bridge : 1
+self.get_filters : 1
+forward_timer_base : 1
+mlx5e_lro_update_tcp_hdr : 2
+__deliver_prog : 1
+handle_stsi : 1
+skb_cloned : 2
+disarm_kprobe : 4
+ceph_fs_debugfs_init : 2
+ia64_atomic64_add : 2
+get_via_model_d_vrm : 1
+arm_pmu_acpi_init : 1
+current_is_workqueue_rescuer : 1
+tipc_net_start : 1
+handle_sthyi : 1
+compound_order : 3
+has_ftr_sec1 : 1
+inet_shutdown : 2
+kvm_vtimer_update_mask_user : 3
+mem_cgroup_page_lruvec : 1
+SetPageActive : 1
+HWSEQ_REG_FIELD_LIST : 3
+qeth_l3_ipaddr_hash : 6
+xen_smp_cpus_done : 1
+perf_mmap__read_head : 7
+kstrdup : 1
+__has_feature : 1
+OVL_E : 6
+kvm_s390_get_cpu_timer : 2
+exit_dell_smbios_smm : 12
+amdgpu_dm_update_connector_after_detect : 3
+qeth_get_elements_for_frags : 8
+kobject_name : 6
+printk_all_partitions : 1
+count_interrupts : 1
+sh_eth_modify : 1
+zpool_evictable : 1
+self._setup_traces : 1
+smp_cpus_done : 1
+max : 2
+ovl_drop_write : 4
+l2tp_tunnel_delete : 6
+kasan_pte_offset : 2
+rcar_dmac_chan_configure_desc : 2
+AMD_MODEL_RANGE_START : 1
+__deliver_pfault_init : 1
+rds_tcp_keepalive : 2
+xen_arch_resume : 1
+main : 2
+PT_SEPC : 1
+of_find_matching_node : 8
+meson_vpp_disable_interlace_vscaler_osd1 : 1
+for_each_oldnew_plane_in_state : 3
+qeth_l3_ip_from_hash : 8
+hpt_vpn : 2
+TCP_SKB_CB : 2
+ccw_device_start_key : 6
+nvme_req : 2
+self.update_fields : 1
+bnxt_qplib_find_buddy_cq : 6
+prelim_ref_insert : 2
+pmd_bad : 1
+qlt_clear_tgt_db : 2
+free_oa_buffer : 6
+bnxt_re_lock_cqs : 10
+memset : 3
+irq_data_to_desc : 1
+ceph_inode_to_client : 1
+dsb : 3
+pmd_mkcont : 1
+radix__early_init_mmu : 2
+irq_of_parse_and_map : 2
+dc_plane_state_release : 6
+bnxt_re_remove_one : 5
+pgprot_noncached : 1
+intel_mid_power_off : 1
+pgtable_alloc : 3
+hpwdt_stop : 3
+dasd_schedule_device_bh : 2
+WARN_ON_ONCE : 2
+skb_put : 2
+PER_CPU_VAR : 4
+check_result : 3
+walk_pmd : 2
+pnfs_get_layout_hdr : 6
+drmem_lmb_flags : 2
+match_attribute : 12
+kvm_s390_handle_01 : 1
+gfn_to_memslot : 3
+smp_prepare_cpus : 1
+netif_reset_xps_queues_gt : 1
+netdev_for_each_mc_addr : 2
+handle_sckpf : 1
+native_flush_tlb_one_user : 1
+self.get_pid_from_gname : 2
+dwc3_core_exit : 2
+container_of : 29
+interface_to_usbdev : 4
+zconf_curname : 3
+bnxt_qplib_mark_qp_error : 6
+DECLARE_MASK_VAL : 2
+usbhs_pipe_running : 1
+ebt_compat_entry_padsize : 2
+remove_buff_from_pool : 2
+i915_vma_unbind : 1
+kvm_s390_set_tod_clock : 1
+flash_dev_run : 1
+printk_safe_exit_irqrestore : 2
+engine_event_class : 3
+raid5_size : 1
+uverbs_uobject_get : 1
+perf_mmap__read_event : 2
+kvm_s390_vcpu_block_all : 2
+qeth_l3_get_addr_buffer : 2
+ip_finish_output2 : 2
+prcmu_system_reset : 1
+__sev_do_cmd_locked : 2
+adapter_delete_sq : 1
+trigger_cmd_completions : 3
+retp_compiler : 1
+cpu_to_le64 : 2
+TP_PROTO : 1
+LIST_HEAD : 14
+disable_irq : 2
+acpi_parse_spcr : 1
+pmd_addr_end : 4
+generic_xdp_tx : 2
+__tipc_nl_bearer_disable : 1
+dw_pcie_readl_dbi : 3
+binder_thread_dec_tmpref : 1
+min : 6
+cpumask_local_spread : 1
+to_radeon_encoder : 1
+amdgpu_device_wb_fini : 2
+init_smp_config : 1
+disk_del_events : 1
+controller : 1
+__nvme_fc_final_op_cleanup : 2
+self.show_vm_selection_by_pid : 1
+pte_set_fixmap_offset : 2
+perf_mmap__read : 2
+IS_VALLEYVIEW : 3
+init_dell_smbios_wmi : 18
+clear_extent_buffer_dirty : 3
+MLX5_SET : 8
+pm_runtime_get_sync : 1
+tipc_enable_bearer : 2
+alloc_percpu : 2
+pti_clone_user_shared : 3
+parse_int_list : 1
+Event : 7
+move_freepages_block : 3
+open : 3
+num_possible_cpus : 4
+rmnet_get_port : 2
+amdgpu_ring_get_rptr : 6
+mlx5e_alloc_cq_common : 1
+its_fsl_mc_msi_init : 1
+acpi_processor_cstate_check : 1
+set_buf_flags : 4
+dev_net : 2
+tvp5150_selmux : 1
+bioset_create : 1
+set_cpu_bug : 1
+__builtin_return_address : 4
+touch_nmi_watchdog : 3
+menu_add_entry : 1
+release_login_buffer : 1
+PAGE_ALIGN : 2
+memalloc_noio_restore : 3
+tg3_ape_event_lock : 2
+radix_init_pgtable : 2
+qtd_fill : 1
+swap_setup : 1
+usb_ifnum_to_if : 1
+ioremap : 8
+gic_write_sgi1r : 1
+__ffs : 1
+Fuloong : 2
+macvlan_port_get_rtnl : 2
+EventStat : 2
+page_lru : 2
+clockevent_state_periodic : 1
+xhci_mem_cleanup : 2
+guest_enter_irqoff : 4
+DEFINE_WAIT : 1
+pmd_clear_fixmap : 1
+rdma_rw_init_qp : 1
+jump_label_invalidate_module_init : 1
+read_aux_reg : 3
+hash__hugepd_ok : 1
+for_each_cpu_and : 1
+PPC_LWZ_OFFS : 1
+bmips_prepare_cpus : 2
+cpu_to_le32 : 4
+new_inode : 2
+MLXSW_REG : 6
+__builtin_unreachable : 2
+_base_mask_interrupts : 2
+nfs_put_client : 3
+kvm_s390_vcpu_unblock_all : 1
+devm_clk_get : 3
+__free_page : 1
+musb_run_resume_work : 1
+memblock_region_reserved_base_pfn : 1
+setup_cpu_entry_area : 1
+DEFINE_RAW_SPINLOCK : 1
+flush_workqueue : 2
+_scsih_flush_running_cmds : 4
+idr_for_each : 1
+perf_evlist__mmap_read_forward : 1
+amdgpu_connector_best_single_encoder : 2
+xfs_file_iomap_begin_delay : 2
+perf_evsel__set_sample_id : 6
+count_vm_tlb_event : 1
+scsi_dma_unmap : 2
+dwc3_core_setup_global_control : 1
+DEFINE_PER_CPU : 6
+free_area_init_node : 1
+cpumask_clear_cpu : 1
+__nvme_fc_fcpop_chk_teardowns : 3
+netif_setup_tc : 1
+dget_parent : 2
+remove_siblinginfo : 1
+mlx5_netdev_event : 3
+gfar_rx_checksum : 2
+init_ras_IRQ : 1
+disk_block_events : 1
+free_netdev : 1
+decode_tail : 2
+hpwdt_check_nmi_decoding : 3
+mm_total_size : 1
+__psp_pa : 2
+skb_rtable : 2
+tg3_ape_write32 : 1
+xt_compat_target_offset : 2
+smp_prepare_boot_cpu : 2
+deadline_next_request : 2
+AMD_PROMONTORYA_1 : 1
+dmi_walk : 15
+_copy_pte : 2
+flush_cache_all : 2
+AMD_PROMONTORYA_4 : 1
+cpumask_of : 3
+AMD_PROMONTORYA_2 : 1
+cpumask_of_node : 1
+nldev_exit : 1
+ClearPageActive : 2
+build_skb : 2
+PPC_RLWINM : 2
+handle_rrbe : 1
+skb_network_header : 4
+purge_kernel_dcache_range_asm : 2
+virt_to_head_page : 2
+dprintk : 2
+raid5_calc_degraded : 1
+read_sysreg_el0 : 4
+slc_entire_op : 1
+tboot_probe : 1
+HDMI_I2S_SEL_DSD : 1
+MPIDR_TO_SGI_RS : 1
+sctp_intl_start_pd : 2
+ArchS390 : 2
+self.get : 1
+dw_pcie_writel_dbi : 3
+DEFINE_PER_CPU_ALIGNED : 1
+get_slice_psize : 1
+SET_SYSTEM_SLEEP_PM_OPS : 1
+async_synchronize_full : 1
+find_switch_table : 1
+parse_da_table : 6
+mcip_setup_per_cpu : 1
+blk_rq_nr_phys_segments : 1
+init_dell_smbios_smm : 12
+init_ras_hotplug_IRQ : 1
+dwc3_free_event_buffers : 1
+init_cr16_clocksource : 1
+__mark_inode_dirty : 6
+smp_mb : 20
+lockdep_check : 3
+udelay : 2
+update_sk_prot : 2
+SQ_SIZE : 2
+__munlock_pagevec : 1
+ArchX86 : 3
+pud_set_fixmap_offset : 4
+byt_read_dsm : 4
+self.screen.addstr : 4
+smp_cpu_init : 2
+prrn_is_enabled : 2
+memory_failure : 2
+float : 1
+annotate_reachable : 1
+kvm_timer_update_irq : 3
+__blkdev_driver_ioctl : 3
+stm32_adc_clr_bits : 1
+test_and_set_bit_lock : 2
+smu7_disable_power_containment : 1
+kvmppc_set_host_core : 3
+perf_mmap__read_forward : 1
+optimize_result : 1
+PTR_ERR : 51
+pud_clear_fixmap : 2
+rdmsrl : 1
+BPF_EXIT_INSN : 10
+vga_switcheroo_unregister_client : 1
+bpf_map_attr_numa_node : 2
+stm32_adc_set_bits : 4
+self.stats.reset : 1
+__acpi_match_device_cls : 2
+self.update_provider_filters : 1
+jiffies_to_nsecs : 1
+prepare_lock_switch : 1
+DEFINE_STATIC_KEY_FALSE : 1
+get_cqe_lro_tcppsh : 2
+XT_HMARK_FLAG : 7
+mfctl : 5
+set_cpu_cap : 2
+operations : 3
+sync_core_before_usermode : 1
+mpt3sas_base_clear_st : 2
+tcp_unlink_write_queue : 1
+m.group : 2
+guest.isdigit : 1
+kvm_timer_hyp_init : 1
+handle_ipte_interlock : 2
+armpmu_request_irq : 6
+tcf_vlan_push_prio : 1
+set_page_dirty : 1
+__kvm_memslots : 1
+INTEL_GEN : 1
+sev_do_cmd : 2
+PageUnevictable : 1
+rcu_read_unlock : 32
+l2tp_tunnel_closeall : 8
+irq_hotplug_init : 1
+__qcom_hyp_sanitize_btac_predictors : 1
+start_topology_update : 2
+pmd_set_fixmap_offset : 2
+pseries_setup_rfi_flush : 1
+wmi_method_enable : 1
+int : 2
+self.walkdir : 1
+ovl_hash_bylower : 2
+resource_size : 4
+tc_u_hash : 1
+bmap_unlock : 1
+ia64_atomic_fetch_add : 2
+kvm_s390_handle_vsie : 1
+to_fs_info : 3
+sk_stream_alloc_skb : 1
+tcf_block_create : 1
+amdgpu_connector_update_scratch_regs : 4
+esw_vport_change_handle_locked : 1
+apply_microcode_on_target : 6
+get_rdx_init_val : 1
+cpu_relax : 6
+sys32_ftruncate64 : 3
+gen8_switch_to_updated_kernel_context : 3
+jsonw_null : 1
+num_online_cpus : 8
+dput : 12
+BPF_ALU64_IMM : 2
+ipv6_hdr : 2
+compat_ptrace_hbp_num_to_idx : 2
+hpage_nr_pages : 1
+free_thread_groups : 1
+drm_atomic_get_plane_state : 3
+ip6_compute_pseudo : 1
+EMIT2_off32 : 1
+__ibp_barrier : 2
+kvm_set_cr8 : 1
+bnxt_qplib_free_qp_hdr_buf : 1
+alloc_skb : 1
+__map_bio : 3
+gic_clear_pcpu_masks : 1
+pvcalls_enter_sock : 8
+mlxsw_sp_sfd_rec_policy : 4
+self._get_online_cpus : 1
+AA : 6
+mmiowb : 6
+dma_common_free_remap : 1
+collect_cpu_info : 3
+clear_inode : 1
+rdtsc : 1
+mcip_update_gfrc_halt_mask : 2
+gen8_configure_all_contexts : 18
+is_blacklisted : 1
+count_vm_event : 6
+__show_regs : 1
+early_cpu_to_node : 1
+DEFINE_SPINLOCK : 8
+__deliver_cpu_timer : 1
+rmnet_vnd_dellink : 1
+generic_show : 3
+hash__early_init_mmu : 1
+xen_flush_tlb : 1
+self.update_drilldown : 1
+read_cpuid_id : 1
+Author : 1
+guest_exit_irqoff : 1
+kvm_cpu_get_apicid : 1
+adapter_delete_cq : 1
+qla4_8xxx_rd_direct : 1
+native_flush_tlb_single : 1
+__field : 1
+free_fs_devices : 1
+preempt_disable : 12
+qla2x00_get_sp : 2
+ptep_set_wrprotect : 1
+dwc3_ulpi_init : 2
+set_vinst_win : 1
+to_pci_dev : 1
+bdevname : 10
+pgd_set_fixmap : 2
+sleep : 1
+free_mm : 1
+mvpp2_prs_mcast_del_all : 1
+kvm_call_hyp : 1
+d_inode : 14
+register_cpu_online : 1
+memblock_next_valid_pfn : 3
+amdgpu_ring_get_wptr : 3
+skb_gso_transport_seglen : 8
+close : 1
+per_cpu_ptr : 1
+btrfs_release_path : 4
+omap_prcm_irq_complete : 1
+pfn_first : 2
+l2tp_tunnel_free : 2
+handle_lctlg : 1
+signal_valid : 1
+hist_browser__run : 1
+PPC_BCC : 2
+of_get_flat_dt_root : 1
+device_store_int : 3
+isb : 3
+of_node_put : 9
+__rpte_to_hidx : 1
+hist_browser__nr_entries : 1
+pmd_val : 4
+to_amdgpu_crtc : 3
+qeth_l3_ipaddr6_to_string : 2
+emit_a64_mov_i64 : 2
+pud_clear : 3
+cache_alloc : 2
+__deliver_set_prefix : 1
+nvme_end_request : 2
+dio_set_defer_completion : 1
+rq_clock_task : 5
+sys32_vm86_warning : 3
+sys_perf_evt_open : 1
+default_banner : 2
+intel_mid_reboot : 1
+napi_complete_done : 2
+vmalloc_fault : 1
+evlist__for_each_entry : 11
+kvm_timer_vcpu_load_gic : 1
+__pgd_populate : 4
+htab_convert_pte_flags : 3
+PTR_ERR_OR_ZERO : 2
+handle_stctg : 1
+trace_usb_ep_free_request : 1
+talk_to_blkback : 2
+tcp_send_head : 1
+cirrus_crtc_load_lut : 2
+update_page_reclaim_stat : 1
+REG_WRITE : 12
+ebt_among_wh_src : 4
+free_initmem : 1
+clean_tx_pools : 1
+self.get_providers : 1
+nf_setsockopt : 2
+iounmap : 16
+pgtable_gfp_flags : 3
+pci_write_config_word : 5
+netdev_master_upper_dev_get : 4
+soft_restart : 1
+qeth_l3_deregister_addr_entry : 8
+indirect_branch_prediction_barrier : 1
+native_wbinvd : 6
+kmalloc : 10
+smp_rmb : 2
+BD_LFLAG : 2
+__hard_irq_enable : 1
+get_init_otp_deassert_fragment_len : 1
+__virtnet_xdp_xmit : 2
+topology_sibling_mask : 1
+vga_client_register : 1
+pvcalls_exit : 40
+scsi_cmd_priv : 2
+MLXSW_CORE_RES_GET : 4
+kvm_s390_inject_prog_cond : 2
+handle_epsw : 1
+intel_runtime_pm_get : 2
+dns323_read_mac_addr : 4
+efi_sync_low_kernel_mappings : 1
+rcu_dereference : 1
+sched_clock : 2
+qnap_tsx09_parse_hex_nibble : 2
+dvb_dvr_set_buffer_size : 1
+perf_evlist__toggle_bkw_mmap : 3
+__invalidate_dcache_range : 1
+amdgpu_connector_check_hpd_status_unchanged : 2
+jump_label_lock : 1
+dwc3_core_init : 1
+netdev_upper_dev_unlink : 4
+usb_amd_dev_put : 2
+set_cpu_present : 2
+wake_up_poll : 1
+nicvf_unmap_page : 3
+hpwdt_my_nmi : 3
+mem_init_print_info : 2
+mlxsw_sp_fib_destroy : 2
+try_to_optimize_kprobe : 1
+ClearPageUnevictable : 1
+mtctl : 1
+XT_ALIGN : 2
+arch_ioremap_pmd_supported : 1
+rlen_pattern.match : 2
+radix_init_partition_table : 1
+ipoib_priv : 1
+kzfree : 4
+__flush_tlb_single : 5
+skb_segment : 1
+get_disk : 1
+of_device_get_match_data : 1
+exit : 4
+compound_head : 4
+idr_u32_test : 4
+dell_smbios_error : 6
+nvme_rdma_reconnect_or_remove : 1
+HDMI_I2S_SEL_SCLK : 1
+qla2x00_mark_device_lost : 4
+mlxsw_reg_sfd_num_rec_get : 12
+btusb_config_oob_wake : 2
+uobj_remove_commit : 1
+dvb_dmx_swfilter_packet_type : 1
+self._setup_event_attribute : 1
+__deliver_restart : 1
+chk_ucode_version : 1
+MODULE_DEVICE_TABLE : 6
+copy_to_user : 4
+__optimize : 1
+alua_rtpg_work : 1
+__i2c_dw_enable_and_wait : 1
+NOKPROBE_SYMBOL : 3
+cond_resched : 9
+sk_common_release : 2
+bdgrab : 1
+radeon_best_single_encoder : 2
+irq_set_irqchip_state : 1
+find_bug : 3
+rcu_read_lock : 22
+get_supported_tp : 1
+jump_label_init : 3
+ovl_want_write : 4
+tipc_nl_compat_media_set : 1
+xen_start_kernel : 2
+TRVATTL3PTRDW : 2
+task_ctx_sched_out : 3
+dev_uc_sync : 4
+acpi_of_match_device : 2
+queue_io : 1
+mfsp : 2
+Xeon : 1
+execlists_num_ports : 1
+kvm_timer_vcpu_load_vgic : 1
+ib_cache_cleanup_one : 3
+__deliver_emergency_signal : 1
+get_count_order : 3
+pnv_setup_rfi_flush : 1
+pte_pgprot : 1
+pci_uevent_ers : 1
+skb_headlen : 11
+ENDPROC : 1
+adapter_alloc_cq : 1
+idr_checks : 2
+EXCEPTION_RELON_PROLOG_PSERIES_1 : 1
+dev_set_promiscuity : 2
+process_msg : 1
+slb_pgsize_encoding : 3
+perf_check_microcode : 2
+nvme_dev_disable : 2
+cur_regs : 4
+cru_detect : 3
+setup_cpu_entry_areas : 3
+ftrace_free_init_mem : 1
+jump_label_invalidate_init : 4
+ppro_with_ram_bug : 1
+kmap_atomic : 1
+mcip_ipi_send : 1
+irq_set_status_flags : 1
+plat_wired_tlb_setup : 1
+file_start_write : 2
+update_numa_cpu_lookup_table : 4
+kunmap_atomic : 1
+native_pmd_val : 4
+trace_tlbie : 2
+native_pagetable_init : 1
+add_page_to_unevictable_list : 2
+ccw_device_tm_start : 2
+pmd_sect : 1
+put_user : 6
+_base_reset_handler : 2
+kvm_s2pmd_mkexec : 1
+bmips_cpu_setup : 2
+matrix_keypad_scan : 2
+VMLINUX_SYMBOL : 6
+synchronize_net : 1
+__sync_icache_dcache : 2
+Tui : 9
+netdev_master_upper_dev_get_rcu : 3
+napi_schedule_prep : 2
+mmc_priv : 2
+pmd_page_paddr : 1
+pud_page_paddr : 2
+self.is_field_wanted : 4
+super : 2
+ceph_mdsc_do_request : 2
+test_thread_flag : 1
+nouveau_connector_ddc_detect : 1
+CONST_MASK_ADDR : 2
+device_store_ulong : 3
+core_kernel_text : 1
+DIV_ROUND_UP : 1
+msleep : 1
+unlock_page : 1
+ceph_drop_caps_for_unlink : 1
+group.read : 1
+release_sock : 11
+phys_timer_emulate : 1
+arm_pmu_acpi_cpu_starting : 2
+HID_USB_DEVICE : 9
+bpf_prog_put : 2
+nvdimm_has_cache : 2
+__kernel_text_address : 1
+perf_mmap__consume : 2
+kasan_init : 1
+__flush_tlb_all : 2
+BPF_LD_MAP_FD : 4
+self._update_provider_filters : 1
+BUILD_BUG : 2
+raid10_size : 1
+del_gendisk : 1
+__pud_populate : 4
+set_sched_topology : 1
+mutex_unlock : 3
+ppp_lock : 2
+nvme_fc_delete_association : 1
+irqd_affinity_is_managed : 1
+read_retpoline_hints : 1
+skb_reset_network_header : 2
+ip_hdr : 2
+SR : 15
+drm_fb_cma_get_gem_obj : 1
+__deliver_machine_check : 1
+tvp5150_vdp_init : 2
+armpmu_alloc : 1
+sys.exit : 8
+disarm_kprobe_ftrace : 2
+armpmu_get_cpu_irq : 2
+mutex_lock : 3
+xen_flush_tlb_single : 1
+perf_top_overwrite_fallback : 1
+self.read : 2
+xen_save_time_memory_area : 1
+self._get_providers : 1
+ERR_PTR : 11
+platform_device_del : 6
+stats.keys : 1
+decode_gam_rng_tbl : 1
+mdelay : 1
+set_pte_vaddr : 1
+acpi_ec_leave_noirq : 1
+ovl_connect_layer : 4
+btrfs_item_ptr_offset : 2
+check_func : 4
+INIT_LIST_HEAD : 1
+of_node_full_name : 1
+pnfs_layoutreturn_before_put_layout_hdr : 3
+native_make_pud : 1
+set_efer : 1
+pinctrl_pm_select_default_state : 1
+list_prev_entry : 2
+gtt_entry : 2
+perf_evlist__first : 5
+to_svm : 1
+handle_tprot : 1
+intel_snb_pebs_broken : 1
+gvt_ggtt_sz : 1
+unreachable : 2
+flush_tlb_range : 2
+si_get_current_pcie_speed : 3
+Arch.get_arch : 1
+WARN : 1
+__ipa_cmd : 2
+pvcalls_front_poll_passive : 1
+engine_event_status : 1
+tcp_done : 2
+vaddr_get_pfn : 1
+intel_engine_supports_stats : 4
+tg3_write_sig_post_reset : 1
+VSYS : 2
+dump_backtrace_entry : 1
+input_get_drvdata : 2
+get_gendisk : 1
+shrink_stripes : 1
+eeh_pcid_put : 1
+add_memory_region : 1
+pte_unmap : 3
+on_each_cpu : 3
+trace_block_rq_requeue : 1
+TO_DCE110_LINK_ENC : 3
+perf_num_counters : 1
+__qla24xx_parse_gpdb : 2
+GLOBAL : 5
+arm_pmu_acpi_probe : 1
+assign_globals : 1
+microcode_dev_exit : 3
+__deliver_virtio : 1
+DWC3_GCTL_PRTCAPDIR : 1
+core_initcall : 2
+l2tp_tunnel_sock_lookup : 2
+mm_free_pgd : 1
+__compiletime_object_size : 2
+pmd_none : 1
+next_urb : 1
+self.screen.move : 1
+module_param_named : 2
+ohci_frame_no : 1
+mergeable_ctx_to_headroom : 2
+drm_crtc_vblank_off : 3
+lru_cache_add : 4
+arm_kprobe : 8
+netif_tx_wake_all_queues : 4
+of_get_flat_dt_prop : 1
+ib_get_ndev_from_path : 3
+paging_init : 6
+keccakf_round : 1
+hw_to_dclk : 3
+bootmem_init : 4
+self.screen.clrtobot : 1
+snd_hda_override_conn_list : 3
+kvfree : 1
+nf_ct_timeout_ext_add : 1
+compat_sys_wait4 : 3
+setup_arch : 2
+bnxt_re_ib_unreg : 2
+uverbs_attr_get : 3
+pte_user_exec : 1
+disk_unblock_events : 3
+drm_helper_connector_dpms : 1
+qeth_l3_add_ip : 8
+task_pid_nr : 1
+__deliver_external_call : 1
+musb_enable_interrupts : 1
+pvcalls_front_poll_active : 1
+mlxsw_sp_port_vlan_bridge_leave : 2
+nvme_fc_unmap_data : 1
+_rdma_remove_commit_uobject : 1
+tg3_flag : 1
+intel_vgpu_get_bar_gpa : 1
+btrfs_orphan_reserve_metadata : 1
+BITOP_ADDR : 3
+synchronize_rcu : 6
+bitmap_destroy : 1
+for_each_possible_cpu : 5
+__acpi_match_device : 2
+cpufreq_table_validate_and_show : 1
+pppol2tp_session_get_sock : 2
+ib_cache_release_one : 3
+gicv2m_unalloc_msi : 1
+i2c_dw_disable_int : 1
+pmd_set_flags : 1
+TestClearPageUnevictable : 1
+remove_pagetable : 1
+__kernel_fpu_end : 1
+TRIGGER_WARN_ONCE : 3
+verify_command_idx : 1
+vmemmap_alloc_block_buf : 1
+l2tp_tunnel : 6
+offsetof : 9
+tcp_for_write_queue_from_safe : 1
+set_vsyscall_pgtable_user_bits : 3
+self._refresh_header : 8
+nvme_shutdown_ctrl : 1
+platform_device_put : 7
+kernel_sock_shutdown : 2
+set_page_dirty_lock : 3
+xdp_do_flush_map : 6
+qla24xx_async_gpnft : 2
+netvsc_send_pkt : 4
+ni_set_max_freq : 1
+kill : 1
+ia64_atomic64_fetch_add : 2
+usbhs_dma_calc_received_size : 1
+pkcs7_verify_one : 1
+usb_amd_quirk_pll_disable : 1
+fill_function_pointers : 3
+hv_begin_read : 2
+smp_callin : 2
+MASKABLE_EXCEPTION_PROLOG_1 : 2
+udplite_checksum_init : 2
+mmget : 1
+uids_sysfs_init : 1
+func_for_each_insn_continue_reverse : 1
+self.get_available_fields : 3
+__bnxt_qplib_add_flush_qp : 18
+i915_pmu_unregister_cpuhp_state : 1
+init_cpu_syscore : 1
+ovl_encode_maybe_copy_up : 4
+_REG : 1
+sys32_fadvise64_64 : 3
+c2c_browser__update_nr_entries : 2
+rtnl_lock : 10
+sizeof : 200
+func_for_each_insn : 1
+dev_mc_sync : 4
+dm_consume_args : 3
+adapter_alloc_sq : 1
+native_flush_tlb_global : 1
+free_highpages : 3
+round_jiffies_up_relative : 1
+btrfs_inode_ref_name_len : 1
+clear_cpu_cap : 3
+trace_dwc3_complete_trb : 1
+amdgpu_dm_display_resume : 3
+qeth_prepare_control_data : 4
+dwc3_core_num_eps : 1
+fallback : 2
+qeth_get_elements_for_range : 4
+xhci_dbc_exit : 1
+phy_led_triggers_register : 2
+reload_for_cpu : 6
+ckc_interrupts_enabled : 1
+CHECK_CSI_OFFSET : 14
+paravirt_disable_iospace : 1
+set_fs : 1
+blk_rq_payload_bytes : 1
+idr_get_next_test : 4
+print_pstate : 1
+nicvf_xdp_sq_doorbell : 1
+annotate_unreachable : 2
+get_task_struct : 1
+set_pte : 1
+this_cpu_read : 1
+__flush_tlb_one_kernel : 5
+nvme_reset_ctrl : 1
+GET_ID : 2
+wait_for_kprobe_optimizer : 1
+trace_libc_inet_pton_backtrace : 2
+SIZE_OR_MASK_BITS : 1
+SSS_AES_WRITE : 1
+pm_runtime_enable : 3
+snprintf : 6
+set_cpu_possible : 1
+nvme_rdma_shutdown_ctrl : 2
+local_bh_enable : 7
+trace_mm_lru_insertion : 1
+SetPageUnevictable : 2
+kasan_pud_offset : 2
+arch_counter_get_cntvct : 3
+__fix_to_virt : 1
+account_group_exec_runtime : 1
+test_anon : 4
+delay_with_tsc : 1
+blk_integrity_del : 1
+CLOCKSOURCE_MASK : 1
+per_cpu : 10
+kvm_s390_handle_aa : 1
+OV5_FEAT : 1
+tbnet_logout_response : 1
+mm_inc_nr_puds : 2
+sock_release : 5
+for_each_oldnew_connector_in_state : 1
+map_cpu_to_node : 1
+ASSERT_GE : 1
+native_smp_prepare_cpus : 1
+of_match_ptr : 3
+for_each_node_with_cpus : 1
+sys_ni_syscall : 1
+kvm_s390_handle_b9 : 1
+cio_tm_start_key : 2
+pci_release_regions : 2
+ccw_device_tm_start_timeout_key : 6
+kvm_guest_init : 1
+self._get_available_fields : 3
+self._update_pid : 2
+GENMASK : 3
+mem_init : 3
+init_caches : 1
+dm_get_geometry : 3
+nvme_mpath_add_disk_links : 2
+netvsc_connect_vsp : 2
+ArchA64 : 2
+d_delete : 1
+mptctl_hp_targetinfo : 1
+inet6_destroy_sock : 2
+devlink_resource_size_params_put : 2
+qla2x00_post_async_adisc_work : 2
+ad7192_valid_external_frequency : 1
+scpi_cpufreq_get_rate : 1
+sdhci_execute_tuning : 1
+pgd_clear_fixmap : 1
+cgroup_account_cputime : 1
+kasan_pmd_populate : 2
+radeon_check_hpd_status_unchanged : 1
+IRQ : 1
+usleep_range : 1
+bmap_lock : 1
+VCPU_STAT : 21
+wmb : 1
+kvm_s390_handle_e5 : 1
+__gic_clocksource_init : 2
+guest_exit : 6
+kvm_s390_handle_e3 : 1
+RREG32_SOC15 : 1
+dw_mci_init_slot_caps : 1
+dwc3_omap_set_mailbox : 4
+ceph_fscache_register : 2
+ccw_device_start_timeout_key : 4
+__dn_setsockopt : 1
+amdgpu_atomfirmware_get_vram_width : 1
+netif_carrier_on : 4
+native_make_pgd : 2
+array_index_nospec : 1
+page_pgdat : 1
+irq_domain_get_irq_data : 1
+bpf_map_area_alloc : 1
+bearer_disable : 1
+USB_ID : 6
+tcp_try_undo_loss : 4
+insert_child : 1
+boot_cpu_has : 4
+pgattr_change_is_safe : 6
+pci_resource_len : 1
+pti_setup_espfix64 : 3
+BLOCKING_NOTIFIER_HEAD : 6
+HWS_SF : 24
+rq_unpin_lock : 2
+intel_runtime_pm_put : 2
+ed_schedule : 1
+nfs_commit_inode : 3
+ib_device_register_sysfs : 3
+kvm_s390_handle_eb : 1
+btrfs_ino : 3
+qeth_l3_find_addr_by_ip : 8
+page_is_file_cache : 2
+for_each_memblock : 2
+defaultdict : 1
+self.screen.getkey : 2
+locale.getpreferredencoding : 1
+core_kernel_data : 1
+dell_smbios_init : 6
+kvm_s390_handle_stctl : 1
+sk_refcnt_debug_dec : 2
+set_current_state : 3
+pmd_alloc : 4
+tbf_segment : 2
+memblock_region_reserved_end_pfn : 1
+binder_get_thread : 1
+pmd_mkold : 1
+flush_kernel_dcache_range_asm : 2
+sys_ioperm : 3
+kdump_in_progress : 1
+__map_bio_fast : 3
+get_options : 1
+atomic_dec_and_test : 2
+IXGBE_CB : 2
+test_file : 2
+sync_initial_page_table : 6
+pci_set_vpd_size : 3
+ndelay : 3
+cpu_disable_common : 1
+tg3_send_ape_heartbeat : 1
+is_ubsan_insn : 1
+of_add_property : 1
+t4_cleanup_clip_tbl : 1
+TEST : 1
+tlbiel_all : 2
+END : 14
+platform_get_resource : 3
+alloc_page : 1
+__wrmsr : 1
+GENMASK_ULL : 2
+bio_sectors : 1
+cache_alloc_hsw_probe : 1
+trace_irq_matrix_free : 1
+foo : 1
+cache_line_size : 2
+is_ioirq : 1
+timeout : 2
+deadline_fifo_request : 1
+is_qla8042 : 2
+ceph_inode : 2
+md_set_array_sectors : 1
+hpwdt_exit_nmi_decoding : 6
+blk_mq_sched_requeue_request : 2
+xfs_ilock : 4
+btrfs_inode_extref_parent : 1
+ovl_dentry_set_flag : 4
+nft_genmask_next : 2
+self.screen.getstr : 4
+qlt_logo_completion_handler : 1
+DMA_BIT_MASK : 1
+__phys_to_virt : 2
+EXPORT_SYMBOL : 33
+sock_put : 21
+fork : 1
+byt_probe_slot : 4
+RREG32_PCIE_PORT : 3
+pmd_offset_kimg : 4
+perf_top__mmap_read : 1
+BPF_ST_MEM : 4
+overlaps_kernel_text : 1
+CC_OUT : 5
+current_wq_worker : 1
+RT_TOS : 6
+BL_REG_LIST : 3
+qla4xxx_reset_target : 1
+rmnet_unregister_real_device : 3
+qdisc_reset_all_tx_gt : 1
+pppol2tp_sock_to_session : 4
+vsyscall_getcpu : 1
+READ_BCR : 2
+__clear_rsb : 1
+switch_to : 1
+perf_can_sample_identifier : 6
+__chk_user_ptr : 1
+CMD_SP : 1
+pte_alloc_map : 3
+clean_tree_block : 3
+__do_compat_cache_op : 1
+native_smp_prepare_boot_cpu : 2
+x86_model : 2
+assert_uverbs_usecnt : 4
+rep_nop : 1
+syscall_available : 2
+arc_init_cpu_possible : 2
+barrier_before_unreachable : 11
+snd_seq_client_unlock : 3
+early_fixmap_init : 2
+mark_readonly : 1
+ptep_clear_flush : 1
+cpumask_first : 1
+axp288_extcon_enable : 1
+__pa_symbol : 13
+multipath_per_bio_data_size : 3
+setup_per_cpu_areas : 1
+radeon_pm_compute_clocks_dpm : 1
+DWC3_GUSB3PIPECTL : 1
+sys32_sigreturn : 3
+__pmd_populate : 4
+trace_xen_mmu_flush_tlb_single : 1
+create_table : 2
+tg3_ape_send_event : 1
+self.get_online_cpus : 1
+omap_pm_finish : 1
+of_pci_check_probe_only : 3
+free_area_high : 3
+dwc2_hsotg_ep0_zlp : 2
+key_serial : 1
+dns323_parse_hex_nibble : 2
+local_flush_tlb : 1
+test_native_vsyscall : 12
+vfree : 2
+show_pte : 2
+ALIGN : 8
+memalloc_noio_save : 6
+bpf_map_precharge_memlock : 1
+ia64_atomic_fetch_sub : 2
+kvm_for_each_vcpu : 3
+OPT_END : 1
+tvp5150_write_inittab : 1
+btrfs_abort_transaction : 1
+__i915_request_irq_complete : 1
+bpf_map_area_free : 1
+musb_start : 1
+dw_readl : 1
+btrfs_wait_tree_block_writeback : 3
+list_next_entry : 1
+dst_release : 3
+__ia64_atomic_const : 20
+smp_mb__before_atomic : 1
+self.update_pid : 3
+self.show_set_update_interval : 1
+write_cr3 : 1
+bios32_present : 3
+for_each_online_node : 1
+nvme_complete_rq : 1
+waitpid : 1
+snd_hda_codec_get_pincfg : 2
+self._baseline.get : 2
+num_present_cpus : 5
+module_rpmsg_driver : 2
+gicv2m_irq_gic_domain_alloc : 1
+arch_init_kprobes : 3
+napi_reschedule : 2
+batadv_inc_counter : 2
+xfs_ilock_data_map_shared : 4
+btrfs_orphan_release_metadata : 3
+self._read_field : 1
+bnxt_re_dev_unreg : 3
+while : 1
+EXC_COMMON_BEGIN : 1
+xen_boot_params_init_edd : 1
+dwc2_hsotg_enqueue_setup : 2
+bpf_warn_invalid_xdp_action : 2
+xen_arch_post_suspend : 1
+mb : 4
+mlx5e_skb_l2_header_offset : 1
+map_mem : 2
+release_resource : 1
+native_make_pmd : 1
+USB_DEVICE : 20
+__disable_kprobe : 2
+__map_bio_nvme : 3
+MIDR_ALL_VERSIONS : 3
+flush_tlb_all : 3
+drm_kms_helper_is_poll_worker : 2
+TP_ARGS : 3
+pmd_is_leaf : 3
+skb_gso_validate_network_len : 12
+imx_pgc_get_clocks : 1
+__stringify : 2
+curses.echo : 3
+platform_set_drvdata : 7
+self._show_filter_selection : 1
+platform_get_drvdata : 1
+pgd_entry_type : 2
+nvme_fc_ctrl_put : 2
+ccw_device_cancel_halt_clear : 4
+xt_ct_find_proto : 2
+unmask_vtimer_irq_user : 2
+mlxsw_sp_port_vlan_create : 2
+pud_offset : 18
+GENERATE_THUNK : 3
+netvsc_pick_tx : 2
+batadv_orig_hash_find : 2
+aq_pci_free_irq_vectors : 1
+invalidate_other_asid : 1
+kvm_vcpu_halt : 1
+usbhsf_dma_stop : 1
+num_poisoned_pages_inc : 1
+trace_xen_mmu_flush_tlb_one_user : 1
+blk_mq_add_to_requeue_list : 1
+self.read_field : 1
+padlock_init : 1
+handle_set_prefix : 1
+aq_nic_get_cfg : 1
+console_trylock : 1
+ip6_rt_put : 2
+ocxl_afu_irq_free : 1
+i915_gem_reset_finish_engine : 3
+eth_hdr : 2
+map_vsyscall : 3
+ATOMIC_INIT : 1
+handler : 6
+__IP_INC_STATS : 4
+tc_u_common_ptr : 2
+bcm2835_i2c_writel : 1
+nl80211_send_disconnected : 1
+tlb_defer_switch_to_init_mm : 1
+PFN_PHYS : 1
+pgdat_end_pfn : 1
+sys32_fadvise64 : 3
+pgd_page_paddr : 2
+enable_metric_set : 3
+msr_write_intercepted_l01 : 2
+stop_topology_update : 1
+cmpxchg : 1
+to_amdgpu_encoder : 1
+flush_tlb_kernel_range : 5
+smp_wmb : 3
+page_evictable : 1
+curses.cbreak : 1
+for_each_engine : 8
+tm_trap_test : 2
+setup_vm : 1
+__flush_tlb_one_user : 6
+accept : 2
+str : 4
+sys_clone : 3
+time.time : 1
+msr_io : 3
+device_link_free : 1
+RETPOLINE_RAX_BPF_JIT : 3
+rmnet_vnd_get_mux : 2
+rmnet_get_endpoint : 2
+iput : 1
+clusterip_config_put : 5
+synchronize_sched : 2
+detect_cru_service : 9
+rtnl_unlock : 16
+__mmdrop : 2
+setup_cpu_local_masks : 1
+__blk_mq_requeue_request : 1
+nvme_mpath_remove_disk_links : 2
+unregister_netdevice_queue : 1
+DEFINE_MUTEX : 18
+dev_set_allmulti : 2
+stats.items : 1
+qlt_send_term_imm_notif : 1
+dvb_dmx_swfilter_section_feed : 1
+pfn_pte : 1
+native_wrmsrl : 2
+kvm_timer_vcpu_load_nogic : 1
+init_pmd : 2
+just_return_func : 1
+acpi_remove_notify_handler : 2
+check_pgt_cache : 1
+tg3_ape_unlock : 1
+mvpp2_prs_mac_multi_set : 2
+gfs2_is_stuffed : 1
+__pte : 2
+blkdev_put : 15
+check_conflicting_actions : 1
+ashmem_pin : 1
+acpi_get_match_data : 1
+__phy_resume : 4
+arm_all_kprobes : 5
+dwc3_core_ulpi_init : 1
+handle_sske : 1
+self.setup_traces : 1
+test_wsmt_enabled : 3
+_scsih_tm_display_info : 6
+smp_processor_id : 7
+devm_add_action : 1
+speedstep_detect_processor : 2
+ia64_atomic_add : 4
+sync_inode : 3
+nlmsg_data : 2
+btrfs_ordered_update_i_size : 1
+pte_valid : 2
+PageMlocked : 1
+qla4xxx_isp_check_reg : 4
+pvcalls_enter : 9
+self.print_all_gnames : 2
+local_flush_tlb_all : 1
+xen_flush_tlb_one_user : 1
+BTRFS_ATTR : 3
+pvcalls_exit_sock : 23
+trace_hardirqs_off : 3
+netdev_notify_peers : 1
+REG_UPDATE : 6
+module_put : 7
+vmexit_fill_RSB : 3
+END_FTR_SECTION_NESTED : 1
+ccw_device_tm_start_key : 6
+__get_rc6 : 2
+__builtin_trap : 6
+rdev_for_each : 2
+BPF_JMP_REG : 2
+usb_endpoint_xfer_isoc : 1
+aead_request_set_ad : 1
+bnxt_qplib_cancel_phantom_processing : 3
+rndis_filter_halt_device : 2
+usbhsf_dma_unmap : 1
+rhl_for_each_entry_rcu : 1
+nouveau_display : 1
+array_index_mask_nospec : 1
+tipc_nl_compat_bearer_set : 1
+btrfs_next_leaf : 1
+l2tp_session_delete : 2
+__ib_process_cq : 12
+__mcip_cmd_data : 5
+dell_smbios_smm_init : 6
+__stack_chk_fail : 3
+armpmu_count_irq_users : 1
+__I915_PMU_ENGINE : 3
+kfree_skb : 5
+put_device : 6
+nvme_setup_streams_ns : 1
+ia64_atomic64_fetch_sub : 2
+MLX5_ADDR_OF : 4
+try_module_get : 2
+intel_modeset_cleanup : 1
+self.setup_event_attribute : 1
+dwc3_set_prtcap : 2
+browser_line : 3
+unfreeze_array : 1
+big_key_free_buffer : 4
+module_i2c_driver : 2
+local_irq_disable : 2
+u8500_init_machine : 1
+MLXSW_AFK_ELEMENT_INFO_BUF : 16
+dm_put_live_table : 3
+__releases : 4
+mtrr_bp_init : 1
+user2rate : 1
+fclose : 1
+clk_disable_unprepare : 3
+trace_gfs2_iomap_end : 1
+cpuid_eax : 1
+vma_kernel_pagesize : 3
+cpuid_ebx : 1
+ARCH.debugfs_is_child : 2
+ip6_flush_pending_frames : 2
+show_cpuinfo_core : 1
+kvm_lapic_reset : 3
+trace_btrfs_inode_evict : 1
+kvmppc_radix_tlbie_page : 3
+init_kernel_text : 3
+skb_rx_queue_recorded : 2
+nvme_ns_remove : 2
+init_channel_allocations : 1
+dev_put : 12
+SIMPLE_DEV_PM_OPS : 3
+omap_pm_wake : 1
+allocator : 6
+kvm_get_msr_common : 1
+bnxt_re_unlock_cqs : 10
+__LC_LAST_UPDATE_TIMER : 2
+set_irq_happened : 3
+bnxt_qplib_unlock_buddy_cq : 15
+self.show_filter_selection : 1
+__i2c_dw_enable : 1
+sdhci_reset : 1
+open_root_dentry : 1
+kasan_pud_populate : 2
+intel_bios_cleanup : 1
+EXPORT_SYMBOL_GPL : 29
+xfs_is_reflink_inode : 2
+disarm_all_kprobes : 4
+plat_smp_ops.init_early_smp : 1
+arch_unmap_kpfn : 6
+EXPECT_EQ : 1
+smp_ipi_irq_setup : 2
+intel_disable_engine_stats : 2
+write_sysreg_el0 : 1
+dwc2_gadget_set_ep0_desc_chain : 2
+init_pte : 2
+__map_memblock : 2
+find_and_online_cpu_nid : 3
+dev_hold : 3
+net_generic : 4
+kfree : 100
+signal_compat_build_tests : 4
+read_gic_config : 1
+range : 1
+self.screen.erase : 3
+qlt_plogi_ack_unref : 2
+INDIRECT_THUNK : 4
+mddev_unlock : 1
+stop_machine_cpuslocked : 3
+page_address : 4
+get_ep_by_pipe : 2
+for_each_insn : 1
+pte_offset_kernel : 14
+dvb_filter_pes2ts : 1
+tls_register : 2
+dma_entry_alloc : 2
+kvm_setup_pv_tlb_flush : 1
+btrfs_item_size_nr : 2
+vb2_core_streamon : 1
+intel_get_microcode_revision : 6
+topology_sibling_cpumask : 1
+cpu_set_state_online : 1
+engine_event_instance : 3
+mark_linear_text_alias_ro : 1
+ravb_modify : 1
+dev_kfree_skb_any : 2
+bnxt_qplib_is_atomic_cap : 1
+to_fc_ctrl : 1
+__cache_size_refresh : 3
+pgd_offset_raw : 6
+pgd_offset : 10
+__disarm_kprobe : 1
+__flush_tlb_one : 5
+IS_ENABLED : 13
+ovl_copy_up : 4
+handle_io_inst : 1
+barrier : 1
+mce_unmap_kpfn : 4
+arc_chk_core_config : 1
+ElfW : 1
+memblock_region_memory_end_pfn : 1
+spectre_v2_select_mitigation : 3
+xfs_trans_get_cud : 1
+aarch32_check_condition : 1
+nicvf_get_sq_desc : 1
+qla2x00_wait_for_sess_deletion : 1
+spectre_v2_module_string : 1
+div64_u64 : 1
+console_unlock : 2
+pmdp_ptep : 3
+nvme_rdma_configure_admin_queue : 1
+re.compile : 1
+phy_resume : 6
+pci_resource_start : 1
+intel_pmu_lbr_init_atom : 1
+rmnet_get_port_rtnl : 4
+ovl_dentry_lower : 6
+bio_complete : 2
+p6_pmu_rdpmc_quirk : 1
+nfs_server_insert_lists : 1
+perf_top__mmap_read_idx : 1
+hex_width : 1
+of_get_address : 2
+msecs_to_jiffies : 2
+mci_readl : 5
+current_cred : 1
+kmem_cache_free : 3
+put_disk : 8
+detect_tablet_mode : 1
+cpu_to_hc32 : 1
+menu_add_expr : 1
+__cap_delay_requeue_front : 1
+ohci_usb_reset : 1
+kvmppc_pte_alloc : 3
+new.get : 1
+hist_browser__selected_thread : 1
+zones_init : 1
+rndis_filter_update : 2
+BPF_JMP_IMM : 4
+__drm_mm_hole_node_start : 2
+intel_enable_engine_stats : 2
+dwc3_suspend_common : 4
+br_vlan_find : 2
+irq_is_percpu_devid : 1
+rb_entry : 1
+set_intercept : 5
+scsi_print_command : 2
+drm_kms_helper_poll_disable : 1
+omap4_get_sar_ram_base : 2
+kvm_s390_handle_b2 : 1
+bnxt_qplib_arm_cq : 6
+intel_scu_ipc_simple_command : 2
+sethandler : 4
+__kernel_fpu_begin : 1
+putback_lru_page : 1
+qdisc_skb_cb : 4
+ep_remove_waitqueue : 2
+
+compute diff took 228 ms
+{var}{mas}
+{bool}{t}
+{int}{i}
+{int}{temp}
+
+compute AST took 10 ms
