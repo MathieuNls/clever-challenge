@@ -1,0 +1,108 @@
+*TEST FILE FOR DIFF*
+
+
+diff --git a/Documentation/accelerators/ocxl.rst b/Documentation/accelerators/ocxl.rst
+index 4f7af84..ddcc58d 100644
+--- a/Documentation/accelerators/ocxl.rst
++++ b/Documentation/accelerators/ocxl.rst
+@@ -152,6 +152,11 @@ OCXL_IOCTL_IRQ_SET_FD:
+   Associate an event fd to an AFU interrupt so that the user process
+   can be notified when the AFU sends an interrupt.
+
++OCXL_IOCTL_GET_METADATA:
++
++  Obtains configuration information from the card, such at the size of
++  MMIO areas, the AFU version, and the PASID for the current context.
++
+-
+-
+-
+--testing
+-testing
+---testing
+-------------------
+- continued line
+ - on the next place with a
+ + sign
+@@
+diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
+index 3a2ca0f..d0c34df 100644
+--- a/drivers/cpufreq/acpi-cpufreq.c
++++ b/drivers/cpufreq/acpi-cpufreq.c
+@@ -629,7 +629,7 @@ static int acpi_cpufreq_blacklist(struct cpuinfo_x86 *c)
+ 	if (c->x86_vendor == X86_VENDOR_INTEL) {
+ 		if ((c->x86 == 15) &&
+ 		    (c->x86_model == 6) &&
+-		    (c->x86_mask == 8)) {
++		    (c->x86_stepping == 8)) {
+ 			pr_info("Intel(R) Xeon(R) 7100 Errata AL30, processors may lock up on frequency changes: disabling acpi-cpufreq\n");
+ 			return -ENODEV;
+ 		    }
+diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
+index 3a2ca0f..d0c34df 100644
+--- a/drivers/cpufreq/acpi-cpufreq.c
++++ b/drivers/cpufreq/acpi-cpufreq.c
+@@ -629,7 +629,7 @@ static int acpi_cpufreq_blacklist(struct cpuinfo_x86 *c)
+ 	if (c->x86_vendor == X86_VENDOR_INTEL) {
+ 		if ((c->x86 == 15) &&
+ 		    (c->x86_model == 6) &&
+-		    (c->x86_mask == 8)) {
++		    (c->x86_stepping == 8)) {
+ 			pr_info("Intel(R) Xeon(R) 7100 Errata AL30, processors may lock up on frequency changes: disabling acpi-cpufreq\n");
+ 			return -ENODEV;
+ 		    }
+diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
+index 3a2ca0f..d0c34df 100644
+--- a/drivers/cpufreq/acpi-cpufreq.c
++++ b/drivers/cpufreq/acpi-cpufreq.c
+@@ -629,7 +629,7 @@ static int bcpi_cpufreq_blacklist(struct cpuinfo_x86 *c)
+ 	if (c->x86_vendor == X86_VENDOR_INTEL) {
+ 		if ((c->x86 == 15) &&
+ 		    (c->x86_model == 6) &&
+-		    (c->x86_mask == 8)) {
++		    (c->x86_stepping == 8)) {
+ 			pr_info("Intel(R) Xeon(R) 7100 Errata AL30, processors may lock up on frequency changes: disabling acpi-cpufreq\n");
+ 			return -ENODEV;
+ 		    }
++void dell_smbios_unregister_device(struct device *d)
++{
++	struct smbios_device *priv;
++
++	mutex_lock(&smbios_mutex);
++	list_for_each_entry(priv, &smbios_device_list, list) {
++		if (priv->device == d) {
++			list_del(&priv->list);
++			put_device(d);
++			break;
++		}
++	}
++	mutex_unlock(&smbios_mutex);
++	dev_dbg(d, "Remove device: %s\n", d->driver->name);
++}
+-	pushq	%rdi			/* pt_regs->di */
++	pushq	6*8(%rdi)		/* regs->ss */
++	pushq	5*8(%rdi)		/* regs->rsp */
++	pushq	4*8(%rdi)		/* regs->eflags */
++	pushq	3*8(%rdi)		/* regs->cs */
++	pushq	2*8(%rdi)		/* regs->ip */
++	pushq	1*8(%rdi)		/* regs->orig_ax */
+-    "pushf                          \n\t"
+-    "push        %es                \n\t"
+-    "push        %ds                \n\t"
+-    "pop         %es                \n\t"
+-    "movl        8(%ebp),%eax       \n\t"
+-    "movl        4(%eax),%ebx       \n\t"
+-    "movl        8(%eax),%ecx       \n\t"
+-    "movl        12(%eax),%edx      \n\t"
+-    "movl        16(%eax),%esi      \n\t"
+-    "movl        20(%eax),%edi      \n\t"
+-    "movl        (%eax),%eax        \n\t"
+-    "push        %cs                \n\t"
+-    "call        *12(%ebp)          \n\t"
+-    "pushf                          \n\t"
+-    "pushl       %eax               \n\t"
+-    "movl        8(%ebp),%eax       \n\t"
+-    "movl        %ebx,4(%eax)       \n\t"
+-    "movl        %ecx,8(%eax)       \n\t"
+-    "movl        %edx,12(%eax)      \n\t"
+-    "movl        %esi,16(%eax)      \n\t"
