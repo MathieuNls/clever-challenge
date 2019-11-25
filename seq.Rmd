@@ -1,0 +1,61 @@
+---
+title: "Seq.Rmd"
+author: "Jeff B"
+date: "May 24, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Sequence Question
+
+This question is a sequence classification question. Considering the large number of variables, however, we can start by examining it as a straightforward classification problem. This will allow us some of the benefits of straightforward classification, most importantly variable selection. This part was done in R.
+The sequence classification portion was done in Python, and can be found in the seq folder as seq.py
+
+Start by importing the necessary libraries and setting the seed for reproducibility
+```{r, echo=FALSE, warning=FALSE}
+library(glmnet)
+library(neuralnet)
+library(NeuralNetTools)
+library(nnet)
+library(randomForest)
+
+set.seed(212919156)
+```
+
+
+
+Next, we read in the data, and generate a RandomForest model for this data. RandomForests have built in cross-validation via Out-of-Bag estimates, so we don't need to do any extra cross-validation. We can also look at the variable importance plot here to determine the most important variables. Somewhat arbitrarily, we'll set a cutoff at 200 MeanDecreaseGini. This leaves us with 15 relevant variables.
+```{r}
+sample <- read.csv("seq/sample.csv")
+sample$class = factor(sample$class)
+
+#Use a random forest to generate a model to predict class
+rf <- randomForest(factor(class)~., data=data.frame(sample[,-1]))
+
+#Now look at the Variable Importance Plot of the Random Forest to determine relevant variables to the model
+varImpPlot(rf)
+```
+
+For comparison, we'll run a logistic regression using only variables above the threshold
+
+```{r}
+simdat <- sample[,-c(1,4,24,17,21,23,14,19,22,25,26,27,28,29,30,31)]
+
+#now using only those, we can run a logistic regression
+simlog <- glm(class ~ ., family="binomial", data=simdat)
+```
+
+Now we'll get the confusion matrix for both
+```{r}
+#First the randomForest
+table(predict(rf, newdata=sample[,-1]), sample$class)
+
+#Then the logistic regression
+table(predict(simlog, type="response") > 0.5, sample$class)
+```
+
+The randomForest model perdorms better for predictions, so given data about the next event, we would use the randomForest model to predict the class. 
+Considering we don't have that information, this process has still been useful, since we will use only those variables we've deemed relevant in our sequence prediction problem. 
