@@ -1,26 +1,65 @@
 import json
+import time
+import logging
+import sys
 
 class ASTParser:
     def __init__(self, filepath):
+        logging.basicConfig(level=logging.CRITICAL, # Setting logging to CRITICAL will disable most logging for benchmark purpose
+                            handlers=[
+                                    # Uncomment to enable logging to file
+                                    # logging.FileHandler('ASTParser{:%Y-%m-%d %I-%M-%S}.log'.format(datetime.now()), 'w', 'utf-8-sig'),
+                                      logging.StreamHandler(sys.stdout)
+                                    ],
+                            format="%(asctime)s — %(name)s — %(levelname)s — %(funcName)s:%(lineno)d — %(message)s")
+
         with open(filepath) as f:
             self.ast = json.load(f)
             self.rootNode = self.ast["Root"]
 
-    # Depth first search util
     def dfs(self, root, node_name, result):
+        """ 
+        Depth first search util to search a node with node_name and append to result
+        
+        Parameters: 
+        root (str)      : the name of the rootnode
+        
+        Returns:
+        var_type, var_name: variable type and name
+        """
+
         if root["Type"] == node_name:
             result.append(root)
         else:
             for child in root["Children"]:
                 self.dfs(child, node_name, result)
 
-    # Searching for all variable declaration
+
     def get_all_variable_declaration_node(self):
+        """ 
+        Using depth first search to find all variable declaration nodes, 
+        which contain variable information.
+        
+        Returns: 
+        []: a list of all nodes of VariableDeclaration type
+    
+        """
         result = []
         self.dfs(self.rootNode, "VariableDeclaration", result)
         return result
 
     def extractVarInfo(self, node):
+        """ 
+        This function extracts variable info under the VariableDeclaration node
+
+        Parameters: 
+        root (str)         : the name of the rootnode
+        
+        Returns: 
+        var_type, var_name : variable type and name
+    
+        """
+
         if node["Type"] != "VariableDeclaration":
             return None, None
         else:
@@ -69,6 +108,18 @@ class ASTParser:
             return var_type, var_name
 
     def parse_var_declaration_nodes(self, all_var_declaration_nodes):
+        """ 
+        This function parse all VariableDeclaration nodes
+        and return a list of tuple (variable type, variable name)
+
+        Parameters: 
+        [str]                  : a list of all VariableDeclaration nodes
+        
+        Returns: 
+        [(var_type, var_name)] : a list of tuples of var type and var name
+    
+        """
+
         result = []
         for node in all_var_declaration_nodes:
             result.append(self.extractVarInfo(node))
@@ -77,11 +128,13 @@ class ASTParser:
 
 
 def main():
+    start_time = time.time()
     ast_parser = ASTParser('ast/astChallenge.json')
     all_var_dec_nodes = ast_parser.get_all_variable_declaration_node()
 
     result = ast_parser.parse_var_declaration_nodes(all_var_dec_nodes)
-
+    end_time = time.time()
+    print("--- %s seconds ---" % (end_time - start_time))
     for var_type, var_name in result:
         print("{{{}}}{{{}}}".format(var_type, var_name))
 

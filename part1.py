@@ -5,6 +5,7 @@ from datetime import datetime
 import sys
 from enum import Enum
 import re
+import time
 
 class LineType(Enum):
     """ 
@@ -30,13 +31,13 @@ class GitDiffParser:
     def __init__(self):
         self.running_record = []
         self.all_function_calls = {}
-        logging.basicConfig(level=logging.INFO,
+        logging.basicConfig(level=logging.CRITICAL, # Setting logging to CRITICAL will disable most logging for benchmark purpose
                             handlers=[
                                     # Uncomment to enable logging to file
                                     #   logging.FileHandler('GitDiffParser_{:%Y-%m-%d %I-%M-%S}.log'.format(datetime.now()), 'w', 'utf-8-sig'),
-                                      logging.StreamHandler(sys.stdout)],
+                                      logging.StreamHandler(sys.stdout)
+                                    ],
                             format="%(asctime)s — %(name)s — %(levelname)s — %(funcName)s:%(lineno)d — %(message)s")
-
     def parse(self, diff_filename):
         """ 
         parse a git diff file
@@ -244,8 +245,11 @@ class Wrapper:
 
 def main():
 
+    start_time = time.time()
     wrapper = Wrapper()
     result = wrapper.compute_stat()
+    end_time = time.time()
+    print("--- %s seconds ---" % (end_time - start_time))
 
     print("Total number of regions: {}.".format(result["num_regions"]))
     print("Total number of added lines: {}.".format(result["num_line_added"]))
