@@ -1,7 +1,6 @@
 import json
 
 class ASTParser:
-
     def __init__(self, filepath):
         with open(filepath) as f:
             self.ast = json.load(f)
